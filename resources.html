@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resource Explorer — Decode AI</title>
+  <meta name="description" content="Explore AI, Machine Learning, Data Science, LLMs, and System Design notes, books, research paper explainers, and roadmaps.">
+  
+  <link rel="icon" href="assets/favicon.png" type="image/png">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <style>
+    .filter-bar {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      margin-bottom: 2.5rem;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 1rem;
+    }
+    @media (max-width: 900px) {
+      .filter-bar { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .filter-bar { grid-template-columns: 1fr; }
+    }
+    .form-control {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 0.65rem 1rem;
+      color: var(--text-primary);
+      font-size: 0.9rem;
+      width: 100%;
+      font-family: var(--font-sans);
+    }
+    .form-control:focus {
+      border-color: var(--border-hover);
+      outline: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Navbar -->
+  <header class="navbar">
+    <div class="container navbar-container">
+      <a href="index.html" class="brand-logo">
+        <img src="assets/logo.png" alt="Decode AI Logo" class="logo-img js-logo-img">
+        <div>
+          <span class="brand-text">DECODE AI</span>
+          <span class="brand-tagline-sub">LEARN AI. BUILD FUTURE.</span>
+        </div>
+      </a>
+
+      <nav>
+        <ul id="nav-menu" class="nav-menu">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="resources.html" class="nav-link active">Resources</a></li>
+          <li><a href="roadmaps.html" class="nav-link">Roadmaps</a></li>
+          <li><a href="notes.html" class="nav-link">Notes</a></li>
+          <li><a href="community.html" class="nav-link">Community</a></li>
+          <li><a href="contribute.html" class="nav-link">Contribute</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="btn-search-trigger js-open-search" aria-label="Search Knowledge Base">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <span>Search</span>
+          <span class="kbd-shortcut">⌘K</span>
+        </button>
+
+        <button class="btn-icon js-theme-toggle" aria-label="Toggle Theme">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle></svg>
+        </button>
+
+        <button id="mobile-menu-toggle" class="mobile-toggle" aria-label="Toggle Navigation Menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Explorer Section -->
+  <main class="section">
+    <div class="container">
+      <div class="section-header" style="text-align: left; margin-bottom: 2rem;">
+        <div class="section-badge">Knowledge Explorer</div>
+        <h1>Explore the Knowledge Base</h1>
+        <p>Filter study materials, book notes, roadmaps, and paper breakdowns across all AI & engineering topics.</p>
+      </div>
+
+      <!-- Filter Controls Bar -->
+      <div class="filter-bar">
+        <div>
+          <input type="text" id="filter-search" class="form-control" placeholder="Search keywords (e.g. PyTorch, RAG, Math)...">
+        </div>
+        <div>
+          <select id="filter-category" class="form-control">
+            <option value="all">All Categories</option>
+            <option value="AI Engineering">AI Engineering</option>
+            <option value="Deep Learning">Deep Learning</option>
+            <option value="LLMs">LLMs & Fine-Tuning</option>
+            <option value="Machine Learning">Machine Learning</option>
+            <option value="Mathematics for ML">Mathematics for ML</option>
+            <option value="Research Papers">Research Papers</option>
+            <option value="System Design">System Design</option>
+            <option value="Interview Preparation">Interview Preparation</option>
+          </select>
+        </div>
+        <div>
+          <select id="filter-level" class="form-control">
+            <option value="all">All Levels</option>
+            <option value="Beginner">Beginner</option>
+            <option value="Intermediate">Intermediate</option>
+            <option value="Advanced">Advanced</option>
+          </select>
+        </div>
+        <div>
+          <select id="filter-type" class="form-control">
+            <option value="all">All Types</option>
+            <option value="NOTES">Notes</option>
+            <option value="ROADMAP">Roadmaps</option>
+            <option value="BOOK NOTES">Book Notes</option>
+            <option value="RESEARCH">Research</option>
+            <option value="TUTORIAL">Tutorial</option>
+            <option value="CHEATSHEET">Cheatsheet</option>
+            <option value="INTERVIEW">Interview</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Active Count & Results -->
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem;">
+        <h3 id="resource-count-badge" style="font-size: 1.1rem; color: var(--text-secondary);">Loading Resources...</h3>
+      </div>
+
+      <div id="explorer-resources-grid" class="card-grid">
+        <!-- Rendered dynamically by resources.js -->
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <div>© 2026 DECODE AI. Founded by <a href="https://www.linkedin.com/in/himanshu-pandey12" target="_blank">Himanshu Pandey</a>. Built by learners, for learners.</div>
+        <div class="social-links">
+          <a href="https://github.com/HimanshuPandey216" target="_blank" aria-label="GitHub">GitHub</a>
+          <a href="https://www.linkedin.com/in/himanshu-pandey12" target="_blank" aria-label="LinkedIn">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/search.js"></script>
+  <script src="js/resources.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

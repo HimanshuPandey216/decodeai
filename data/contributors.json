@@ -1,0 +1,38 @@
+[
+  {
+    "id": "c-hp",
+    "name": "Himanshu Pandey",
+    "handle": "@HimanshuPandey216",
+    "role": "Founder & Lead Architect",
+    "avatar": "https://api.dicebear.com/7.x/bottts/svg?seed=Himanshu",
+    "bio": "Building Decode AI to make complex technical knowledge easy to understand, discover, and share.",
+    "topicsContributed": ["AI Engineering", "Roadmaps", "LLMs", "System Design"],
+    "resourcesCount": 15,
+    "github": "https://github.com/HimanshuPandey216",
+    "linkedin": "https://www.linkedin.com/in/himanshu-pandey12"
+  },
+  {
+    "id": "c-001",
+    "name": "Elena Rostova",
+    "handle": "@erostova",
+    "role": "Senior AI Researcher",
+    "avatar": "https://api.dicebear.com/7.x/bottts/svg?seed=Elena",
+    "bio": "Passionate about simplifying complex transformer architectures and self-attention math.",
+    "topicsContributed": ["Transformers", "Deep Learning", "Attention Mechanism"],
+    "resourcesCount": 5,
+    "github": "https://github.com/HimanshuPandey216",
+    "linkedin": "https://www.linkedin.com/in/himanshu-pandey12"
+  },
+  {
+    "id": "c-003",
+    "name": "Priya Sharma",
+    "handle": "@priya_ml",
+    "role": "Data Scientist & Educator",
+    "avatar": "https://api.dicebear.com/7.x/bottts/svg?seed=Priya",
+    "bio": "Making linear algebra and multivariate calculus intuitive for aspiring ML engineers.",
+    "topicsContributed": ["Mathematics", "Linear Algebra", "Calculus", "Probability"],
+    "resourcesCount": 4,
+    "github": "https://github.com/HimanshuPandey216",
+    "linkedin": "https://www.linkedin.com/in/himanshu-pandey12"
+  }
+]

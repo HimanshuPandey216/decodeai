@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Decode AI — Learn AI. Build Future.</title>
+  <meta name="description" content="Decode AI is a community-driven platform for AI, Machine Learning, Data Science, Generative AI, technical notes, research, roadmaps, and learning resources. Founded by Himanshu Pandey.">
+  <meta property="og:title" content="Decode AI — Learn AI. Build Future.">
+  <meta property="og:description" content="Community-driven knowledge platform for Artificial Intelligence & Machine Learning learners and engineers.">
+  <meta property="og:type" content="website">
+  
+  <link rel="icon" href="assets/favicon.png" type="image/png">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Sticky Navbar -->
+  <header class="navbar">
+    <div class="container navbar-container">
+      <a href="index.html" class="brand-logo" aria-label="Decode AI Homepage">
+        <img src="assets/logo.png" alt="Decode AI Logo" class="logo-img js-logo-img">
+        <div>
+          <span class="brand-text">DECODE AI</span>
+          <span class="brand-tagline-sub">LEARN AI. BUILD FUTURE.</span>
+        </div>
+      </a>
+
+      <nav>
+        <ul id="nav-menu" class="nav-menu">
+          <li><a href="index.html" class="nav-link active">Home</a></li>
+          <li><a href="resources.html" class="nav-link">Resources</a></li>
+          <li><a href="roadmaps.html" class="nav-link">Roadmaps</a></li>
+          <li><a href="notes.html" class="nav-link">Notes</a></li>
+          <li><a href="community.html" class="nav-link">Community</a></li>
+          <li><a href="contribute.html" class="nav-link">Contribute</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="btn-search-trigger js-open-search" aria-label="Search Knowledge Base">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <span style="display: inline-block;">Search</span>
+          <span class="kbd-shortcut">⌘K</span>
+        </button>
+
+        <button class="btn-icon js-theme-toggle" aria-label="Toggle Theme">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle></svg>
+        </button>
+
+        <button id="mobile-menu-toggle" class="mobile-toggle" aria-label="Toggle Navigation Menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <canvas id="neural-canvas" class="neural-canvas"></canvas>
+    
+    <div class="container hero-content">
+      <div class="section-badge">
+        <span>⚡ Open Knowledge Community</span>
+      </div>
+
+      <h1 class="hero-title">
+        DECODE AI
+        <span class="hero-tagline">"Learn AI. Build Future."</span>
+      </h1>
+
+      <p class="hero-subtitle">
+        A community-driven knowledge platform for learning Artificial Intelligence, Machine Learning, Data Science, and modern technology — one concept at a time.
+      </p>
+
+      <div class="hero-ctas">
+        <a href="resources.html" class="btn btn-primary btn-lg">Explore Resources →</a>
+        <a href="roadmaps.html" class="btn btn-secondary btn-lg">2026 AI Roadmap 🚀</a>
+      </div>
+
+      <div class="hero-pillars">
+        <div class="pillar-item"><span class="pillar-dot"></span> Open Knowledge</div>
+        <div class="pillar-item"><span class="pillar-dot"></span> Community Driven</div>
+        <div class="pillar-item"><span class="pillar-dot"></span> Built for Learners</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust / Value Stats Strip -->
+  <section class="stats-strip">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <h3 id="stat-resources">50+</h3>
+          <p>Curated Resources</p>
+        </div>
+        <div class="stat-card">
+          <h3 id="stat-paths">20+</h3>
+          <p>Learning Paths</p>
+        </div>
+        <div class="stat-card">
+          <h3 id="stat-topics">16+</h3>
+          <p>Domain Topics</p>
+        </div>
+        <div class="stat-card">
+          <h3 id="stat-community">100%</h3>
+          <p>Community Driven</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Category Explorer -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">Knowledge Hub</div>
+        <h2>Explore the Knowledge Base</h2>
+        <p>Discover structured study guides, roadmaps, and paper explainers across 16 core domains.</p>
+      </div>
+
+      <div class="card-grid">
+        <a href="resources.html?category=ai-engineering" class="glass-card category-card">
+          <div class="category-icon-wrapper">💻</div>
+          <h3 class="category-title">AI Engineering</h3>
+          <p class="category-description">Building end-to-end AI applications, vector databases, APIs, and autonomous agents.</p>
+          <div class="category-footer"><span>Explore Domain →</span></div>
+        </a>
+
+        <a href="resources.html?category=deep-learning" class="glass-card category-card">
+          <div class="category-icon-wrapper">🧠</div>
+          <h3 class="category-title">Deep Learning</h3>
+          <p class="category-description">Neural networks, PyTorch, TensorFlow, backpropagation, and Transformer models.</p>
+          <div class="category-footer"><span>Explore Domain →</span></div>
+        </a>
+
+        <a href="resources.html?category=llms" class="glass-card category-card">
+          <div class="category-icon-wrapper">💬</div>
+          <h3 class="category-title">LLMs & Fine-Tuning</h3>
+          <p class="category-description">Large Language Models, LoRA, PEFT, RAG, prompt engineering, and evaluation.</p>
+          <div class="category-footer"><span>Explore Domain →</span></div>
+        </a>
+
+        <a href="resources.html?category=machine-learning" class="glass-card category-card">
+          <div class="category-icon-wrapper">⚙️</div>
+          <h3 class="category-title">Machine Learning</h3>
+          <p class="category-description">Supervised, unsupervised algorithms, ensemble methods, and Scikit-Learn pipelines.</p>
+          <div class="category-footer"><span>Explore Domain →</span></div>
+        </a>
+
+        <a href="resources.html?category=mathematics" class="glass-card category-card">
+          <div class="category-icon-wrapper">📐</div>
+          <h3 class="category-title">Mathematics for ML</h3>
+          <p class="category-description">Linear algebra, multivariable calculus, probability, optimization, and vector spaces.</p>
+          <div class="category-footer"><span>Explore Domain →</span></div>
+        </a>
+
+        <a href="resources.html?category=research" class="glass-card category-card">
+          <div class="category-icon-wrapper">📄</div>
+          <h3 class="category-title">Research Papers</h3>
+          <p class="category-description">Simplified explanations of seminal AI/ML papers (Attention, LoRA, ResNet, BERT).</p>
+          <div class="category-footer"><span>Explore Domain →</span></div>
+        </a>
+      </div>
+
+      <div style="text-align: center; margin-top: 3rem;">
+        <a href="resources.html" class="btn btn-secondary">View All 16 Categories →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Resources Section -->
+  <section class="section" style="background: var(--bg-surface);">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">Handpicked Study Materials</div>
+        <h2>Featured Resources</h2>
+        <p>High-quality study guides, roadmaps, and book notes vetted by the Decode AI community.</p>
+      </div>
+
+      <div id="featured-resources-grid" class="card-grid">
+        <!-- Dynamically rendered via resources.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Learning Paths Section -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">Career Roadmaps</div>
+        <h2>Choose Your Learning Path</h2>
+        <p>Step-by-step structured paths guiding you from beginner concepts to production mastery.</p>
+      </div>
+
+      <div class="card-grid">
+        <div class="glass-card path-card">
+          <div>
+            <span class="badge badge-roadmap">CAREER PATH</span>
+            <h3 style="margin-top: 0.75rem;">AI Engineer Roadmap 2026</h3>
+            <p>23-phase comprehensive path from Python to production AI systems. Authored by Himanshu Pandey.</p>
+            <div class="path-steps">
+              <span class="path-step-badge">Beginner</span>
+              <span class="path-arrow">→</span>
+              <span class="path-step-badge">Intermediate</span>
+              <span class="path-arrow">→</span>
+              <span class="path-step-badge">Advanced</span>
+            </div>
+          </div>
+          <a href="roadmaps.html" class="btn btn-secondary btn-sm" style="margin-top: 1rem;">Explore 23-Phase Roadmap →</a>
+        </div>
+
+        <div class="glass-card path-card" style="border-left-color: var(--accent-blue);">
+          <div>
+            <span class="badge badge-roadmap" style="background: rgba(59, 130, 246, 0.15); color: #3B82F6;">CAREER PATH</span>
+            <h3 style="margin-top: 0.75rem;">Machine Learning Engineer</h3>
+            <p>Deep-dive into math rigor, algorithm design, PyTorch, and MLOps.</p>
+            <div class="path-steps">
+              <span class="path-step-badge">Beginner</span>
+              <span class="path-arrow">→</span>
+              <span class="path-step-badge">Intermediate</span>
+              <span class="path-arrow">→</span>
+              <span class="path-step-badge">Advanced</span>
+            </div>
+          </div>
+          <a href="roadmaps.html" class="btn btn-secondary btn-sm" style="margin-top: 1rem;">Explore Roadmap →</a>
+        </div>
+
+        <div class="glass-card path-card" style="border-left-color: var(--accent-purple);">
+          <div>
+            <span class="badge badge-roadmap" style="background: rgba(139, 92, 246, 0.15); color: #8B5CF6;">CAREER PATH</span>
+            <h3 style="margin-top: 0.75rem;">Generative AI Specialist</h3>
+            <p>Focus on LLMs, Fine-tuning (LoRA), Diffusion Models, and Agentic Systems.</p>
+            <div class="path-steps">
+              <span class="path-step-badge">Beginner</span>
+              <span class="path-arrow">→</span>
+              <span class="path-step-badge">Intermediate</span>
+              <span class="path-arrow">→</span>
+              <span class="path-step-badge">Advanced</span>
+            </div>
+          </div>
+          <a href="roadmaps.html" class="btn btn-secondary btn-sm" style="margin-top: 1rem;">Explore Roadmap →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Book Notes Section -->
+  <section class="section" style="background: var(--bg-surface);">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">Decode Complex Books</div>
+        <h2>Original Book Summaries</h2>
+        <p>Complex technical books broken down into bite-sized summaries, original breakdowns, and key notes.</p>
+      </div>
+
+      <div class="card-grid">
+        <div class="glass-card">
+          <div>
+            <div class="card-badges">
+              <span class="badge badge-book">BOOK NOTES</span>
+              <span class="level-pill level-beginner">● Beginner</span>
+            </div>
+            <h3>Hands-On Machine Learning</h3>
+            <p>Chapter breakdowns covering Scikit-Learn pipelines, TensorFlow 2, and Ensemble methods.</p>
+          </div>
+          <a href="resource-detail.html?slug=hands-on-ml-summary" class="btn btn-secondary btn-sm" style="margin-top: 1rem;">Read Book Breakdown →</a>
+        </div>
+
+        <div class="glass-card">
+          <div>
+            <div class="card-badges">
+              <span class="badge badge-book">BOOK NOTES</span>
+              <span class="level-pill level-advanced">● Advanced</span>
+            </div>
+            <h3>Designing Machine Learning Systems</h3>
+            <p>Holistic engineering study notes on data streams, feature stores, and model monitoring.</p>
+          </div>
+          <a href="resource-detail.html?slug=designing-ml-systems" class="btn btn-secondary btn-sm" style="margin-top: 1rem;">Read Book Breakdown →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Community Section -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">Open Source Community</div>
+        <h2>Decode AI is Built by the Community</h2>
+        <p>"Knowledge becomes more powerful when we share it."</p>
+      </div>
+
+      <div class="glass-card" style="max-width: 800px; margin: 0 auto; text-align: center; padding: 3rem 2rem;">
+        <h3 style="font-size: 1.75rem; margin-bottom: 1rem;">Anyone Can Contribute</h3>
+        <p style="font-size: 1.05rem; margin-bottom: 2rem;">
+          Whether you wrote study notes for a difficult course, simplified a research paper, or curated an interview cheat sheet — help the next learner by contributing to Decode AI.
+        </p>
+        <a href="contribute.html" class="btn btn-primary btn-lg">Start Contributing Today →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="brand-logo">
+            <img src="assets/logo.png" alt="Decode AI Logo" class="logo-img js-logo-img">
+            <span class="brand-text">DECODE AI</span>
+          </a>
+          <p>Learn AI. Build Future. Founded by <a href="https://www.linkedin.com/in/himanshu-pandey12" target="_blank" style="color: var(--accent-cyan);">Himanshu Pandey</a>. A community-driven knowledge platform for learning Artificial Intelligence, Machine Learning, and Data Science.</p>
+        </div>
+
+        <div class="footer-column">
+          <h4>Platform</h4>
+          <ul class="footer-links">
+            <li><a href="resources.html">Resources</a></li>
+            <li><a href="roadmaps.html">Roadmaps</a></li>
+            <li><a href="notes.html">Notes</a></li>
+            <li><a href="community.html">Community</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h4>Contribute</h4>
+          <ul class="footer-links">
+            <li><a href="contribute.html">How to Contribute</a></li>
+            <li><a href="contribute.html#guidelines">Guidelines</a></li>
+            <li><a href="https://github.com/HimanshuPandey216" target="_blank" rel="noopener">GitHub Repository ↗</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h4>Founder</h4>
+          <ul class="footer-links">
+            <li><a href="https://www.linkedin.com/in/himanshu-pandey12" target="_blank" rel="noopener">Himanshu Pandey (LinkedIn) ↗</a></li>
+            <li><a href="https://github.com/HimanshuPandey216" target="_blank" rel="noopener">HimanshuPandey216 (GitHub) ↗</a></li>
+            <li><a href="about.html">About Decode AI</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>© 2026 DECODE AI. Founded by <a href="https://www.linkedin.com/in/himanshu-pandey12" target="_blank">Himanshu Pandey</a>. Built by learners, for learners.</div>
+        <div class="social-links">
+          <a href="https://github.com/HimanshuPandey216" target="_blank" aria-label="GitHub">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+          </a>
+          <a href="https://www.linkedin.com/in/himanshu-pandey12" target="_blank" aria-label="LinkedIn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/neural-canvas.js"></script>
+  <script src="js/search.js"></script>
+  <script src="js/resources.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

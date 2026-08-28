@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Retrieval-Augmented Generation (RAG) Complete Guide — Decode AI</title>
+  <style>
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      line-height: 1.7;
+      color: #E2E8F0;
+      background: #0B0F19;
+      padding: 2.5rem;
+      max-width: 880px;
+      margin: 0 auto;
+    }
+    h1, h2, h3 { color: #FFFFFF; font-weight: 700; }
+    h1 { font-size: 2.2rem; border-bottom: 1px solid #1E293B; padding-bottom: 1rem; margin-bottom: 1.5rem; }
+    h2 { font-size: 1.5rem; margin-top: 2rem; color: #10B981; }
+    code { font-family: 'JetBrains Mono', monospace; background: #161E2E; padding: 0.2rem 0.4rem; border-radius: 4px; color: #34D399; font-size: 0.9em; }
+    .step-box { background: #161E2E; border: 1px solid #1E293B; padding: 1.25rem; border-radius: 8px; margin-bottom: 1rem; }
+  </style>
+</head>
+<body>
+  <h1>Retrieval-Augmented Generation (RAG) Complete Production Guide</h1>
+  
+  <p>Retrieval-Augmented Generation bridges the gap between static LLM parametric memory and dynamic external knowledge bases.</p>
+
+  <h2>The 5 Stages of Production RAG</h2>
+
+  <div class="step-box">
+    <h3>1. Document Ingestion & Chunking</h3>
+    <p>Splitting raw Markdown, PDF, or HTML documents into contextual chunks. Use recursive character splitting with overlap (e.g., 512 tokens with 50-token overlap) to preserve semantic boundaries.</p>
+  </div>
+
+  <div class="step-box">
+    <h3>2. Vector Embedding & Indexing</h3>
+    <p>Converting chunks into dense vectors using embedding models (e.g. <code>text-embedding-3-small</code> or BGE-M3) and storing them in Vector DBs like Qdrant, Pinecone, or Chroma.</p>
+  </div>
+
+  <div class="step-box">
+    <h3>3. Hybrid Search & Retrieval</h3>
+    <p>Combining Dense Vector Search (cosine similarity for semantic context) with Sparse Search (BM25 keyword match) using Reciprocal Rank Fusion (RRF).</p>
+  </div>
+
+  <div class="step-box">
+    <h3>4. Cross-Encoder Reranking</h3>
+    <p>Passing top-K retrieved candidates through a Cross-Encoder reranker model (e.g., Cohere Rerank or BGE-Reranker-Large) to rank by true relevance.</p>
+  </div>
+
+  <div class="step-box">
+    <h3>5. Augmented Prompt & Generation</h3>
+    <p>Injecting top reranked chunks into the system prompt of the LLM to generate hallucination-free grounded answers with clear citations.</p>
+  </div>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transformers Architecture Explained — Decode AI</title>
+  <style>
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      line-height: 1.7;
+      color: #E2E8F0;
+      background: #0B0F19;
+      padding: 2.5rem;
+      max-width: 880px;
+      margin: 0 auto;
+    }
+    h1, h2, h3 { color: #FFFFFF; font-weight: 700; }
+    h1 { font-size: 2.2rem; border-bottom: 1px solid #1E293B; padding-bottom: 1rem; margin-bottom: 1.5rem; }
+    h2 { font-size: 1.5rem; margin-top: 2rem; color: #00F0FF; }
+    code { font-family: 'JetBrains Mono', monospace; background: #161E2E; padding: 0.2rem 0.4rem; border-radius: 4px; color: #38BDF8; font-size: 0.9em; }
+    pre { background: #161E2E; padding: 1.25rem; border-radius: 8px; overflow-x: auto; border: 1px solid #1E293B; }
+    .callout { background: rgba(0, 240, 255, 0.08); border-left: 4px solid #00F0FF; padding: 1.25rem; border-radius: 0 8px 8px 0; margin: 1.5rem 0; }
+    .formula { background: #161E2E; padding: 1rem; text-align: center; border-radius: 8px; font-family: monospace; font-size: 1.1rem; color: #00F0FF; margin: 1rem 0; }
+  </style>
+</head>
+<body>
+  <h1>Transformers Architecture Explained: From QKV to Multi-Head Attention</h1>
+  
+  <div class="callout">
+    <strong>Key Takeaway:</strong> The Transformer architecture, introduced by Vaswani et al. in 2017, replaced recurrent neural networks (RNNs) by allowing parallel processing of sequence data through the <em>Self-Attention Mechanism</em>.
+  </div>
+
+  <h2>1. Why Transformers Replaced RNNs</h2>
+  <p>Traditional Recurrent Neural Networks processed text sequentially (token by token). This created two major bottlenecks:</p>
+  <ul>
+    <li><strong>Vanishing Gradients:</strong> Difficulty capturing long-range dependencies across distant words in a sentence.</li>
+    <li><strong>Lack of Parallelization:</strong> Token $t$ required hidden state $h_{t-1}$, making GPU hardware acceleration inefficient.</li>
+  </ul>
+
+  <h2>2. Scaled Dot-Product Attention</h2>
+  <p>At the core of every Transformer block is the calculation of Query ($Q$), Key ($K$), and Value ($V$) projections:</p>
+  
+  <div class="formula">
+    Attention(Q, K, V) = softmax( (Q Kᵀ) / √dₖ ) V
+  </div>
+
+  <p>Where:</p>
+  <ul>
+    <li><code>Q (Query)</code>: What the current token is searching for.</li>
+    <li><code>K (Key)</code>: What each token in the sequence offers.</li>
+    <li><code>V (Value)</code>: The actual representation vector of each token.</li>
+    <li><code>dₖ</code>: The dimension of the Key vectors (used to scale dot products and stabilize gradients).</li>
+  </ul>
+
+  <h2>3. PyTorch Implementation of Self-Attention</h2>
+  <pre><code>import torch
+import torch.nn as nn
+import math
+
+class SelfAttention(nn.Module):
+    def __init__(self, d_model):
+        super().__init__()
+        self.d_model = d_model
+        self.q_linear = nn.Linear(d_model, d_model)
+        self.k_linear = nn.Linear(d_model, d_model)
+        self.v_linear = nn.Linear(d_model, d_model)
+
+    def forward(self, x):
+        Q = self.q_linear(x)
+        K = self.k_linear(x)
+        V = self.v_linear(x)
+
+        # Dot-product Q & K
+        scores = torch.matmul(Q, K.transpose(-2, -1)) / math.sqrt(self.d_model)
+        attention_weights = torch.softmax(scores, dim=-1)
+        
+        # Multiply by V
+        output = torch.matmul(attention_weights, V)
+        return output, attention_weights
+</code></pre>
+
+  <h2>4. Positional Encoding</h2>
+  <p>Since self-attention operates on sets of vectors symmetrically, order information is lost without <strong>Positional Encoding</strong>. Transformers add sine and cosine functions of varying frequencies directly to input embeddings.</p>
+</body>
+</html>

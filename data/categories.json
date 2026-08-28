@@ -1,0 +1,146 @@
+[
+  {
+    "id": "ai",
+    "slug": "ai",
+    "name": "Artificial Intelligence",
+    "description": "Foundational principles, history, agents, and intelligent decision systems.",
+    "icon": "brain",
+    "color": "#00F0FF",
+    "resourceCount": 12
+  },
+  {
+    "id": "machine-learning",
+    "slug": "machine-learning",
+    "name": "Machine Learning",
+    "description": "Supervised, unsupervised, reinforcement learning, algorithms, and evaluation.",
+    "icon": "cpu",
+    "color": "#3B82F6",
+    "resourceCount": 18
+  },
+  {
+    "id": "deep-learning",
+    "slug": "deep-learning",
+    "name": "Deep Learning",
+    "description": "Neural networks, PyTorch, TensorFlow, backpropagation, and architectures.",
+    "icon": "layers",
+    "color": "#8B5CF6",
+    "resourceCount": 15
+  },
+  {
+    "id": "generative-ai",
+    "slug": "generative-ai",
+    "name": "Generative AI",
+    "description": "Diffusion models, GANs, VAEs, prompt engineering, and generative architectures.",
+    "icon": "sparkles",
+    "color": "#EC4899",
+    "resourceCount": 10
+  },
+  {
+    "id": "llms",
+    "slug": "llms",
+    "name": "LLMs",
+    "description": "Large Language Models, fine-tuning, RAG, quantization, and evaluation.",
+    "icon": "message-square",
+    "color": "#10B981",
+    "resourceCount": 14
+  },
+  {
+    "id": "data-science",
+    "slug": "data-science",
+    "name": "Data Science",
+    "description": "Exploratory data analysis, Pandas, NumPy, visualization, and statistical modeling.",
+    "icon": "bar-chart-2",
+    "color": "#F59E0B",
+    "resourceCount": 11
+  },
+  {
+    "id": "python",
+    "slug": "python",
+    "name": "Python for AI",
+    "description": "Modern Python, object-oriented design, async, performance, and AI libraries.",
+    "icon": "code",
+    "color": "#38BDF8",
+    "resourceCount": 16
+  },
+  {
+    "id": "mathematics",
+    "slug": "mathematics",
+    "name": "Mathematics for ML",
+    "description": "Linear algebra, calculus, probability, optimization, and vector spaces.",
+    "icon": "calculator",
+    "color": "#6366F1",
+    "resourceCount": 9
+  },
+  {
+    "id": "nlp",
+    "slug": "nlp",
+    "name": "Natural Language Processing",
+    "description": "Tokenization, word embeddings, transformers, sentiment analysis, and NLU.",
+    "icon": "type",
+    "color": "#14B8A6",
+    "resourceCount": 8
+  },
+  {
+    "id": "computer-vision",
+    "slug": "computer-vision",
+    "name": "Computer Vision",
+    "description": "CNNs, object detection, segmentation, OpenCV, and ViTs.",
+    "icon": "eye",
+    "color": "#F43F5E",
+    "resourceCount": 7
+  },
+  {
+    "id": "ai-engineering",
+    "slug": "ai-engineering",
+    "name": "AI Engineering",
+    "description": "Building end-to-end AI applications, vector DBs, APIs, and AI Agents.",
+    "icon": "terminal",
+    "color": "#00F0FF",
+    "resourceCount": 13
+  },
+  {
+    "id": "mlops",
+    "slug": "mlops",
+    "name": "MLOps",
+    "description": "Model deployment, monitoring, CI/CD for ML, feature stores, and drift detection.",
+    "icon": "git-branch",
+    "color": "#A855F7",
+    "resourceCount": 9
+  },
+  {
+    "id": "cloud",
+    "slug": "cloud",
+    "name": "Cloud & Infrastructure",
+    "description": "GPU clustering, AWS, GCP, Azure, Docker, Kubernetes, and distributed training.",
+    "icon": "cloud",
+    "color": "#0284C7",
+    "resourceCount": 6
+  },
+  {
+    "id": "system-design",
+    "slug": "system-design",
+    "name": "AI System Design",
+    "description": "Designing scalable ML pipelines, recommendation systems, and real-time inference.",
+    "icon": "grid",
+    "color": "#EAB308",
+    "resourceCount": 8
+  },
+  {
+    "id": "research",
+    "slug": "research",
+    "name": "Research Papers",
+    "description": "Simplified summaries and breakdowns of seminal AI/ML research papers.",
+    "icon": "file-text",
+    "color": "#F97316",
+    "resourceCount": 12
+  },
+  {
+    "id": "interview-prep",
+    "slug": "interview-prep",
+    "name": "Interview Preparation",
+    "description": "ML coding questions, AI system design interviews, math puzzles, and cheat sheets.",
+    "icon": "award",
+    "color": "#10B981",
+    "resourceCount": 15
+  }
+]

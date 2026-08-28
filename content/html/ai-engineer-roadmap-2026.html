@@ -1,0 +1,1899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Engineer Roadmap 2026 — From Python to Production AI Systems</title>
+<meta name="description" content="A complete, practical roadmap for becoming a job-ready AI Engineer in 2026.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============ TOKENS ============ */
+:root{
+  --bg:#0B0D12; --bg-elev:#12151C; --surface:#171B24; --surface-2:#1D2230;
+  --border:#262B36; --border-soft:#1D212B;
+  --text:#E6E8EC; --text-dim:#8B92A3; --text-faint:#565D6D;
+  --accent:#4F7CFF; --accent-soft:rgba(79,124,255,.14); --accent-line:rgba(79,124,255,.35);
+  --mint:#34D399; --mint-soft:rgba(52,211,153,.14);
+  --amber:#F5A623; --amber-soft:rgba(245,166,35,.14);
+  --sky:#38BDF8; --sky-soft:rgba(56,189,248,.14);
+  --coral:#F87171; --coral-soft:rgba(248,113,113,.14);
+  --font-display:'Space Grotesk',system-ui,sans-serif;
+  --font-body:'Inter',system-ui,-apple-system,sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  --radius:10px; --radius-lg:16px;
+  --shadow:0 8px 30px rgba(0,0,0,.35);
+  color-scheme: dark;
+}
+[data-theme="light"]{
+  --bg:#FAFAF9; --bg-elev:#FFFFFF; --surface:#F3F4F6; --surface-2:#ECEDF1;
+  --border:#E3E4E9; --border-soft:#ECEDF1;
+  --text:#14161A; --text-dim:#565D6D; --text-faint:#8A8F9C;
+  --accent:#3557E0; --accent-soft:rgba(53,87,224,.09); --accent-line:rgba(53,87,224,.30);
+  --mint:#0F9D67; --mint-soft:rgba(15,157,103,.10);
+  --amber:#B9740A; --amber-soft:rgba(185,116,10,.10);
+  --sky:#0B8FC7; --sky-soft:rgba(11,143,199,.10);
+  --coral:#D8453B; --coral-soft:rgba(216,69,59,.10);
+  --shadow:0 8px 24px rgba(20,22,26,.08);
+  color-scheme: light;
+}
+*,*::before,*::after{box-sizing:border-box;}
+@media (prefers-reduced-motion: reduce){ *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;} }
+html{scroll-behavior:smooth;}
+body{
+  margin:0; background:var(--bg); color:var(--text); font-family:var(--font-body);
+  font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased;
+  transition:background .25s ease,color .25s ease;
+}
+img,svg{max-width:100%; display:block;}
+a{color:var(--accent); text-decoration:none;}
+a:hover{text-decoration:underline;}
+:focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:4px;}
+h1,h2,h3,h4{font-family:var(--font-display); font-weight:600; margin:0; letter-spacing:-0.01em;}
+p{margin:0 0 12px;}
+.mono{font-family:var(--font-mono);}
+.container{max-width:1120px; margin:0 auto; padding:0 24px;}
+.wrap-narrow{max-width:820px; margin:0 auto;}
+::selection{background:var(--accent-soft); color:var(--text);}
+
+/* ============ SCROLLBAR ============ */
+::-webkit-scrollbar{width:10px; height:10px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--border); border-radius:8px;}
+
+/* ============ TOPBAR ============ */
+.topbar{
+  position:sticky; top:0; z-index:100; background:color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border-soft);
+}
+.topbar-inner{display:flex; align-items:center; gap:18px; padding:12px 24px; max-width:1120px; margin:0 auto;}
+.brand{display:flex; align-items:center; gap:9px; font-family:var(--font-display); font-weight:700; font-size:15px; white-space:nowrap; color:var(--text);}
+.brand-dot{width:9px; height:9px; border-radius:50%; background:var(--accent); box-shadow:0 0 0 3px var(--accent-soft);}
+.nav-scroll{display:flex; gap:2px; overflow-x:auto; scrollbar-width:none; flex:1;}
+.nav-scroll::-webkit-scrollbar{display:none;}
+.nav-link{
+  font-size:12.5px; color:var(--text-dim); padding:7px 10px; border-radius:7px; white-space:nowrap;
+  font-weight:500; transition:.15s;
+}
+.nav-link:hover{background:var(--surface); color:var(--text); text-decoration:none;}
+.topbar-actions{display:flex; align-items:center; gap:8px;}
+.icon-btn{
+  width:34px; height:34px; border-radius:8px; border:1px solid var(--border); background:var(--surface);
+  color:var(--text); display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0;
+}
+.icon-btn:hover{border-color:var(--accent-line);}
+.search-box{
+  display:flex; align-items:center; gap:6px; background:var(--surface); border:1px solid var(--border);
+  border-radius:8px; padding:0 10px; height:34px; min-width:0; width:180px; flex-shrink:0;
+}
+.search-box input{
+  border:0; background:transparent; outline:none; color:var(--text); font-size:13px; width:100%; font-family:var(--font-body);
+}
+.search-box input::placeholder{color:var(--text-faint);}
+.search-box svg{flex-shrink:0; opacity:.6;}
+#searchResults{
+  position:fixed; top:56px; right:24px; width:320px; max-height:60vh; overflow-y:auto; background:var(--bg-elev);
+  border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow); z-index:200; display:none;
+}
+#searchResults.show{display:block;}
+#searchResults a{display:block; padding:10px 14px; border-bottom:1px solid var(--border-soft); font-size:13px; color:var(--text);}
+#searchResults a:hover{background:var(--surface); text-decoration:none;}
+#searchResults .sr-phase{color:var(--accent); font-size:10.5px; font-weight:600; text-transform:uppercase; letter-spacing:.04em;}
+#searchResults .sr-empty{padding:14px; color:var(--text-faint); font-size:13px;}
+
+/* progress bar under topbar */
+.progress-rail{height:3px; background:var(--border-soft); position:sticky; top:58px; z-index:99;}
+.progress-fill{height:100%; background:linear-gradient(90deg,var(--accent),var(--mint)); width:0%; transition:width .3s ease;}
+
+/* ============ HERO ============ */
+.hero{padding:76px 24px 40px; position:relative; overflow:hidden;}
+.hero::before{
+  content:''; position:absolute; inset:0; z-index:-1;
+  background:
+    radial-gradient(560px 320px at 12% -10%, var(--accent-soft), transparent 60%),
+    radial-gradient(500px 280px at 100% 0%, var(--mint-soft), transparent 60%);
+}
+.eyebrow{
+  display:inline-flex; align-items:center; gap:8px; font-family:var(--font-mono); font-size:12px;
+  color:var(--accent); background:var(--accent-soft); border:1px solid var(--accent-line);
+  padding:5px 12px; border-radius:100px; margin-bottom:22px; letter-spacing:.02em;
+}
+.hero h1{font-size:clamp(34px,6vw,64px); line-height:1.03; max-width:900px;}
+.hero h1 .accent-word{color:var(--accent);}
+.hero-sub{font-size:clamp(16px,2.2vw,20px); color:var(--text-dim); max-width:640px; margin:20px 0 30px; font-family:var(--font-body); font-weight:400;}
+.hero-stats{display:flex; flex-wrap:wrap; gap:10px; margin-bottom:34px;}
+.hstat{
+  background:var(--surface); border:1px solid var(--border); border-radius:100px; padding:8px 16px;
+  font-size:13px; color:var(--text-dim); display:flex; align-items:center; gap:7px;
+}
+.hstat b{color:var(--text); font-family:var(--font-display); font-weight:700;}
+.hero-cta{display:flex; gap:12px; flex-wrap:wrap; margin-bottom:36px;}
+.btn{
+  font-family:var(--font-body); font-weight:600; font-size:14.5px; padding:12px 22px; border-radius:9px;
+  border:1px solid transparent; cursor:pointer; display:inline-flex; align-items:center; gap:8px; transition:.15s;
+}
+.btn-primary{background:var(--accent); color:#fff;}
+.btn-primary:hover{filter:brightness(1.08); text-decoration:none;}
+.btn-ghost{background:transparent; border-color:var(--border); color:var(--text);}
+.btn-ghost:hover{border-color:var(--accent-line); text-decoration:none;}
+.disclaimer{
+  border-left:3px solid var(--amber); background:var(--amber-soft); padding:12px 16px; border-radius:0 8px 8px 0;
+  font-size:13.5px; color:var(--text-dim); max-width:720px;
+}
+.disclaimer b{color:var(--text);}
+
+/* ============ SECTION HEADERS ============ */
+.section{padding:64px 24px; border-top:1px solid var(--border-soft);}
+.section-tight{padding:44px 24px;}
+.sec-head{margin-bottom:34px; max-width:760px;}
+.sec-kicker{font-family:var(--font-mono); font-size:12px; color:var(--accent); text-transform:uppercase; letter-spacing:.08em; margin-bottom:10px; display:block;}
+.sec-head h2{font-size:clamp(24px,3.4vw,34px);}
+.sec-desc{color:var(--text-dim); margin-top:12px; font-size:15.5px;}
+
+/* ============ PRIORITY TAGS ============ */
+.tag{
+  display:inline-flex; align-items:center; gap:5px; font-family:var(--font-mono); font-size:11px; font-weight:600;
+  padding:3px 9px; border-radius:100px; white-space:nowrap; letter-spacing:.01em;
+}
+.tag-must{background:var(--mint-soft); color:var(--mint);}
+.tag-should{background:var(--amber-soft); color:var(--amber);}
+.tag-nice{background:var(--sky-soft); color:var(--sky);}
+.tag-skip{background:var(--coral-soft); color:var(--coral);}
+.legend{display:flex; flex-wrap:wrap; gap:10px; margin:18px 0 6px;}
+.legend .tag{font-size:11.5px; padding:5px 12px;}
+
+/* ============ ROUTE / PHASE RAIL (signature element) ============ */
+.route{position:relative; padding-left:52px;}
+.route::before{
+  content:''; position:absolute; left:19px; top:6px; bottom:6px; width:2px;
+  background:linear-gradient(180deg,var(--accent) 0%, var(--mint) 50%, var(--sky) 100%); opacity:.5;
+}
+.station{position:relative; margin-bottom:14px;}
+.station::before{
+  content:attr(data-n); position:absolute; left:-52px; top:0; width:38px; height:38px; border-radius:50%;
+  background:var(--bg-elev); border:2px solid var(--accent); color:var(--accent); font-family:var(--font-mono);
+  font-weight:700; font-size:13px; display:flex; align-items:center; justify-content:center; z-index:2;
+}
+.phase-card{
+  background:var(--bg-elev); border:1px solid var(--border); border-radius:var(--radius-lg); overflow:hidden;
+}
+.phase-head{
+  padding:20px 24px; display:flex; align-items:center; justify-content:space-between; gap:14px; cursor:pointer;
+  user-select:none;
+}
+.phase-head:hover{background:var(--surface);}
+.phase-title{display:flex; flex-direction:column; gap:5px;}
+.phase-title .pt-eyebrow{font-family:var(--font-mono); font-size:11px; color:var(--text-faint); text-transform:uppercase; letter-spacing:.06em;}
+.phase-title h3{font-size:19px;}
+.chevron{width:20px; height:20px; flex-shrink:0; color:var(--text-dim); transition:transform .2s ease;}
+.phase-card.open .chevron{transform:rotate(180deg);}
+.phase-body{max-height:0; overflow:hidden; transition:max-height .35s ease;}
+.phase-card.open .phase-body{max-height:20000px;}
+.phase-body-inner{padding:2px 24px 26px;}
+.phase-lede{color:var(--text-dim); font-size:14.5px; margin-bottom:18px; max-width:680px;}
+
+/* topic grid inside a phase */
+.topic-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:12px; margin:14px 0 20px;}
+.topic{background:var(--surface); border:1px solid var(--border-soft); border-radius:10px; padding:13px 14px;}
+.topic-top{display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:6px;}
+.topic h4{font-size:14px; font-weight:600;}
+.topic p{font-size:12.8px; color:var(--text-dim); margin:0;}
+
+/* subsection block (Why/What/Concept type explainer) */
+.explainer{border:1px solid var(--border-soft); border-radius:12px; padding:16px 18px; margin:14px 0; background:var(--surface);}
+.explainer h4{font-size:15px; margin-bottom:8px;}
+.explainer .ex-row{display:flex; gap:8px; margin-bottom:6px; font-size:13.6px; color:var(--text-dim);}
+.explainer .ex-row b{color:var(--text); font-weight:600; min-width:120px; flex-shrink:0;}
+
+/* framework pill row */
+.pill-row{display:flex; flex-wrap:wrap; gap:8px; margin:10px 0;}
+.pill{background:var(--surface-2); border:1px solid var(--border); border-radius:100px; padding:5px 13px; font-size:12.5px; font-family:var(--font-mono); color:var(--text);}
+
+/* tables */
+.tbl-wrap{overflow-x:auto; margin:16px 0;}
+table{width:100%; border-collapse:collapse; font-size:13.6px;}
+th{text-align:left; font-family:var(--font-mono); font-size:11.5px; text-transform:uppercase; letter-spacing:.04em; color:var(--text-faint); padding:9px 12px; border-bottom:1px solid var(--border);}
+td{padding:11px 12px; border-bottom:1px solid var(--border-soft); color:var(--text-dim); vertical-align:top;}
+tr:last-child td{border-bottom:0;}
+td b, td strong{color:var(--text);}
+
+/* callout */
+.callout{border-radius:12px; padding:16px 18px; margin:16px 0; font-size:13.8px; border:1px solid;}
+.callout-info{background:var(--accent-soft); border-color:var(--accent-line); color:var(--text-dim);}
+.callout-warn{background:var(--amber-soft); border-color:rgba(245,166,35,.35); color:var(--text-dim);}
+.callout b{color:var(--text);}
+
+/* checklist items inside phases */
+.chk-list{list-style:none; margin:10px 0; padding:0; display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:8px;}
+.chk-item{display:flex; align-items:flex-start; gap:9px; font-size:13.4px; color:var(--text-dim); cursor:pointer; padding:6px 8px; border-radius:8px;}
+.chk-item:hover{background:var(--surface);}
+.chk-item input{margin-top:3px; accent-color:var(--accent); width:15px; height:15px; flex-shrink:0; cursor:pointer;}
+.chk-item.checked span{color:var(--text-faint); text-decoration:line-through;}
+
+/* ============ CARDS GRID (generic) ============ */
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(270px,1fr)); gap:16px;}
+.card{background:var(--bg-elev); border:1px solid var(--border); border-radius:var(--radius-lg); padding:20px; transition:.2s;}
+.card:hover{border-color:var(--accent-line); transform:translateY(-2px);}
+.card h4{font-size:15.5px; margin-bottom:8px;}
+.card p{font-size:13.4px; color:var(--text-dim);}
+
+/* ============ PROJECT CARDS ============ */
+.proj-tabs{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:22px;}
+.proj-tab{
+  font-family:var(--font-mono); font-size:12.5px; font-weight:600; padding:8px 16px; border-radius:100px;
+  border:1px solid var(--border); background:var(--surface); color:var(--text-dim); cursor:pointer;
+}
+.proj-tab.active{background:var(--accent); color:#fff; border-color:var(--accent);}
+.proj-panel{display:none;}
+.proj-panel.active{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:16px;}
+.proj-card{background:var(--bg-elev); border:1px solid var(--border); border-radius:var(--radius-lg); padding:20px; display:flex; flex-direction:column; gap:10px;}
+.proj-card h4{font-size:15.5px;}
+.proj-meta{display:flex; gap:8px; flex-wrap:wrap; font-size:11.5px; color:var(--text-faint); font-family:var(--font-mono);}
+.proj-card p{font-size:13.2px; color:var(--text-dim); margin:0;}
+.proj-stack{display:flex; flex-wrap:wrap; gap:6px;}
+.proj-stack span{background:var(--surface-2); border-radius:6px; padding:3px 8px; font-size:11px; font-family:var(--font-mono); color:var(--text-dim);}
+.proj-detail{font-size:12.6px; color:var(--text-dim); border-top:1px solid var(--border-soft); padding-top:10px; margin-top:2px;}
+.proj-detail b{color:var(--text);}
+
+/* ============ TIMELINE TABS ============ */
+.tl-tabs{display:flex; gap:8px; margin-bottom:20px; flex-wrap:wrap;}
+.tl-tab{font-family:var(--font-mono); font-size:12.5px; font-weight:600; padding:9px 18px; border-radius:9px; border:1px solid var(--border); background:var(--surface); color:var(--text-dim); cursor:pointer;}
+.tl-tab.active{background:var(--accent); color:#fff; border-color:var(--accent);}
+.tl-panel{display:none;}
+.tl-panel.active{display:block;}
+.month-row{display:flex; gap:16px; border-bottom:1px solid var(--border-soft); padding:16px 0;}
+.month-row:last-child{border-bottom:0;}
+.month-badge{font-family:var(--font-mono); font-weight:700; font-size:13px; color:var(--accent); background:var(--accent-soft); border-radius:8px; padding:6px 12px; height:fit-content; white-space:nowrap;}
+.month-content h5{font-size:14.5px; margin-bottom:4px;}
+.month-content p{font-size:13.3px; color:var(--text-dim); margin:0;}
+
+/* daily schedule */
+.day-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px;}
+.day-card{background:var(--bg-elev); border:1px solid var(--border); border-radius:12px; padding:16px;}
+.day-card h4{font-size:14px; color:var(--accent); margin-bottom:10px;}
+.day-slot{display:flex; justify-content:space-between; font-size:12.6px; padding:6px 0; border-bottom:1px dashed var(--border-soft); color:var(--text-dim);}
+.day-slot:last-child{border-bottom:0;}
+.day-slot b{color:var(--text); font-weight:600;}
+
+/* diagram containers */
+.diagram{background:var(--bg-elev); border:1px solid var(--border); border-radius:var(--radius-lg); padding:24px; margin:18px 0; overflow-x:auto;}
+.diagram svg text{font-family:var(--font-mono);}
+
+/* footer */
+footer{padding:50px 24px 70px; border-top:1px solid var(--border-soft); text-align:center;}
+.golden-rule{
+  font-family:var(--font-display); font-size:clamp(22px,3.4vw,32px); max-width:640px; margin:0 auto 14px;
+}
+footer .fine{color:var(--text-faint); font-size:12.5px; margin-top:26px;}
+
+/* back to top */
+#backTop{position:fixed; bottom:24px; right:24px; z-index:150; opacity:0; pointer-events:none; transition:.25s;}
+#backTop.show{opacity:1; pointer-events:auto;}
+
+/* progress summary card (sticky mini) */
+.progress-card{
+  background:var(--bg-elev); border:1px solid var(--border); border-radius:12px; padding:16px 18px; margin-bottom:26px;
+  display:flex; align-items:center; gap:16px; flex-wrap:wrap;
+}
+.progress-ring-label{font-family:var(--font-mono); font-size:13px; color:var(--text-dim);}
+.progress-ring-label b{color:var(--accent); font-size:16px;}
+.mini-bar{flex:1; min-width:140px; height:8px; background:var(--surface-2); border-radius:100px; overflow:hidden;}
+.mini-bar-fill{height:100%; background:linear-gradient(90deg,var(--accent),var(--mint)); width:0%; transition:width .3s;}
+.reset-btn{font-size:12px; color:var(--text-faint); background:none; border:1px solid var(--border); border-radius:7px; padding:6px 11px; cursor:pointer; font-family:var(--font-body);}
+.reset-btn:hover{color:var(--coral); border-color:var(--coral);}
+
+/* highlight for search match */
+.hl-target{animation:hlpulse 1.6s ease;}
+@keyframes hlpulse{0%{box-shadow:0 0 0 0 var(--accent-soft);}30%{box-shadow:0 0 0 8px var(--accent-soft);}100%{box-shadow:0 0 0 0 transparent;}}
+
+/* responsive */
+@media (max-width:720px){
+  .topbar-inner{gap:8px;}
+  .search-box{width:110px;}
+  .hero{padding:56px 18px 30px;}
+  .section{padding:44px 18px;}
+  .route{padding-left:40px;}
+  .route::before{left:14px;}
+  .station::before{left:-40px; width:30px; height:30px; font-size:11px;}
+  .phase-head{padding:16px 16px;}
+  .phase-body-inner{padding:2px 16px 20px;}
+}
+
+/* print */
+@media print{
+  .topbar,.progress-rail,#backTop,.search-box,.icon-btn{display:none !important;}
+  .phase-body{max-height:none !important;}
+  .phase-card{break-inside:avoid; border:1px solid #ccc;}
+  body{background:#fff; color:#111;}
+  a{color:#111; text-decoration:underline;}
+}
+</style>
+</head>
+<body data-theme="dark">
+
+<!-- ============ TOPBAR ============ -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand"><span class="brand-dot"></span>DECODE AI ROADMAP</div>
+    <nav class="nav-scroll" id="navScroll">
+      <a class="nav-link" href="#phase0">Role</a>
+      <a class="nav-link" href="#phase1">Python</a>
+      <a class="nav-link" href="#phase2">Math</a>
+      <a class="nav-link" href="#phase4">ML</a>
+      <a class="nav-link" href="#phase5">Deep Learning</a>
+      <a class="nav-link" href="#phase6">Transformers</a>
+      <a class="nav-link" href="#phase7">GenAI/LLM</a>
+      <a class="nav-link" href="#phase9">RAG</a>
+      <a class="nav-link" href="#phase10">Agents</a>
+      <a class="nav-link" href="#phase13">MLOps</a>
+      <a class="nav-link" href="#phase17">System Design</a>
+      <a class="nav-link" href="#phase18">Specializations</a>
+      <a class="nav-link" href="#phase19">Projects</a>
+      <a class="nav-link" href="#phase22">Interview</a>
+      <a class="nav-link" href="#phase23">Checklist</a>
+    </nav>
+    <div class="topbar-actions">
+      <div class="search-box">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" id="searchInput" placeholder="Search topics…" autocomplete="off">
+      </div>
+      <button class="icon-btn" id="themeToggle" title="Toggle theme" aria-label="Toggle dark/light mode">
+        <svg id="themeIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+      </button>
+      <button class="icon-btn" id="printBtn" title="Print / Save as PDF" aria-label="Print">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 14h12v8H6z"/></svg>
+      </button>
+    </div>
+  </div>
+  <div id="searchResults"></div>
+</div>
+<div class="progress-rail"><div class="progress-fill" id="progressFill"></div></div>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="container">
+    <span class="eyebrow">● DECODE AI COMMUNITY · AUTHOR: HIMANSHU PANDEY</span>
+    <h1>AI Engineer Roadmap<br><span class="accent-word">2026</span></h1>
+    <p class="hero-sub">From Python to production AI systems — a complete, practical route from zero to job-ready, covering classical ML, deep learning, LLMs, RAG, agents, MLOps and everything recruiters actually check for.</p>
+    <div class="hero-stats">
+      <div class="hstat"><b>23</b>&nbsp;learning phases</div>
+      <div class="hstat"><b>180+</b>&nbsp;concepts mapped</div>
+      <div class="hstat"><b>20</b>&nbsp;resume-worthy projects</div>
+      <div class="hstat"><b>9</b>&nbsp;specialization tracks</div>
+      <div class="hstat"><b>Production</b>-focused, not just theory</div>
+    </div>
+    <div class="hero-cta">
+      <a href="#phase0" class="btn btn-primary">Start the route →</a>
+      <a href="#phase23" class="btn btn-ghost">Jump to job-ready checklist</a>
+    </div>
+    <div class="progress-card">
+      <div class="progress-ring-label">Your progress: <b id="progressPct">0%</b> <span id="progressCount">(0 / 0 topics)</span></div>
+      <div class="mini-bar"><div class="mini-bar-fill" id="miniBarFill"></div></div>
+      <button class="reset-btn" id="resetProgress">Reset checklist</button>
+    </div>
+    <div class="disclaimer"><b>Before you start:</b> AI tools and frameworks evolve every few months. This roadmap teaches the fundamentals and the shape of the ecosystem — always verify current model names, pricing and framework APIs against official documentation before relying on specifics.</div>
+  </div>
+</header>
+
+<!-- ============ MAIN ROUTE ============ -->
+<main>
+<section class="section" style="padding-top:20px;">
+  <div class="container">
+    <div class="sec-head">
+      <span class="sec-kicker">The Route</span>
+      <h2>23 phases, one continuous line</h2>
+      <p class="sec-desc">Each phase is a station on the route below. Click a station to expand it. Tick topics as you finish them — your progress is saved in this browser automatically. The order matters: don't skip ahead to LLMs before Phase 4–5 sink in, or you'll be gluing APIs together without understanding what's underneath.</p>
+    </div>
+    <div class="legend">
+      <span class="tag tag-must">🟢 MUST LEARN</span>
+      <span class="tag tag-should">🟡 SHOULD LEARN</span>
+      <span class="tag tag-nice">🔵 NICE TO KNOW</span>
+      <span class="tag tag-skip">🔴 SKIP INITIALLY</span>
+    </div>
+
+    <div class="route" id="routeRoot">
+
+<!-- ===================== PHASE 0 ===================== -->
+<div class="station" data-n="0" id="phase0">
+  <div class="phase-card open">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 0 · Orientation</span><h3>Understand the AI Engineer Role</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">Before writing a line of code, know what job you're actually training for. "AI Engineer" gets used loosely — here's where it sits relative to the roles it's usually confused with.</p>
+
+        <div class="diagram">
+          <svg viewBox="0 0 980 260" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+            <defs>
+              <marker id="arrow0" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="var(--text-faint)"/></marker>
+            </defs>
+            <line x1="70" y1="130" x2="910" y2="130" stroke="var(--border)" stroke-width="2" marker-end="url(#arrow0)"/>
+            <g font-family="var(--font-mono)">
+              <circle cx="70" cy="130" r="9" fill="var(--accent)"/>
+              <text x="70" y="90" text-anchor="middle" fill="var(--text)" font-size="13" font-weight="600">Beginner</text>
+              <text x="70" y="108" text-anchor="middle" fill="var(--text-faint)" font-size="10.5">Python + ML basics</text>
+              <text x="70" y="160" text-anchor="middle" fill="var(--text-dim)" font-size="10.5">notebooks,</text>
+              <text x="70" y="174" text-anchor="middle" fill="var(--text-dim)" font-size="10.5">toy datasets</text>
+
+              <circle cx="290" cy="130" r="9" fill="var(--accent)"/>
+              <text x="290" y="90" text-anchor="middle" fill="var(--text)" font-size="13" font-weight="600">Intermediate</text>
+              <text x="290" y="108" text-anchor="middle" fill="var(--text-faint)" font-size="10.5">DL + LLM APIs</text>
+              <text x="290" y="160" text-anchor="middle" fill="var(--text-dim)" font-size="10.5">RAG apps,</text>
+              <text x="290" y="174" text-anchor="middle" fill="var(--text-dim)" font-size="10.5">prompt pipelines</text>
+
+              <circle cx="520" cy="130" r="9" fill="var(--mint)"/>
+              <text x="520" y="90" text-anchor="middle" fill="var(--text)" font-size="13" font-weight="600">Advanced</text>
+              <text x="520" y="108" text-anchor="middle" fill="var(--text-faint)" font-size="10.5">Agents + eval + infra</text>
+              <text x="520" y="160" text-anchor="middle" fill="var(--text-dim)" font-size="10.5">multi-agent systems,</text>
+              <text x="520" y="174" text-anchor="middle" fill="var(--text-dim)" font-size="10.5">FastAPI backends</text>
+
+              <circle cx="750" cy="130" r="9" fill="var(--mint)"/>
+              <text x="750" y="90" text-anchor="middle" fill="var(--text)" font-size="13" font-weight="600">Production</text>
+              <text x="750" y="108" text-anchor="middle" fill="var(--text-faint)" font-size="10.5">MLOps + reliability</text>
+              <text x="750" y="160" text-anchor="middle" fill="var(--text-dim)" font-size="10.5">monitoring, cost,</text>
+              <text x="750" y="174" text-anchor="middle" fill="var(--text-dim)" font-size="10.5">on-call ready</text>
+
+              <circle cx="910" cy="130" r="10" fill="var(--sky)"/>
+              <text x="910" y="90" text-anchor="middle" fill="var(--text)" font-size="13" font-weight="600">Job Ready</text>
+              <text x="910" y="215" text-anchor="middle" fill="var(--text-faint)" font-size="10.5">→ Phase 18: pick a specialization</text>
+            </g>
+          </svg>
+        </div>
+
+        <div class="explainer">
+          <h4>What an AI Engineer actually does</h4>
+          <div class="ex-row"><b>In one line</b><span>Builds and ships products powered by ML/LLM models — the plumbing, evaluation, and reliability around a model, not usually the model architecture research itself.</span></div>
+          <div class="ex-row"><b>Typical day</b><span>Wiring an LLM into an API, designing a retrieval pipeline, writing evals, debugging why an agent looped, watching latency/cost dashboards, reviewing a teammate's prompt-injection fix.</span></div>
+          <div class="ex-row"><b>Core loop</b><span>Prototype fast with an LLM API → evaluate rigorously → productionize (API, monitoring, cost control) → iterate on real usage data.</span></div>
+        </div>
+
+        <div class="tbl-wrap">
+          <table>
+            <tr><th>Role</th><th>Primary focus</th><th>Where it overlaps with AI Engineer</th><th>Where it diverges</th></tr>
+            <tr><td><b>ML Engineer</b></td><td>Training, tuning and deploying classical/deep models</td><td>Both productionize models; both need MLOps</td><td>ML Engineer trains models from data; AI Engineer more often composes pre-trained/foundation models</td></tr>
+            <tr><td><b>Data Scientist</b></td><td>Analysis, experimentation, statistical insight</td><td>Both need stats + evaluation rigor</td><td>Data Scientist output is often a report/insight; AI Engineer output is a shipped system</td></tr>
+            <tr><td><b>Data Engineer</b></td><td>Pipelines that move and clean data at scale</td><td>Both rely on solid data pipelines</td><td>Data Engineer owns the pipeline infra; AI Engineer consumes it to build model-driven features</td></tr>
+            <tr><td><b>Software Engineer</b></td><td>General application/backend development</td><td>Both write production code, APIs, tests</td><td>AI Engineer adds model-specific concerns: prompts, embeddings, evaluation, non-determinism</td></tr>
+          </table>
+        </div>
+
+        <div class="explainer">
+          <h4>Skills required in 2026, at a glance</h4>
+          <div class="pill-row">
+            <span class="pill">Python + APIs</span><span class="pill">SQL</span><span class="pill">ML fundamentals</span>
+            <span class="pill">PyTorch basics</span><span class="pill">Transformers</span><span class="pill">Prompt engineering</span>
+            <span class="pill">RAG</span><span class="pill">Agents/tool calling</span><span class="pill">FastAPI</span>
+            <span class="pill">Docker</span><span class="pill">One cloud provider</span><span class="pill">Evaluation & observability</span>
+          </div>
+        </div>
+
+        <div class="explainer">
+          <h4>Types of AI Engineer roles you'll see in job posts</h4>
+          <ul class="chk-list" style="grid-template-columns:repeat(auto-fill,minmax(260px,1fr));">
+            <li class="chk-item"><span><b>LLM/GenAI Engineer</b> — builds LLM-powered products: RAG, agents, copilots.</span></li>
+            <li class="chk-item"><span><b>Applied ML Engineer</b> — ships classical + deep learning models into products.</span></li>
+            <li class="chk-item"><span><b>MLOps/Platform Engineer</b> — builds the infra other AI engineers deploy onto.</span></li>
+            <li class="chk-item"><span><b>Forward-deployed/AI Solutions Engineer</b> — customizes AI systems for specific customers.</span></li>
+            <li class="chk-item"><span><b>AI Research Engineer</b> — closer to research, implements and evaluates novel methods.</span></li>
+          </ul>
+        </div>
+
+        <div class="callout callout-info"><b>Reality check:</b> most entry-level "AI Engineer" postings in 2026 are really "backend engineer who's comfortable with LLM APIs, RAG and evaluation." Depth in Phases 1–9 matters more than chasing the newest framework.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PHASE 1 ===================== -->
+<div class="station" data-n="1" id="phase1">
+  <div class="phase-card">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 1 · Foundations</span><h3>Programming Foundations</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">Python is the language of AI. Don't rush this phase to get to "the interesting AI stuff" — weak Python fundamentals are the #1 reason intermediate learners plateau when debugging real pipelines.</p>
+
+        <h4 style="margin:18px 0 4px;font-size:15px;">Core Python</h4>
+        <div class="explainer">
+          <div class="ex-row"><b>Concept</b><span>Syntax, control flow and data structures: variables, data types, operators, conditionals, loops, functions, scope.</span></div>
+          <div class="ex-row"><b>Why it matters</b><span>Every ML pipeline, every LangGraph node, every FastAPI route is still just Python functions manipulating data structures.</span></div>
+          <div class="ex-row"><b>Mini exercise</b><span>Write a function that takes a list of transaction dicts and returns the top-3 by amount, without using pandas.</span></div>
+        </div>
+        <ul class="chk-list">
+          <li class="chk-item"><input type="checkbox" data-key="p1-vars"><span>Variables, data types, operators <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p1-control"><span>Conditions & loops <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p1-func"><span>Functions & scope <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p1-collections"><span>Lists, tuples, sets, dicts, strings <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p1-comp"><span>Comprehensions & lambda <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p1-itergen"><span>Iterators & generators <span class="tag tag-should">🟡</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p1-decorators"><span>Decorators <span class="tag tag-should">🟡</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p1-except"><span>Exception handling <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p1-files"><span>File handling, modules, packages <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p1-venv"><span>Virtual environments <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p1-oop"><span>OOP: classes, inheritance <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p1-dataclass"><span>Dataclasses & type hints <span class="tag tag-should">🟡</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p1-logging"><span>Logging <span class="tag tag-should">🟡</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p1-testing"><span>Testing (pytest) & debugging <span class="tag tag-should">🟡</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p1-packaging"><span>Packaging basics <span class="tag tag-nice">🔵</span></span></li>
+        </ul>
+
+        <h4 style="margin:18px 0 4px;font-size:15px;">Python for AI</h4>
+        <div class="topic-grid">
+          <div class="topic"><div class="topic-top"><h4>NumPy</h4><span class="tag tag-must">🟢</span></div><p>Arrays, broadcasting, vectorization — the substrate every tensor library builds on.</p></div>
+          <div class="topic"><div class="topic-top"><h4>Pandas</h4><span class="tag tag-must">🟢</span></div><p>DataFrames, groupby, merges — 80% of real "data work" happens here.</p></div>
+          <div class="topic"><div class="topic-top"><h4>Matplotlib / Seaborn</h4><span class="tag tag-should">🟡</span></div><p>Enough plotting to sanity-check distributions and model curves.</p></div>
+          <div class="topic"><div class="topic-top"><h4>Jupyter</h4><span class="tag tag-must">🟢</span></div><p>Fast iteration loop for exploration — but ship code as scripts/modules, not notebooks.</p></div>
+          <div class="topic"><div class="topic-top"><h4>pip / uv / conda</h4><span class="tag tag-must">🟢</span></div><p>Dependency and environment management; <span class="mono">uv</span> is the fast modern default in 2026.</p></div>
+        </div>
+
+        <h4 style="margin:18px 0 4px;font-size:15px;">Software Engineering Foundations</h4>
+        <div class="pill-row">
+          <span class="pill">Git & GitHub</span><span class="pill">Branching & PRs</span><span class="pill">README writing</span>
+          <span class="pill">REST APIs & JSON</span><span class="pill">HTTP basics</span><span class="pill">CLI</span>
+          <span class="pill">Env vars & .env</span><span class="pill">Linux/terminal basics</span>
+        </div>
+        <div class="callout callout-info"><b>Why AI Engineers need this:</b> you'll spend as much time reading tracebacks, writing PRs and calling REST APIs as you will training models. Treat this phase as non-negotiable, not a "prerequisite chore."</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PHASE 2 ===================== -->
+<div class="station" data-n="2" id="phase2">
+  <div class="phase-card">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 2 · Foundations</span><h3>Mathematics for AI</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">You do <b style="color:var(--text)">not</b> need a pure-math degree's worth of theory. You need enough intuition to know why a model is misbehaving. Every topic below is tied back to an ML/DL concept — skip the ones that don't connect to something you're about to build.</p>
+
+        <div class="tbl-wrap">
+          <table>
+            <tr><th>Area</th><th>Key topics</th><th>Direct connection to ML/DL</th></tr>
+            <tr><td><b>Linear Algebra</b> <span class="tag tag-must">🟢</span></td><td>Vectors, matrices, dot product, matrix multiplication, transpose, norms, eigenvalues/eigenvectors, vector spaces</td><td>Every layer in a neural net is a matrix multiply; embeddings <i>are</i> vectors; PCA runs on eigenvectors.</td></tr>
+            <tr><td><b>Probability</b> <span class="tag tag-must">🟢</span></td><td>Conditional probability, Bayes' theorem, random variables, distributions, expectation, variance, independence</td><td>Softmax outputs are probability distributions; Naive Bayes and language model sampling both run on this directly.</td></tr>
+            <tr><td><b>Statistics</b> <span class="tag tag-must">🟢</span></td><td>Mean, median, variance, std-dev, correlation, covariance, sampling, hypothesis testing, confidence intervals</td><td>Feature scaling, A/B testing model changes, understanding whether a metric improvement is real or noise.</td></tr>
+            <tr><td><b>Calculus</b> <span class="tag tag-must">🟢</span></td><td>Derivatives, partial derivatives, gradients, chain rule</td><td>Backpropagation <i>is</i> the chain rule applied millions of times.</td></tr>
+            <tr><td><b>Optimization</b> <span class="tag tag-must">🟢</span></td><td>Loss functions, gradient descent, learning rate, local/global minima, regularization</td><td>This is literally how every model you'll ever train "learns."</td></tr>
+            <tr><td>Embeddings intuition (from linear algebra)</td><td>Vector spaces, cosine similarity</td><td>Foundation for Phase 8 (embeddings) and Phase 9 (RAG).</td></tr>
+          </table>
+        </div>
+        <div class="callout callout-warn"><b>Depth guide:</b> aim to compute a gradient by hand for a 2-layer network once, and understand cosine similarity intuitively. You do not need measure theory, real analysis, or proofs of convergence to be a productive AI Engineer.</div>
+        <ul class="chk-list">
+          <li class="chk-item"><input type="checkbox" data-key="p2-linalg"><span>Linear algebra essentials <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p2-prob"><span>Probability essentials <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p2-stats"><span>Statistics essentials <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p2-calc"><span>Calculus & gradients <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p2-opt"><span>Optimization & loss functions <span class="tag tag-must">🟢</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PHASE 3 ===================== -->
+<div class="station" data-n="3" id="phase3">
+  <div class="phase-card">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 3 · Foundations</span><h3>Data & SQL</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">Models are only as good as the data feeding them. AI Engineers still write SQL constantly — for feature pipelines, for RAG metadata filters, for debugging why retrieval returned garbage.</p>
+        <div class="topic-grid">
+          <div class="topic"><div class="topic-top"><h4>SQL fundamentals</h4><span class="tag tag-must">🟢</span></div><p>SELECT, WHERE, GROUP BY, HAVING, JOINs, subqueries, CTEs, window functions, aggregations.</p></div>
+          <div class="topic"><div class="topic-top"><h4>Query optimization</h4><span class="tag tag-should">🟡</span></div><p>Indexes, EXPLAIN plans — enough to stop a slow query from timing out a request.</p></div>
+          <div class="topic"><div class="topic-top"><h4>PostgreSQL</h4><span class="tag tag-must">🟢</span></div><p>The default production relational store; also runs pgvector for embeddings.</p></div>
+          <div class="topic"><div class="topic-top"><h4>Data cleaning</h4><span class="tag tag-must">🟢</span></div><p>Missing values, outliers, encoding, scaling.</p></div>
+          <div class="topic"><div class="topic-top"><h4>Feature engineering</h4><span class="tag tag-must">🟢</span></div><p>Turning raw columns into signal a model can use.</p></div>
+          <div class="topic"><div class="topic-top"><h4>Train/val/test splits</h4><span class="tag tag-must">🟢</span></div><p>And the classic trap: <b>data leakage</b> — information from the future or the label sneaking into features.</p></div>
+        </div>
+        <ul class="chk-list">
+          <li class="chk-item"><input type="checkbox" data-key="p3-sql"><span>SQL fundamentals <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p3-clean"><span>Data cleaning & preprocessing <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p3-feat"><span>Feature engineering <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p3-leak"><span>Data leakage awareness <span class="tag tag-must">🟢</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PHASE 4 ===================== -->
+<div class="station" data-n="4" id="phase4">
+  <div class="phase-card">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 4 · Core ML</span><h3>Machine Learning</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">This is the foundation every "AI" system still sits on. Skipping straight to LLMs without this phase means you can prompt a model but can't explain why it's overfitting, why your eval metric is misleading, or when a boring gradient-boosted tree would beat an LLM outright.</p>
+
+        <h4 style="margin:18px 0 4px;font-size:15px;">Supervised learning</h4>
+        <div class="pill-row">
+          <span class="pill">Linear Regression 🟢</span><span class="pill">Logistic Regression 🟢</span><span class="pill">Decision Trees 🟢</span>
+          <span class="pill">Random Forest 🟢</span><span class="pill">Gradient Boosting 🟢</span><span class="pill">XGBoost 🟢</span>
+          <span class="pill">LightGBM 🟡</span><span class="pill">CatBoost 🔵</span><span class="pill">KNN 🟡</span>
+          <span class="pill">SVM 🟡</span><span class="pill">Naive Bayes 🟡</span>
+        </div>
+        <h4 style="margin:18px 0 4px;font-size:15px;">Unsupervised learning</h4>
+        <div class="pill-row">
+          <span class="pill">K-Means 🟢</span><span class="pill">Hierarchical clustering 🔵</span><span class="pill">DBSCAN 🔵</span>
+          <span class="pill">PCA 🟢</span><span class="pill">Dimensionality reduction 🟡</span>
+        </div>
+
+        <div class="explainer">
+          <h4>Concepts that separate "did a tutorial" from "understands ML"</h4>
+          <div class="ex-row"><b>Bias vs variance</b><span>Underfitting vs overfitting — the central tension in every model you'll train.</span></div>
+          <div class="ex-row"><b>Regularization</b><span>L1/L2 penalties, dropout (later) — how you fight overfitting deliberately.</span></div>
+          <div class="ex-row"><b>Cross-validation</b><span>Don't trust a single train/test split — k-fold gives you a reliable estimate.</span></div>
+          <div class="ex-row"><b>Hyperparameter tuning</b><span>Grid/random search, and later Optuna-style Bayesian search.</span></div>
+          <div class="ex-row"><b>Class imbalance</b><span>Accuracy lies when 99% of your labels are one class — this is where most beginner metrics go wrong.</span></div>
+        </div>
+
+        <div class="tbl-wrap">
+          <table>
+            <tr><th>Task</th><th>Key metrics</th></tr>
+            <tr><td>Classification</td><td>Accuracy, Precision, Recall, F1, ROC-AUC, PR-AUC, Confusion Matrix</td></tr>
+            <tr><td>Regression</td><td>MAE, MSE, RMSE, R²</td></tr>
+          </table>
+        </div>
+
+        <div class="pill-row">
+          <span class="pill">Data preprocessing</span><span class="pill">sklearn Pipelines</span><span class="pill">Model persistence (joblib/pickle)</span><span class="pill">Experiment tracking basics</span>
+        </div>
+        <div class="callout callout-info"><b>Primary framework: scikit-learn.</b> Build at least 2–3 classical ML projects here (tabular classification, regression, a clustering exploration) before moving to deep learning — this is where the evaluation instincts you'll reuse everywhere get built.</div>
+        <ul class="chk-list">
+          <li class="chk-item"><input type="checkbox" data-key="p4-sup"><span>Core supervised algorithms <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p4-unsup"><span>Core unsupervised algorithms <span class="tag tag-should">🟡</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p4-bv"><span>Bias/variance, over/underfitting <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p4-eval"><span>Evaluation metrics (both types) <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p4-pipeline"><span>sklearn pipelines & persistence <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p4-project"><span>Built 2–3 classical ML projects <span class="tag tag-must">🟢</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PHASE 5 ===================== -->
+<div class="station" data-n="5" id="phase5">
+  <div class="phase-card">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 5 · Core ML</span><h3>Deep Learning</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">Neural networks from first principles — this is what "understanding transformers" is built on top of. Don't let a framework hide the mechanics from you the first time through.</p>
+
+        <div class="explainer">
+          <h4>The neural network, piece by piece</h4>
+          <div class="ex-row"><b>Concept</b><span>Perceptron → layers → weights & bias → activation function → forward propagation → loss → backpropagation → gradient descent.</span></div>
+          <div class="ex-row"><b>Why it matters</b><span>Every transformer, every diffusion model, every "AI" headline in 2026 is this loop at massive scale.</span></div>
+          <div class="ex-row"><b>Mini exercise</b><span>Implement a 2-layer MLP with only NumPy — forward pass, MSE loss, and manual backprop — before touching PyTorch.</span></div>
+        </div>
+
+        <div class="tbl-wrap">
+          <table>
+            <tr><th>Category</th><th>Items</th></tr>
+            <tr><td>Activation functions</td><td>Sigmoid, Tanh, ReLU, GELU, Softmax</td></tr>
+            <tr><td>Optimizers</td><td>SGD, Momentum, Adam, AdamW <span class="tag tag-must">🟢</span></td></tr>
+            <tr><td>Training controls</td><td>Batch size, epochs, learning rate, dropout, batch normalization, weight initialization, early stopping, LR scheduling</td></tr>
+            <tr><td>Architectures</td><td>MLP 🟢, CNN 🟢, RNN 🟡, LSTM/GRU 🟡, Autoencoders 🔵</td></tr>
+          </table>
+        </div>
+        <div class="callout callout-info"><b>Primary framework: PyTorch.</b> It's the framework nearly all modern research code, open-weight models and fine-tuning tooling (Hugging Face, LoRA libraries) are built on — knowing it is what lets you read a model's source instead of only calling an API.</div>
+        <ul class="chk-list">
+          <li class="chk-item"><input type="checkbox" data-key="p5-basics"><span>Perceptron → backprop from scratch <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p5-activ"><span>Activation functions <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p5-opt"><span>Optimizers (Adam/AdamW) <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p5-reg"><span>Dropout, batch norm, early stopping <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p5-cnn"><span>CNNs <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p5-rnn"><span>RNN/LSTM/GRU (historical context) <span class="tag tag-should">🟡</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p5-pytorch"><span>Comfortable building/training in PyTorch <span class="tag tag-must">🟢</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PHASE 6 ===================== -->
+<div class="station" data-n="6" id="phase6">
+  <div class="phase-card">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 6 · Core ML</span><h3>Transformers & Modern AI</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">Every LLM you'll ever call is a transformer. This is the single highest-leverage architecture to understand deeply in 2026.</p>
+
+        <div class="diagram">
+          <svg viewBox="0 0 940 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+            <defs><marker id="arrow6" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="var(--accent)"/></marker></defs>
+            <g font-family="var(--font-mono)" font-size="12.5">
+              <!-- 5 boxes -->
+              <rect x="10" y="70" width="150" height="56" rx="10" fill="var(--surface)" stroke="var(--border)"/>
+              <text x="85" y="103" text-anchor="middle" fill="var(--text)">Tokenization</text>
+              <line x1="160" y1="98" x2="196" y2="98" stroke="var(--accent)" stroke-width="2" marker-end="url(#arrow6)"/>
+
+              <rect x="200" y="70" width="150" height="56" rx="10" fill="var(--surface)" stroke="var(--border)"/>
+              <text x="275" y="103" text-anchor="middle" fill="var(--text)">Embeddings</text>
+              <line x1="350" y1="98" x2="386" y2="98" stroke="var(--accent)" stroke-width="2" marker-end="url(#arrow6)"/>
+
+              <rect x="390" y="70" width="150" height="56" rx="10" fill="var(--surface)" stroke="var(--border)"/>
+              <text x="465" y="103" text-anchor="middle" fill="var(--text)">Self-Attention</text>
+              <line x1="540" y1="98" x2="576" y2="98" stroke="var(--accent)" stroke-width="2" marker-end="url(#arrow6)"/>
+
+              <rect x="580" y="70" width="170" height="56" rx="10" fill="var(--surface)" stroke="var(--border)"/>
+              <text x="665" y="103" text-anchor="middle" fill="var(--text)">Transformer Layers</text>
+              <line x1="750" y1="98" x2="786" y2="98" stroke="var(--accent)" stroke-width="2" marker-end="url(#arrow6)"/>
+
+              <rect x="790" y="70" width="140" height="56" rx="10" fill="var(--accent-soft)" stroke="var(--accent)"/>
+              <text x="860" y="103" text-anchor="middle" fill="var(--accent)">Output (logits)</text>
+              <text x="85" y="150" text-anchor="middle" fill="var(--text-faint)" font-size="10.5">text → sub-word ids</text>
+              <text x="275" y="150" text-anchor="middle" fill="var(--text-faint)" font-size="10.5">id → dense vector</text>
+              <text x="465" y="150" text-anchor="middle" fill="var(--text-faint)" font-size="10.5">Q, K, V per token</text>
+              <text x="665" y="150" text-anchor="middle" fill="var(--text-faint)" font-size="10.5">×N stacked blocks</text>
+              <text x="860" y="150" text-anchor="middle" fill="var(--text-faint)" font-size="10.5">next-token probs</text>
+            </g>
+          </svg>
+        </div>
+
+        <div class="explainer">
+          <h4>Self-attention, unpacked</h4>
+          <div class="ex-row"><b>Query/Key/Value</b><span>Every token asks "what am I looking for" (Q), advertises "what do I contain" (K), and carries "what I'll pass on" (V).</span></div>
+          <div class="ex-row"><b>Multi-head attention</b><span>Several attention computations run in parallel, each free to learn a different kind of relationship (syntax, coreference, etc.).</span></div>
+          <div class="ex-row"><b>Positional encoding</b><span>Attention has no built-in sense of order — position info is injected explicitly.</span></div>
+          <div class="ex-row"><b>Encoder / Decoder</b><span>Encoder sees the whole input at once (good for understanding); decoder generates one token at a time, only looking backward (good for generation).</span></div>
+        </div>
+
+        <div class="tbl-wrap">
+          <table>
+            <tr><th>Model family</th><th>Type</th><th>Best at</th><th>Examples</th></tr>
+            <tr><td>Encoder-only</td><td>Bidirectional understanding</td><td>Classification, embeddings, search</td><td>BERT and its descendants</td></tr>
+            <tr><td>Decoder-only</td><td>Autoregressive generation</td><td>Chat, completion, reasoning</td><td>The GPT-style family — most modern LLMs</td></tr>
+            <tr><td>Encoder-decoder</td><td>Sequence-to-sequence</td><td>Translation, summarization</td><td>T5-style models</td></tr>
+          </table>
+        </div>
+        <div class="callout callout-warn"><b>Note:</b> almost every LLM you'll interact with via API in 2026 is decoder-only. Understand encoder models for embeddings/reranking (Phase 8) — but don't over-invest in encoder-decoder architectures unless you specialize in translation/summarization.</div>
+        <ul class="chk-list">
+          <li class="chk-item"><input type="checkbox" data-key="p6-attn"><span>Self-attention & multi-head attention <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p6-pos"><span>Positional encoding <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p6-encdec"><span>Encoder vs decoder vs encoder-decoder <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p6-families"><span>BERT / GPT / T5 family differences <span class="tag tag-must">🟢</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PHASE 7 ===================== -->
+<div class="station" data-n="7" id="phase7">
+  <div class="phase-card">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 7 · Modern AI</span><h3>Generative AI & LLM Engineering</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">This is where most 2026 AI Engineer job descriptions actually live. LLM fundamentals + prompt engineering are the daily toolkit.</p>
+
+        <h4 style="margin:18px 0 4px;font-size:15px;">LLM fundamentals</h4>
+        <div class="pill-row">
+          <span class="pill">Tokens</span><span class="pill">Context window</span><span class="pill">Temperature</span><span class="pill">Top-p / Top-k</span>
+          <span class="pill">Sampling</span><span class="pill">Log probabilities</span><span class="pill">Prompt vs completion tokens</span><span class="pill">Embeddings</span>
+        </div>
+
+        <h4 style="margin:18px 0 4px;font-size:15px;">Prompt engineering</h4>
+        <div class="topic-grid">
+          <div class="topic"><div class="topic-top"><h4>Zero/Few-shot prompting</h4><span class="tag tag-must">🟢</span></div><p>Give 0 or a handful of examples to steer the model's output format and style.</p></div>
+          <div class="topic"><div class="topic-top"><h4>Role prompting</h4><span class="tag tag-must">🟢</span></div><p>System instructions that set persona, constraints and scope.</p></div>
+          <div class="topic"><div class="topic-top"><h4>Structured prompting</h4><span class="tag tag-must">🟢</span></div><p>Templates, delimiters, explicit output constraints.</p></div>
+          <div class="topic"><div class="topic-top"><h4>JSON outputs & tool/function calling</h4><span class="tag tag-must">🟢</span></div><p>The mechanism that turns an LLM from a chatbot into a system component.</p></div>
+          <div class="topic"><div class="topic-top"><h4>Chain-of-thought (concept)</h4><span class="tag tag-should">🟡</span></div><p>Prompting a model to reason step by step improves multi-step tasks — understand the idea without relying on exposing hidden reasoning traces.</p></div>
+        </div>
+
+        <div class="explainer">
+          <h4>Working with LLM providers</h4>
+          <div class="ex-row"><b>Ecosystem</b><span>You'll typically touch a mix of hosted-model APIs (OpenAI, Anthropic, Google Gemini), Hugging Face for open-source models, and self-hosted/open-weight models for cost or privacy-sensitive use cases.</span></div>
+          <div class="ex-row"><b>What to actually learn</b><span>The shared concepts — messages format, streaming, tool calling, rate limits, retries — transfer across providers. Don't memorize a specific model name; check current docs when you build.</span></div>
+        </div>
+        <ul class="chk-list">
+          <li class="chk-item"><input type="checkbox" data-key="p7-fund"><span>LLM fundamentals (tokens, sampling, context) <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p7-prompt"><span>Prompt engineering patterns <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p7-tool"><span>Function/tool calling & structured outputs <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p7-provider"><span>Comfortable with at least 2 provider SDKs <span class="tag tag-must">🟢</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PHASE 8 ===================== -->
+<div class="station" data-n="8" id="phase8">
+  <div class="phase-card">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 8 · Modern AI</span><h3>Embeddings & Vector Databases</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">Embeddings turn meaning into geometry — everything RAG and semantic search does builds on this idea.</p>
+        <div class="explainer">
+          <div class="ex-row"><b>What are embeddings</b><span>Dense vectors where semantic similarity ≈ geometric closeness — an embedding model turns "a happy dog" and "a joyful puppy" into nearby points.</span></div>
+          <div class="ex-row"><b>Cosine similarity</b><span>The default distance metric for comparing embedding vectors, since it ignores magnitude and only measures direction.</span></div>
+        </div>
+        <div class="tbl-wrap">
+          <table>
+            <tr><th>Vector DB</th><th>When to reach for it</th></tr>
+            <tr><td><b>FAISS</b></td><td>Local, in-memory, no server — great for prototypes and research.</td></tr>
+            <tr><td><b>Chroma</b></td><td>Simple embedded DB for small-to-medium apps and quick RAG prototypes.</td></tr>
+            <tr><td><b>Qdrant</b></td><td>Production-grade, self-hostable, strong filtering support.</td></tr>
+            <tr><td><b>Pinecone</b></td><td>Fully managed cloud vector DB — fast to ship, less infra ownership.</td></tr>
+            <tr><td><b>Weaviate</b></td><td>Managed or self-hosted, built-in hybrid search and modules.</td></tr>
+            <tr><td><b>pgvector (Postgres)</b></td><td>When you'd rather not add a new database to your stack at all.</td></tr>
+          </table>
+        </div>
+        <ul class="chk-list">
+          <li class="chk-item"><input type="checkbox" data-key="p8-embed"><span>How embeddings are generated & compared <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p8-vdb"><span>Set up at least one vector DB end-to-end <span class="tag tag-must">🟢</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PHASE 9 ===================== -->
+<div class="station" data-n="9" id="phase9">
+  <div class="phase-card">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 9 · Modern AI</span><h3>Retrieval-Augmented Generation (RAG)</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">RAG is the single most in-demand practical skill for entry-level AI Engineer roles in 2026. Learn the pipeline cold, then the failure modes.</p>
+
+        <div class="diagram">
+          <svg viewBox="0 0 980 170" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+            <defs><marker id="arrow9" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="var(--mint)"/></marker></defs>
+            <g font-family="var(--font-mono)" font-size="11.5">
+              <g id="b1"><rect x="6" y="55" width="96" height="50" rx="9" fill="var(--surface)" stroke="var(--border)"/><text x="54" y="84" text-anchor="middle" fill="var(--text)">Documents</text></g>
+              <line x1="102" y1="80" x2="118" y2="80" stroke="var(--mint)" stroke-width="2" marker-end="url(#arrow9)"/>
+              <g id="b2"><rect x="122" y="55" width="96" height="50" rx="9" fill="var(--surface)" stroke="var(--border)"/><text x="170" y="84" text-anchor="middle" fill="var(--text)">Load/Parse</text></g>
+              <line x1="218" y1="80" x2="234" y2="80" stroke="var(--mint)" stroke-width="2" marker-end="url(#arrow9)"/>
+              <g id="b3"><rect x="238" y="55" width="96" height="50" rx="9" fill="var(--surface)" stroke="var(--border)"/><text x="286" y="84" text-anchor="middle" fill="var(--text)">Chunking</text></g>
+              <line x1="334" y1="80" x2="350" y2="80" stroke="var(--mint)" stroke-width="2" marker-end="url(#arrow9)"/>
+              <g id="b4"><rect x="354" y="55" width="96" height="50" rx="9" fill="var(--surface)" stroke="var(--border)"/><text x="402" y="84" text-anchor="middle" fill="var(--text)">Embedding</text></g>
+              <line x1="450" y1="80" x2="466" y2="80" stroke="var(--mint)" stroke-width="2" marker-end="url(#arrow9)"/>
+              <g id="b5"><rect x="470" y="55" width="96" height="50" rx="9" fill="var(--surface)" stroke="var(--border)"/><text x="518" y="84" text-anchor="middle" fill="var(--text)">Vector DB</text></g>
+              <line x1="566" y1="80" x2="582" y2="80" stroke="var(--mint)" stroke-width="2" marker-end="url(#arrow9)"/>
+              <g id="b6"><rect x="586" y="55" width="96" height="50" rx="9" fill="var(--surface)" stroke="var(--border)"/><text x="634" y="84" text-anchor="middle" fill="var(--text)">Retrieval</text></g>
+              <line x1="682" y1="80" x2="698" y2="80" stroke="var(--mint)" stroke-width="2" marker-end="url(#arrow9)"/>
+              <g id="b7"><rect x="702" y="55" width="80" height="50" rx="9" fill="var(--surface)" stroke="var(--border)"/><text x="742" y="84" text-anchor="middle" fill="var(--text)">Prompt</text></g>
+              <line x1="782" y1="80" x2="798" y2="80" stroke="var(--mint)" stroke-width="2" marker-end="url(#arrow9)"/>
+              <g id="b8"><rect x="802" y="55" width="62" height="50" rx="9" fill="var(--surface)" stroke="var(--border)"/><text x="833" y="84" text-anchor="middle" fill="var(--text)">LLM</text></g>
+              <line x1="864" y1="80" x2="880" y2="80" stroke="var(--mint)" stroke-width="2" marker-end="url(#arrow9)"/>
+              <g id="b9"><rect x="884" y="55" width="90" height="50" rx="9" fill="var(--mint-soft)" stroke="var(--mint)"/><text x="929" y="84" text-anchor="middle" fill="var(--mint)">Answer</text></g>
+            </g>
+          </svg>
+        </div>
+
+        <div class="tbl-wrap">
+          <table>
+            <tr><th>Stage</th><th>What to get right</th></tr>
+            <tr><td>Chunking</td><td>Chunk size & overlap, keeping semantic units intact, attaching metadata for filtering.</td></tr>
+            <tr><td>Retrieval</td><td>Similarity search, hybrid search (dense + keyword/BM25), reranking, context compression.</td></tr>
+            <tr><td>Evaluation</td><td>Retrieval evaluation and hallucination reduction — measure before you trust it.</td></tr>
+          </table>
+        </div>
+
+        <h4 style="margin:18px 0 4px;font-size:15px;">Advanced RAG (once the basics work)</h4>
+        <div class="pill-row">
+          <span class="pill">Query rewriting</span><span class="pill">Multi-query retrieval</span><span class="pill">Parent-child retrieval</span>
+          <span class="pill">HyDE</span><span class="pill">Rerankers</span><span class="pill">Hybrid retrieval</span><span class="pill">Graph RAG</span><span class="pill">Agentic RAG</span>
+        </div>
+        <div class="callout callout-info"><b>Build target:</b> a production-grade RAG app over a real, messy document set (not a clean toy PDF) — with hybrid search, reranking, and an evaluation script that reports faithfulness and context precision. This single project carries a lot of weight on a resume.</div>
+        <ul class="chk-list">
+          <li class="chk-item"><input type="checkbox" data-key="p9-pipeline"><span>Full pipeline: load → chunk → embed → retrieve → generate <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p9-hybrid"><span>Hybrid search & reranking <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p9-adv"><span>At least 2 advanced RAG techniques <span class="tag tag-should">🟡</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p9-eval"><span>RAG evaluation script <span class="tag tag-must">🟢</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PHASE 10 ===================== -->
+<div class="station" data-n="10" id="phase10">
+  <div class="phase-card">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 10 · Modern AI</span><h3>AI Agents</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">Not every LLM app is an "agent." Know the difference before you build one — most production systems in 2026 are still simple workflows, not open-ended agents.</p>
+
+        <div class="tbl-wrap">
+          <table>
+            <tr><th>System type</th><th>What it means</th></tr>
+            <tr><td>Chatbot</td><td>Conversational LLM, no tools, no state beyond chat history.</td></tr>
+            <tr><td>LLM application</td><td>Single LLM call embedded in a larger deterministic app.</td></tr>
+            <tr><td>Workflow</td><td>A fixed sequence of LLM/tool steps — predictable, easy to debug.</td></tr>
+            <tr><td>Agent</td><td>The LLM decides which tools to call and in what order, in a loop, to reach a goal.</td></tr>
+            <tr><td>Multi-agent system</td><td>Multiple specialized agents collaborate/hand off work to each other.</td></tr>
+          </table>
+        </div>
+
+        <div class="pill-row">
+          <span class="pill">Tool/function calling</span><span class="pill">Planning</span><span class="pill">Memory</span><span class="pill">State</span>
+          <span class="pill">Reflection</span><span class="pill">Routing</span><span class="pill">Agent loops</span><span class="pill">Human-in-the-loop</span><span class="pill">Guardrails</span>
+        </div>
+
+        <div class="explainer">
+          <h4>Framework ecosystem — and when NOT to use one</h4>
+          <div class="ex-row"><b>LangGraph</b><span>Graph-based orchestration for stateful, controllable agent workflows.</span></div>
+          <div class="ex-row"><b>LangChain</b><span>Broad toolkit of integrations — useful for gluing pieces together fast.</span></div>
+          <div class="ex-row"><b>LlamaIndex</b><span>Strong for data-indexing-heavy and RAG-centric agent apps.</span></div>
+          <div class="ex-row"><b>Raw provider SDKs</b><span>Often the better choice for a small, well-defined agent — fewer abstractions to debug, full control over the loop. Frameworks are a productivity tool, not a requirement.</span></div>
+        </div>
+
+        <h4 style="margin:18px 0 4px;font-size:15px;">Build one of these</h4>
+        <div class="pill-row">
+          <span class="pill">Research Agent</span><span class="pill">Web Research Assistant</span><span class="pill">Coding Agent</span>
+          <span class="pill">Data Analysis Agent</span><span class="pill">Customer Support Agent</span>
+        </div>
+        <ul class="chk-list">
+          <li class="chk-item"><input type="checkbox" data-key="p10-diff"><span>Chatbot vs workflow vs agent distinction <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p10-tool"><span>Tool calling & agent loops <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p10-frame"><span>One orchestration framework <span class="tag tag-should">🟡</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p10-guard"><span>Guardrails & human-in-the-loop <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p10-project"><span>Built one agent project end-to-end <span class="tag tag-must">🟢</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PHASE 11 ===================== -->
+<div class="station" data-n="11" id="phase11">
+  <div class="phase-card">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 11 · Engineering</span><h3>AI APIs & Backend Engineering</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">Turning a notebook into a product means an API. FastAPI is the de facto standard for Python AI backends.</p>
+        <div class="topic-grid">
+          <div class="topic"><div class="topic-top"><h4>FastAPI routes & Pydantic</h4><span class="tag tag-must">🟢</span></div><p>Request/response models, validation, auto-generated docs.</p></div>
+          <div class="topic"><div class="topic-top"><h4>Async basics</h4><span class="tag tag-must">🟢</span></div><p>Non-blocking I/O so one slow LLM call doesn't stall the whole server.</p></div>
+          <div class="topic"><div class="topic-top"><h4>Auth basics</h4><span class="tag tag-should">🟡</span></div><p>API keys, JWT — enough to gate an endpoint.</p></div>
+          <div class="topic"><div class="topic-top"><h4>Streaming responses</h4><span class="tag tag-must">🟢</span></div><p>Token-by-token streaming — what makes a chat UI feel alive instead of frozen.</p></div>
+          <div class="topic"><div class="topic-top"><h4>WebSockets basics</h4><span class="tag tag-nice">🔵</span></div><p>For bidirectional real-time features beyond simple streaming.</p></div>
+          <div class="topic"><div class="topic-top"><h4>Background tasks</h4><span class="tag tag-should">🟡</span></div><p>Offload slow work (embedding a big doc) off the request path.</p></div>
+          <div class="topic"><div class="topic-top"><h4>Rate limiting & caching</h4><span class="tag tag-must">🟢</span></div><p>Protects both your wallet and your uptime against LLM-cost spikes.</p></div>
+        </div>
+        <div class="pill-row">
+          <span class="pill">PostgreSQL</span><span class="pill">Redis</span><span class="pill">Vector DB</span>
+        </div>
+        <div class="callout callout-info">A typical AI backend: FastAPI receives a request → Redis cache check → vector DB retrieval → LLM call (streamed) → Postgres for logging/state → response back to the client.</div>
+        <ul class="chk-list">
+          <li class="chk-item"><input type="checkbox" data-key="p11-fastapi"><span>FastAPI + Pydantic <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p11-async"><span>Async request handling <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p11-stream"><span>Streaming LLM responses <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p11-cache"><span>Caching & rate limiting <span class="tag tag-must">🟢</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PHASE 12 ===================== -->
+<div class="station" data-n="12" id="phase12">
+  <div class="phase-card">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 12 · Engineering</span><h3>Frontend for AI Engineers</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">Not your main focus — but an AI Engineer who can ship a usable product end-to-end is far more valuable than one who can only hand off a backend.</p>
+        <div class="pill-row">
+          <span class="pill">HTML/CSS 🟢</span><span class="pill">JavaScript basics 🟢</span><span class="pill">React basics 🟡</span>
+          <span class="pill">API integration 🟢</span><span class="pill">Streaming UI 🟢</span><span class="pill">Chat interfaces 🟡</span>
+          <span class="pill">File upload 🟡</span><span class="pill">Auth basics 🟡</span><span class="pill">Next.js (optional) 🔵</span>
+        </div>
+        <div class="callout callout-warn">Goal: be capable of building a complete, demoable AI product — not to become a frontend specialist. A simple React chat UI with streaming is enough.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PHASE 13 ===================== -->
+<div class="station" data-n="13" id="phase13">
+  <div class="phase-card">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 13 · Production</span><h3>MLOps & LLMOps</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">The difference between "it works on my machine" and "an AI Engineer other people trust in production."</p>
+        <h4 style="margin:18px 0 4px;font-size:15px;">MLOps</h4>
+        <div class="pill-row">
+          <span class="pill">Model versioning</span><span class="pill">Dataset versioning</span><span class="pill">Experiment tracking</span>
+          <span class="pill">ML pipelines</span><span class="pill">Model registry</span><span class="pill">Monitoring & logging</span>
+          <span class="pill">Evaluation</span><span class="pill">CI/CD</span><span class="pill">Docker</span><span class="pill">Kubernetes basics</span><span class="pill">Cloud deployment</span>
+        </div>
+        <div class="pill-row">
+          <span class="pill mono">MLflow</span><span class="pill mono">Weights & Biases</span><span class="pill mono">Docker</span><span class="pill mono">GitHub Actions</span>
+        </div>
+        <h4 style="margin:18px 0 4px;font-size:15px;">LLMOps (the LLM-specific layer)</h4>
+        <div class="pill-row">
+          <span class="pill">Prompt versioning</span><span class="pill">LLM evaluation</span><span class="pill">Tracing</span>
+          <span class="pill">Token/cost monitoring</span><span class="pill">Latency monitoring</span><span class="pill">Quality monitoring</span>
+          <span class="pill">Guardrails</span><span class="pill">Observability</span>
+        </div>
+        <div class="callout callout-info"><b>Minimum bar for a job-ready portfolio:</b> one project fully Dockerized, with a GitHub Actions CI pipeline, basic logging/monitoring, and deployed somewhere reachable by a URL.</div>
+        <ul class="chk-list">
+          <li class="chk-item"><input type="checkbox" data-key="p13-docker"><span>Docker (build, run, compose) <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p13-cicd"><span>CI/CD with GitHub Actions <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p13-track"><span>Experiment tracking (MLflow/W&B) <span class="tag tag-should">🟡</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p13-llmops"><span>LLM tracing, cost & latency monitoring <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p13-k8s"><span>Kubernetes basics <span class="tag tag-nice">🔵</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PHASE 14 ===================== -->
+<div class="station" data-n="14" id="phase14">
+  <div class="phase-card">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 14 · Production</span><h3>Cloud & Deployment</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede"><b style="color:var(--text)">Do not try to master every cloud.</b> Pick one — AWS has the deepest job-market coverage — and go deep enough to deploy real systems.</p>
+        <div class="pill-row">
+          <span class="pill">EC2 🟢</span><span class="pill">S3 🟢</span><span class="pill">IAM 🟢</span><span class="pill">Lambda 🟢</span>
+          <span class="pill">ECS 🟡</span><span class="pill">ECR 🟡</span><span class="pill">CloudWatch 🟢</span><span class="pill">Bedrock 🟡</span><span class="pill">SageMaker basics 🔵</span>
+        </div>
+        <div class="callout callout-info">Beginner-friendly AWS path: IAM basics → S3 → EC2 → deploy a Dockerized FastAPI app on EC2 → move to Lambda for a serverless endpoint → add CloudWatch logging. Briefly explore Google Cloud (Vertex AI) and Azure (Azure AI) so you can speak to them in interviews, without going deep on both.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PHASE 15 ===================== -->
+<div class="station" data-n="15" id="phase15">
+  <div class="phase-card">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 15 · Production</span><h3>AI Security</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">LLM systems open new attack surfaces classical software doesn't have. This maps closely to the OWASP Top 10 for LLM Applications — worth reading directly.</p>
+        <div class="topic-grid">
+          <div class="topic"><div class="topic-top"><h4>Prompt injection</h4><span class="tag tag-must">🟢</span></div><p>Untrusted content tricking the model into ignoring its instructions.</p></div>
+          <div class="topic"><div class="topic-top"><h4>Jailbreaks</h4><span class="tag tag-should">🟡</span></div><p>Adversarial prompts trying to bypass safety constraints.</p></div>
+          <div class="topic"><div class="topic-top"><h4>Data leakage</h4><span class="tag tag-must">🟢</span></div><p>Sensitive info surfacing in outputs, logs, or via retrieval.</p></div>
+          <div class="topic"><div class="topic-top"><h4>Insecure tool usage</h4><span class="tag tag-must">🟢</span></div><p>An agent given a shell/DB tool without proper scoping.</p></div>
+          <div class="topic"><div class="topic-top"><h4>Excessive agency</h4><span class="tag tag-must">🟢</span></div><p>Agents given more autonomy/permissions than the task needs.</p></div>
+          <div class="topic"><div class="topic-top"><h4>Supply-chain risks</h4><span class="tag tag-should">🟡</span></div><p>Untrusted models, datasets, or plugins pulled into your system.</p></div>
+        </div>
+        <div class="pill-row">
+          <span class="pill">Authentication</span><span class="pill">Authorization</span><span class="pill">API security</span><span class="pill">Secrets management</span><span class="pill">Input validation</span><span class="pill">Output validation</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PHASE 16 ===================== -->
+<div class="station" data-n="16" id="phase16">
+  <div class="phase-card">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 16 · Production</span><h3>AI Evaluation</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">Most roadmaps skip this. Don't. "The model gave an answer" is not the same as "the system works" — this is what separates a demo from something a team will actually trust.</p>
+        <div class="pill-row">
+          <span class="pill">Accuracy</span><span class="pill">Relevance</span><span class="pill">Groundedness</span><span class="pill">Faithfulness</span>
+          <span class="pill">Hallucination rate</span><span class="pill">Retrieval quality</span><span class="pill">Latency</span><span class="pill">Cost</span><span class="pill">User satisfaction</span>
+        </div>
+        <div class="tbl-wrap">
+          <table>
+            <tr><th>System type</th><th>What you evaluate</th></tr>
+            <tr><td>RAG</td><td>Context precision, context recall, answer relevance, faithfulness</td></tr>
+            <tr><td>Agents</td><td>Tool selection accuracy, tool success rate, task completion, safety</td></tr>
+          </table>
+        </div>
+        <div class="callout callout-info">Build an evaluation harness early (even a simple one with a labeled test set + an LLM-as-judge script) rather than eyeballing outputs — recruiters notice when a project includes real evals, not just a demo.</div>
+        <ul class="chk-list">
+          <li class="chk-item"><input type="checkbox" data-key="p16-rag"><span>RAG evaluation metrics <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p16-agent"><span>Agent evaluation metrics <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p16-judge"><span>LLM-as-judge eval harness <span class="tag tag-should">🟡</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PHASE 17 ===================== -->
+<div class="station" data-n="17" id="phase17">
+  <div class="phase-card">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 17 · Production</span><h3>System Design for AI Engineers</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">This is where interviews get hard — and where "I called an API" separates from "I can architect a system."</p>
+        <div class="pill-row">
+          <span class="pill">Chatbot</span><span class="pill">RAG application</span><span class="pill">AI search engine</span><span class="pill">Recommendation system</span>
+          <span class="pill">Document intelligence system</span><span class="pill">AI coding assistant</span><span class="pill">Voice AI system</span><span class="pill">Agentic application</span>
+        </div>
+        <div class="topic-grid">
+          <div class="topic"><h4>Scalability & availability</h4><p>Handling traffic growth without falling over.</p></div>
+          <div class="topic"><h4>Latency & caching</h4><p>Semantic caching, response caching, streaming to hide latency.</p></div>
+          <div class="topic"><h4>Cost</h4><p>Model tiering, prompt-length budgets, caching to cut token spend.</p></div>
+          <div class="topic"><h4>Queues</h4><p>Decoupling slow LLM work from the request/response cycle.</p></div>
+          <div class="topic"><h4>Model selection & fallback</h4><p>Cheaper/faster model first, escalate to a stronger one on failure or complexity.</p></div>
+          <div class="topic"><h4>Rate limiting</h4><p>Per-user and global limits to protect uptime and budget.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    </div> <!-- end route (phases 0-17) -->
+  </div>
+</section>
+
+<!-- ===================== PHASE 18 — SPECIALIZATIONS (branch) ===================== -->
+<section class="section" id="phase18" style="background:var(--bg-elev);">
+  <div class="container">
+    <div class="sec-head">
+      <span class="sec-kicker">Phase 18 · The Fork</span>
+      <h2>Pick a specialization</h2>
+      <p class="sec-desc">Phases 0–17 are the shared trunk. Once you're comfortable there, the route forks — pick one track to go deep on for your first job, and treat the rest as things you'll pick up later.</p>
+    </div>
+    <div class="cards" id="specGrid">
+      <div class="card"><h4>LLM Engineer</h4><p><b>Prereqs:</b> Phase 6, 7, 9. <b>Tools:</b> provider SDKs, LangGraph. <b>Projects:</b> production RAG, evaluation harness. <b>Does:</b> builds and hardens LLM-powered product features.</p></div>
+      <div class="card"><h4>Generative AI Engineer</h4><p><b>Prereqs:</b> Phase 5–7. <b>Tools:</b> diffusion/gen-media APIs, PyTorch. <b>Projects:</b> content-generation pipeline. <b>Does:</b> builds text/image/audio generation features.</p></div>
+      <div class="card"><h4>Computer Vision Engineer</h4><p><b>Prereqs:</b> Phase 5 (CNNs deep). <b>Tools:</b> OpenCV, torchvision. <b>Projects:</b> detection/segmentation pipeline. <b>Does:</b> image/video understanding systems.</p></div>
+      <div class="card"><h4>NLP Engineer</h4><p><b>Prereqs:</b> Phase 6. <b>Tools:</b> Hugging Face, spaCy. <b>Projects:</b> classification/NER pipeline. <b>Does:</b> text understanding & extraction systems.</p></div>
+      <div class="card"><h4>Speech/Voice AI Engineer</h4><p><b>Prereqs:</b> Phase 5–7. <b>Tools:</b> ASR/TTS APIs, streaming audio. <b>Projects:</b> voice assistant. <b>Does:</b> real-time speech pipelines.</p></div>
+      <div class="card"><h4>Recommendation Engineer</h4><p><b>Prereqs:</b> Phase 4 (deep). <b>Tools:</b> matrix factorization, embeddings, feature stores. <b>Projects:</b> recommender system. <b>Does:</b> personalization & ranking systems.</p></div>
+      <div class="card"><h4>Multimodal AI Engineer</h4><p><b>Prereqs:</b> Phase 6, 9. <b>Tools:</b> vision-language models. <b>Projects:</b> document intelligence system. <b>Does:</b> systems reasoning over text + images (+ audio).</p></div>
+      <div class="card"><h4>AI Research Engineer</h4><p><b>Prereqs:</b> Phase 2, 5, 6 (deep). <b>Tools:</b> PyTorch, paper-reading habit. <b>Projects:</b> reproduce a paper. <b>Does:</b> implements & evaluates novel methods.</p></div>
+      <div class="card"><h4>Agent Engineer</h4><p><b>Prereqs:</b> Phase 9, 10. <b>Tools:</b> LangGraph, evaluation tooling. <b>Projects:</b> multi-agent system. <b>Does:</b> builds autonomous, tool-using systems.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="route" id="routeRoot2">
+
+<!-- ===================== PHASE 19 — PROJECTS ===================== -->
+<div class="station" data-n="19" id="phase19">
+  <div class="phase-card">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 19 · Proof of Work</span><h3>Project Roadmap</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">Projects are how you prove the roadmap above actually stuck. Skip the overused "house price prediction" beyond a first learning exercise — build things that look like real product decisions.</p>
+
+        <div class="proj-tabs" id="projTabs">
+          <button class="proj-tab active" data-tab="beg">Beginner</button>
+          <button class="proj-tab" data-tab="int">Intermediate</button>
+          <button class="proj-tab" data-tab="adv">Advanced</button>
+          <button class="proj-tab" data-tab="port">Portfolio-Level</button>
+        </div>
+
+        <div class="proj-panel active" data-panel="beg">
+          <div class="proj-card">
+            <h4>Customer Churn Predictor</h4>
+            <div class="proj-meta"><span>Difficulty: Beginner</span>·<span>~1 week</span></div>
+            <p>Predict which customers will cancel using tabular business data. <b>Skills:</b> pandas, sklearn, classification metrics.</p>
+            <div class="proj-stack"><span>scikit-learn</span><span>pandas</span><span>matplotlib</span></div>
+            <div class="proj-detail"><b>Recruiters learn:</b> you understand the full ML workflow, not just <span class="mono">.fit()</span>. <b>README:</b> problem framing + metric choice reasoning. <b>Deploy:</b> a simple Streamlit demo.</div>
+          </div>
+          <div class="proj-card">
+            <h4>News Article Classifier</h4>
+            <div class="proj-meta"><span>Difficulty: Beginner</span>·<span>~1 week</span></div>
+            <p>Multi-class text classification with classical NLP features before touching transformers. <b>Skills:</b> TF-IDF, sklearn pipelines.</p>
+            <div class="proj-stack"><span>scikit-learn</span><span>nltk/spaCy</span></div>
+            <div class="proj-detail"><b>Recruiters learn:</b> comfort with text preprocessing. <b>README:</b> confusion matrix + error analysis. <b>Deploy:</b> FastAPI endpoint.</div>
+          </div>
+          <div class="proj-card">
+            <h4>SQL + Pandas Sales Dashboard</h4>
+            <div class="proj-meta"><span>Difficulty: Beginner</span>·<span>~4 days</span></div>
+            <p>Query a Postgres sales DB and produce an analysis notebook + chart set. <b>Skills:</b> SQL joins/CTEs, pandas, visualization.</p>
+            <div class="proj-stack"><span>PostgreSQL</span><span>pandas</span><span>seaborn</span></div>
+            <div class="proj-detail"><b>Recruiters learn:</b> real SQL fluency, not just SELECT *. <b>README:</b> the SQL queries used. <b>Deploy:</b> n/a — notebook + write-up is fine.</div>
+          </div>
+          <div class="proj-card">
+            <h4>Personal RAG Q&A over Your Notes</h4>
+            <div class="proj-meta"><span>Difficulty: Beginner</span>·<span>~1 week</span></div>
+            <p>A minimal RAG app answering questions over a small personal document set. <b>Skills:</b> chunking, embeddings, one vector DB.</p>
+            <div class="proj-stack"><span>OpenAI/Anthropic API</span><span>Chroma</span><span>FastAPI</span></div>
+            <div class="proj-detail"><b>Recruiters learn:</b> you can build the RAG loop from scratch, not just call a library. <b>README:</b> architecture diagram. <b>Deploy:</b> Streamlit or a simple React front end.</div>
+          </div>
+          <div class="proj-card">
+            <h4>Image Classifier with a Small CNN</h4>
+            <div class="proj-meta"><span>Difficulty: Beginner</span>·<span>~1 week</span></div>
+            <p>Train a small CNN from scratch on a modest image dataset (not just fine-tuning). <b>Skills:</b> PyTorch training loop, data augmentation.</p>
+            <div class="proj-stack"><span>PyTorch</span><span>torchvision</span></div>
+            <div class="proj-detail"><b>Recruiters learn:</b> you understand training loops, not only <span class="mono">model.predict()</span>. <b>README:</b> training curves. <b>Deploy:</b> Gradio demo.</div>
+          </div>
+        </div>
+
+        <div class="proj-panel" data-panel="int">
+          <div class="proj-card">
+            <h4>Hybrid-Search RAG Chatbot</h4>
+            <div class="proj-meta"><span>Difficulty: Intermediate</span>·<span>~2 weeks</span></div>
+            <p>RAG over a real, messy document corpus with dense + keyword hybrid search and reranking. <b>Skills:</b> Phase 8–9 in full.</p>
+            <div class="proj-stack"><span>Qdrant</span><span>FastAPI</span><span>Reranker model</span></div>
+            <div class="proj-detail"><b>Recruiters learn:</b> production RAG instincts, not toy-tutorial RAG. <b>README:</b> retrieval eval numbers. <b>Deploy:</b> Docker + a cloud VM.</div>
+          </div>
+          <div class="proj-card">
+            <h4>Fine-Tuned Sentiment/Intent Classifier</h4>
+            <div class="proj-meta"><span>Difficulty: Intermediate</span>·<span>~1.5 weeks</span></div>
+            <p>Fine-tune a small open-weight encoder model on a domain-specific text dataset. <b>Skills:</b> Hugging Face Trainer, evaluation.</p>
+            <div class="proj-stack"><span>Hugging Face Transformers</span><span>PyTorch</span></div>
+            <div class="proj-detail"><b>Recruiters learn:</b> you've fine-tuned a real model, not only prompted one. <b>README:</b> before/after fine-tune metrics. <b>Deploy:</b> FastAPI inference endpoint.</div>
+          </div>
+          <div class="proj-card">
+            <h4>Multi-Tool Research Agent</h4>
+            <div class="proj-meta"><span>Difficulty: Intermediate</span>·<span>~2 weeks</span></div>
+            <p>An agent that searches the web, reads pages, and synthesizes a cited answer. <b>Skills:</b> tool calling, agent loops, guardrails.</p>
+            <div class="proj-stack"><span>LangGraph</span><span>Web search API</span></div>
+            <div class="proj-detail"><b>Recruiters learn:</b> agent design judgment (when to stop looping). <b>README:</b> the agent's decision graph. <b>Deploy:</b> a simple chat UI.</div>
+          </div>
+          <div class="proj-card">
+            <h4>Recommendation Engine (Collaborative Filtering)</h4>
+            <div class="proj-meta"><span>Difficulty: Intermediate</span>·<span>~2 weeks</span></div>
+            <p>Build a "users who liked X also liked Y" system on a public ratings dataset. <b>Skills:</b> matrix factorization, evaluation@k.</p>
+            <div class="proj-stack"><span>scikit-learn / implicit</span><span>PostgreSQL</span></div>
+            <div class="proj-detail"><b>Recruiters learn:</b> ranking-metric fluency (precision@k, recall@k). <b>README:</b> offline eval results. <b>Deploy:</b> FastAPI recommendation endpoint.</div>
+          </div>
+          <div class="proj-card">
+            <h4>Data Analysis Agent over a Live Database</h4>
+            <div class="proj-meta"><span>Difficulty: Intermediate</span>·<span>~1.5 weeks</span></div>
+            <p>Natural-language questions → generated SQL → charts, with guardrails against destructive queries. <b>Skills:</b> tool calling, SQL safety.</p>
+            <div class="proj-stack"><span>FastAPI</span><span>PostgreSQL</span><span>LLM tool calling</span></div>
+            <div class="proj-detail"><b>Recruiters learn:</b> you think about safety, not just capability. <b>README:</b> guardrail design notes. <b>Deploy:</b> Docker Compose stack.</div>
+          </div>
+        </div>
+
+        <div class="proj-panel" data-panel="adv">
+          <div class="proj-card">
+            <h4>Agentic RAG with Query Routing</h4>
+            <div class="proj-meta"><span>Difficulty: Advanced</span>·<span>~3 weeks</span></div>
+            <p>An agent that decides whether to retrieve, which index to hit, and re-queries when confidence is low. <b>Skills:</b> Phase 9 advanced techniques + Phase 10.</p>
+            <div class="proj-stack"><span>LangGraph</span><span>Qdrant</span><span>Reranker</span><span>Eval harness</span></div>
+            <div class="proj-detail"><b>Recruiters learn:</b> systems-level RAG thinking. <b>README:</b> full architecture diagram + eval dashboard. <b>Deploy:</b> Docker + cloud, with monitoring.</div>
+          </div>
+          <div class="proj-card">
+            <h4>LoRA Fine-Tuned Domain LLM</h4>
+            <div class="proj-meta"><span>Difficulty: Advanced</span>·<span>~3 weeks</span></div>
+            <p>Parameter-efficient fine-tune of an open-weight LLM on a domain dataset (e.g. legal, medical, financial text). <b>Skills:</b> LoRA/QLoRA, evaluation.</p>
+            <div class="proj-stack"><span>Hugging Face PEFT</span><span>PyTorch</span><span>bitsandbytes</span></div>
+            <div class="proj-detail"><b>Recruiters learn:</b> you can adapt a real LLM under compute constraints. <b>README:</b> training config + eval deltas. <b>Deploy:</b> quantized inference endpoint.</div>
+          </div>
+          <div class="proj-card">
+            <h4>Multi-Agent Coding Assistant</h4>
+            <div class="proj-meta"><span>Difficulty: Advanced</span>·<span>~3 weeks</span></div>
+            <p>Planner agent + coder agent + reviewer agent collaborating on small coding tasks with sandboxed execution. <b>Skills:</b> multi-agent orchestration, sandboxing.</p>
+            <div class="proj-stack"><span>LangGraph</span><span>Docker sandbox</span><span>Code execution API</span></div>
+            <div class="proj-detail"><b>Recruiters learn:</b> ability to design agent-to-agent protocols safely. <b>README:</b> agent roles & handoff logic. <b>Deploy:</b> containerized service.</div>
+          </div>
+          <div class="proj-card">
+            <h4>Real-Time Voice AI Assistant</h4>
+            <div class="proj-meta"><span>Difficulty: Advanced</span>·<span>~3 weeks</span></div>
+            <p>Streaming speech-to-text → LLM → text-to-speech loop with low-latency handling. <b>Skills:</b> streaming audio, WebSockets, latency budgeting.</p>
+            <div class="proj-stack"><span>ASR/TTS APIs</span><span>WebSockets</span><span>FastAPI</span></div>
+            <div class="proj-detail"><b>Recruiters learn:</b> real-time systems thinking, not just batch inference. <b>README:</b> latency breakdown per stage. <b>Deploy:</b> cloud VM with WebSocket support.</div>
+          </div>
+          <div class="proj-card">
+            <h4>Full MLOps Pipeline for a Trained Model</h4>
+            <div class="proj-meta"><span>Difficulty: Advanced</span>·<span>~3 weeks</span></div>
+            <p>Take an earlier model project and wrap it with tracking, CI/CD, monitoring and a registry. <b>Skills:</b> Phase 13 in full.</p>
+            <div class="proj-stack"><span>MLflow</span><span>Docker</span><span>GitHub Actions</span><span>CloudWatch</span></div>
+            <div class="proj-detail"><b>Recruiters learn:</b> production discipline, not just model quality. <b>README:</b> pipeline diagram + rollback plan. <b>Deploy:</b> full CI/CD to a cloud target.</div>
+          </div>
+        </div>
+
+        <div class="proj-panel" data-panel="port">
+          <div class="proj-card">
+            <h4>Production RAG Chatbot (multi-tenant)</h4>
+            <div class="proj-meta"><span>Difficulty: Portfolio</span>·<span>~4–6 weeks</span></div>
+            <p>A RAG chatbot supporting multiple document collections/customers, with auth, rate limiting, cost tracking, and a real eval suite. <b>Architecture:</b> FastAPI + Qdrant + Postgres + Redis + React front end.</p>
+            <div class="proj-stack"><span>FastAPI</span><span>Qdrant</span><span>Redis</span><span>React</span><span>Docker</span></div>
+            <div class="proj-detail"><b>Recruiters learn:</b> you can ship something that looks like an actual SaaS feature. <b>README:</b> architecture diagram, demo video, eval dashboard screenshot. <b>Deploy:</b> AWS EC2/ECS with CI/CD.</div>
+          </div>
+          <div class="proj-card">
+            <h4>Multi-Document Research Assistant</h4>
+            <div class="proj-meta"><span>Difficulty: Portfolio</span>·<span>~4 weeks</span></div>
+            <p>Ingests dozens of PDFs/papers, builds cross-document summaries with citations, supports follow-up questions. <b>Architecture:</b> agentic RAG + citation tracking.</p>
+            <div class="proj-stack"><span>LlamaIndex</span><span>Vector DB</span><span>FastAPI</span></div>
+            <div class="proj-detail"><b>Recruiters learn:</b> handling long-context, multi-source synthesis reliably. <b>README:</b> citation accuracy eval. <b>Deploy:</b> Docker + cloud, demo video.</div>
+          </div>
+          <div class="proj-card">
+            <h4>AI Interview Preparation Platform</h4>
+            <div class="proj-meta"><span>Difficulty: Portfolio</span>·<span>~5 weeks</span></div>
+            <p>Mock interview simulator: generates role-specific questions, evaluates spoken/written answers, gives structured feedback. <b>Architecture:</b> LLM grading + RAG over question banks + voice optional.</p>
+            <div class="proj-stack"><span>LLM API</span><span>FastAPI</span><span>React</span><span>Postgres</span></div>
+            <div class="proj-detail"><b>Recruiters learn:</b> full-stack AI product thinking, structured LLM grading. <b>README:</b> grading rubric design. <b>Deploy:</b> full stack with auth.</div>
+          </div>
+          <div class="proj-card">
+            <h4>Multimodal Document Intelligence System</h4>
+            <div class="proj-meta"><span>Difficulty: Portfolio</span>·<span>~5 weeks</span></div>
+            <p>Extracts structured data from scanned invoices/forms combining OCR, layout understanding, and an LLM validator. <b>Architecture:</b> OCR → layout model → LLM extraction → schema validation.</p>
+            <div class="proj-stack"><span>Vision-language model</span><span>OCR</span><span>Pydantic schemas</span></div>
+            <div class="proj-detail"><b>Recruiters learn:</b> multimodal pipeline design and validation discipline. <b>README:</b> extraction accuracy by field. <b>Deploy:</b> batch + on-demand API.</div>
+          </div>
+          <div class="proj-card">
+            <h4>Agentic Data Analyst Platform</h4>
+            <div class="proj-meta"><span>Difficulty: Portfolio</span>·<span>~5 weeks</span></div>
+            <p>Upload a dataset, ask questions in plain English, get charts + a written analysis + caveats about data quality. <b>Architecture:</b> agent with code-execution tool, sandboxed, with guardrails on destructive ops.</p>
+            <div class="proj-stack"><span>Code execution sandbox</span><span>FastAPI</span><span>React</span><span>Plotly</span></div>
+            <div class="proj-detail"><b>Recruiters learn:</b> agent safety design + genuinely useful product judgment. <b>README:</b> sandbox security notes. <b>Deploy:</b> containerized, demo video required.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PHASE 20 ===================== -->
+<div class="station" data-n="20" id="phase20">
+  <div class="phase-card">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 20 · Positioning</span><h3>GitHub & Portfolio</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">A great project with a bad README gets skimmed for 8 seconds and closed. Here's what makes a repo look professional.</p>
+        <div class="tbl-wrap">
+          <table>
+            <tr><th>Element</th><th>What good looks like</th></tr>
+            <tr><td>GitHub structure</td><td>Clear folders (<span class="mono">src/</span>, <span class="mono">tests/</span>, <span class="mono">docs/</span>), no stray notebooks at root.</td></tr>
+            <tr><td>README</td><td>Problem → architecture diagram → demo GIF/video → setup steps → results/eval → what you'd improve next.</td></tr>
+            <tr><td>Architecture diagrams</td><td>One clear diagram beats three paragraphs of prose.</td></tr>
+            <tr><td>Demo video</td><td>60–90 seconds, screen-recorded, shows the thing actually working.</td></tr>
+            <tr><td>Deployment link</td><td>A live URL, even a modest one, outperforms "clone and run locally."</td></tr>
+            <tr><td>Tests & CI</td><td>A handful of real tests + a green GitHub Actions badge signals engineering maturity.</td></tr>
+            <tr><td>Docker</td><td>A working <span class="mono">Dockerfile</span> means anyone can run your project in one command.</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PHASE 21 ===================== -->
+<div class="station" data-n="21" id="phase21">
+  <div class="phase-card">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 21 · Positioning</span><h3>Resume & LinkedIn</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <div class="explainer">
+          <h4>Resume essentials</h4>
+          <div class="ex-row"><b>Skills section</b><span>Group by category (Languages / ML-DL / GenAI / MLOps / Cloud) — don't dump 40 keywords in one line.</span></div>
+          <div class="ex-row"><b>Project bullets</b><span>Lead with the outcome, not the tool. Quantify wherever honestly possible.</span></div>
+          <div class="ex-row"><b>ATS optimization</b><span>Mirror the exact terms from the job description (e.g. "RAG", "vector database", "LangGraph") where genuinely true of your work.</span></div>
+        </div>
+        <div class="tbl-wrap">
+          <table>
+            <tr><th>Weak bullet</th><th>Strong bullet</th></tr>
+            <tr><td>"Made a chatbot using LangChain"</td><td>"Built a RAG chatbot over 12K internal docs with hybrid search + reranking, cutting hallucinated answers from ~22% to ~6% on a 100-question eval set"</td></tr>
+            <tr><td>"Worked with machine learning models"</td><td>"Trained and deployed an XGBoost churn model (0.84 ROC-AUC) served via FastAPI with sub-200ms p95 latency"</td></tr>
+            <tr><td>"Used AWS for deployment"</td><td>"Containerized and deployed the service on AWS ECS with GitHub Actions CI/CD, cutting deploy time from ~30 min to ~4 min"</td></tr>
+          </table>
+        </div>
+        <div class="explainer">
+          <h4>LinkedIn</h4>
+          <div class="ex-row"><b>Profile</b><span>Headline states the specific track you're targeting (e.g. "GenAI/LLM Engineer"), not just "Aspiring Data Scientist."</span></div>
+          <div class="ex-row"><b>Content strategy</b><span>Post project breakdowns and lessons learned, not just certificates — that's what this very roadmap page is a good example of sharing.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PHASE 22 ===================== -->
+<div class="station" data-n="22" id="phase22">
+  <div class="phase-card">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 22 · Positioning</span><h3>Interview Preparation</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <div class="tbl-wrap">
+          <table>
+            <tr><th>Track</th><th>Focus areas</th><th>Sample question</th></tr>
+            <tr><td>Coding</td><td>Python, core DSA, problem solving</td><td>"Given a stream of tokens, implement a sliding-window rate limiter." — a good answer discusses time/space trade-offs and edge cases, not just working code.</td></tr>
+            <tr><td>ML</td><td>Fundamentals, statistics, evaluation</td><td>"Your model has 98% accuracy but is useless in production — why?" — a good answer reaches for class imbalance and the right metric before anything else.</td></tr>
+            <tr><td>Deep Learning</td><td>Neural nets, backprop, CNNs, transformers</td><td>"Walk me through backpropagation for a 2-layer network." — a good answer can actually write the chain-rule steps.</td></tr>
+            <tr><td>GenAI</td><td>LLMs, RAG, embeddings, vector DBs, agents, evaluation</td><td>"Your RAG system hallucinates on 1-in-5 queries — how do you debug it?" — a good answer separates retrieval failure from generation failure before proposing a fix.</td></tr>
+            <tr><td>System Design</td><td>AI system design, RAG architecture, scaling, cost</td><td>"Design a customer-support RAG chatbot for 10K users." — a good answer covers ingestion, retrieval, caching, fallback models and cost controls.</td></tr>
+            <tr><td>Behavioral</td><td>Project explanation, STAR method, communication</td><td>"Tell me about your hardest debugging session." — a good answer is structured (Situation → Task → Action → Result), not a stream of consciousness.</td></tr>
+          </table>
+        </div>
+        <div class="callout callout-info">Prepare a 90-second walkthrough of your best RAG or agent project you can give without slides — it will get asked in almost every technical screen.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PHASE 23 — JOB READY CHECKLIST ===================== -->
+<div class="station" data-n="23" id="phase23">
+  <div class="phase-card open">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 23 · Arrival</span><h3>Job-Ready Checklist</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">The full route, as one checklist. This mirrors your progress bar at the top of the page.</p>
+        <ul class="chk-list" style="grid-template-columns:repeat(auto-fill,minmax(230px,1fr));">
+          <li class="chk-item"><input type="checkbox" data-key="jr-python"><span>Python</span></li>
+          <li class="chk-item"><input type="checkbox" data-key="jr-git"><span>Git / GitHub</span></li>
+          <li class="chk-item"><input type="checkbox" data-key="jr-sql"><span>SQL</span></li>
+          <li class="chk-item"><input type="checkbox" data-key="jr-math"><span>Mathematics</span></li>
+          <li class="chk-item"><input type="checkbox" data-key="jr-ml"><span>Machine Learning</span></li>
+          <li class="chk-item"><input type="checkbox" data-key="jr-dl"><span>Deep Learning</span></li>
+          <li class="chk-item"><input type="checkbox" data-key="jr-pytorch"><span>PyTorch</span></li>
+          <li class="chk-item"><input type="checkbox" data-key="jr-transformers"><span>Transformers</span></li>
+          <li class="chk-item"><input type="checkbox" data-key="jr-llm"><span>LLMs</span></li>
+          <li class="chk-item"><input type="checkbox" data-key="jr-prompt"><span>Prompt Engineering</span></li>
+          <li class="chk-item"><input type="checkbox" data-key="jr-embed"><span>Embeddings</span></li>
+          <li class="chk-item"><input type="checkbox" data-key="jr-vdb"><span>Vector Databases</span></li>
+          <li class="chk-item"><input type="checkbox" data-key="jr-rag"><span>RAG</span></li>
+          <li class="chk-item"><input type="checkbox" data-key="jr-agents"><span>Agents</span></li>
+          <li class="chk-item"><input type="checkbox" data-key="jr-fastapi"><span>FastAPI</span></li>
+          <li class="chk-item"><input type="checkbox" data-key="jr-docker"><span>Docker</span></li>
+          <li class="chk-item"><input type="checkbox" data-key="jr-cloud"><span>Cloud</span></li>
+          <li class="chk-item"><input type="checkbox" data-key="jr-mlops"><span>MLOps / LLMOps</span></li>
+          <li class="chk-item"><input type="checkbox" data-key="jr-eval"><span>AI Evaluation</span></li>
+          <li class="chk-item"><input type="checkbox" data-key="jr-sec"><span>AI Security</span></li>
+          <li class="chk-item"><input type="checkbox" data-key="jr-sysdesign"><span>System Design</span></li>
+          <li class="chk-item"><input type="checkbox" data-key="jr-portfolio"><span>Portfolio</span></li>
+          <li class="chk-item"><input type="checkbox" data-key="jr-resume"><span>Resume</span></li>
+          <li class="chk-item"><input type="checkbox" data-key="jr-interview"><span>Interview Preparation</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    </div> <!-- end route 19-23 -->
+  </div>
+</section>
+
+<!-- ===================== TIMELINES ===================== -->
+<section class="section" style="background:var(--bg-elev);" id="timelines">
+  <div class="container">
+    <div class="sec-head">
+      <span class="sec-kicker">Plan It Out</span>
+      <h2>Roadmap timelines</h2>
+      <p class="sec-desc">Pick the track that matches your real available hours — not your ambition. A realistic 6-month plan beats an abandoned 3-month one.</p>
+    </div>
+    <div class="tl-tabs" id="tlTabs">
+      <button class="tl-tab active" data-tl="fast">3-Month Fast Track (4–6 hrs/day)</button>
+      <button class="tl-tab" data-tl="job">6-Month Job Track (2–4 hrs/day)</button>
+      <button class="tl-tab" data-tl="found">12-Month Strong Foundation (1–2 hrs/day)</button>
+    </div>
+
+    <div class="tl-panel active" data-tlpanel="fast">
+      <div class="month-row"><div class="month-badge">Month 1</div><div class="month-content"><h5>Phases 1–5</h5><p>Python + SE foundations, math essentials, SQL, classical ML, deep learning fundamentals in PyTorch. Ship 2 classical-ML projects.</p></div></div>
+      <div class="month-row"><div class="month-badge">Month 2</div><div class="month-content"><h5>Phases 6–11</h5><p>Transformers, LLM fundamentals, embeddings/vector DBs, RAG, agents, FastAPI backend. Ship a production-style RAG project.</p></div></div>
+      <div class="month-row"><div class="month-badge">Month 3</div><div class="month-content"><h5>Phases 12–23</h5><p>MLOps/Docker, one cloud provider, security, evaluation, system design, then portfolio polish, resume, and interview prep. Ship one portfolio-level project.</p></div></div>
+    </div>
+
+    <div class="tl-panel" data-tlpanel="job">
+      <div class="month-row"><div class="month-badge">Month 1</div><div class="month-content"><h5>Phase 1</h5><p>Python + Python-for-AI + software engineering foundations, done thoroughly, not rushed.</p></div></div>
+      <div class="month-row"><div class="month-badge">Month 2</div><div class="month-content"><h5>Phases 2–3</h5><p>Math for AI + Data/SQL. Comfortable running real analysis on messy data.</p></div></div>
+      <div class="month-row"><div class="month-badge">Month 3</div><div class="month-content"><h5>Phase 4</h5><p>Machine learning in full — classical algorithms, evaluation, 2 solid projects.</p></div></div>
+      <div class="month-row"><div class="month-badge">Month 4</div><div class="month-content"><h5>Phases 5–6</h5><p>Deep learning + transformers. Understand attention well enough to explain it on a whiteboard.</p></div></div>
+      <div class="month-row"><div class="month-badge">Month 5</div><div class="month-content"><h5>Phases 7–11</h5><p>GenAI/LLM engineering, embeddings, RAG, agents, FastAPI. Ship the RAG portfolio project.</p></div></div>
+      <div class="month-row"><div class="month-badge">Month 6</div><div class="month-content"><h5>Phases 12–23</h5><p>MLOps, cloud, security, evaluation, system design, then portfolio/resume/interview prep. Ship one advanced project + start applying.</p></div></div>
+    </div>
+
+    <div class="tl-panel" data-tlpanel="found">
+      <div class="month-row"><div class="month-badge">Mo 1–2</div><div class="month-content"><h5>Phase 1</h5><p>Python fundamentals + software engineering basics — go slow, it pays off later.</p></div></div>
+      <div class="month-row"><div class="month-badge">Mo 3</div><div class="month-content"><h5>Phase 2</h5><p>Math for AI, tied to small coded examples (compute a gradient by hand, then in NumPy).</p></div></div>
+      <div class="month-row"><div class="month-badge">Mo 4</div><div class="month-content"><h5>Phase 3</h5><p>SQL and data handling — practice on a real public dataset.</p></div></div>
+      <div class="month-row"><div class="month-badge">Mo 5–6</div><div class="month-content"><h5>Phase 4</h5><p>Machine learning — this is worth two full months at this pace. Build 2 projects.</p></div></div>
+      <div class="month-row"><div class="month-badge">Mo 7–8</div><div class="month-content"><h5>Phase 5–6</h5><p>Deep learning + transformers, with the NumPy-first mini exercises from Phase 5.</p></div></div>
+      <div class="month-row"><div class="month-badge">Mo 9–10</div><div class="month-content"><h5>Phase 7–10</h5><p>LLMs, embeddings, RAG, agents. Ship your first RAG project.</p></div></div>
+      <div class="month-row"><div class="month-badge">Mo 11</div><div class="month-content"><h5>Phase 11–17</h5><p>Backend, MLOps, cloud, security, evaluation, system design basics.</p></div></div>
+      <div class="month-row"><div class="month-badge">Mo 12</div><div class="month-content"><h5>Phase 18–23</h5><p>Pick a specialization, polish your portfolio, resume, and start interview prep.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== DAILY STUDY PLAN ===================== -->
+<section class="section" id="dailyplan">
+  <div class="container">
+    <div class="sec-head">
+      <span class="sec-kicker">Day To Day</span>
+      <h2>Sample daily study plans</h2>
+      <p class="sec-desc">Follow the loop: <b style="color:var(--text)">Learn → Build → Break → Debug → Deploy → Explain.</b> Reading without building is the single biggest time-waster in self-taught AI learning.</p>
+    </div>
+    <div class="day-grid">
+      <div class="day-card">
+        <h4>1 hour / day</h4>
+        <div class="day-slot"><span>Theory</span><b>20 min</b></div>
+        <div class="day-slot"><span>Coding / project</span><b>30 min</b></div>
+        <div class="day-slot"><span>Revision (spaced)</span><b>10 min</b></div>
+      </div>
+      <div class="day-card">
+        <h4>2 hours / day</h4>
+        <div class="day-slot"><span>Theory + docs</span><b>30 min</b></div>
+        <div class="day-slot"><span>Coding / project</span><b>60 min</b></div>
+        <div class="day-slot"><span>Revision</span><b>15 min</b></div>
+        <div class="day-slot"><span>Reading (docs/papers)</span><b>15 min</b></div>
+      </div>
+      <div class="day-card">
+        <h4>4 hours / day</h4>
+        <div class="day-slot"><span>Theory + docs</span><b>45 min</b></div>
+        <div class="day-slot"><span>Coding / project</span><b>2 hr</b></div>
+        <div class="day-slot"><span>Debugging / breaking things on purpose</span><b>30 min</b></div>
+        <div class="day-slot"><span>Reading (docs/papers)</span><b>20 min</b></div>
+        <div class="day-slot"><span>Revision + interview prep</span><b>25 min</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== WHAT NOT TO LEARN ===================== -->
+<section class="section" style="background:var(--bg-elev);" id="skip">
+  <div class="container">
+    <div class="sec-head">
+      <span class="sec-kicker">Avoid The Trap</span>
+      <h2>Things beginners should NOT waste time on</h2>
+      <p class="sec-desc">The AI ecosystem is enormous and moves fast — trying to keep up with all of it is how people burn out before ever shipping anything.</p>
+    </div>
+    <div class="cards">
+      <div class="card"><h4>Learning 10 programming languages</h4><p>Python takes you further in AI than fluency in five languages ever will. Depth beats breadth here.</p></div>
+      <div class="card"><h4>Mastering every cloud provider</h4><p>Pick one (Phase 14), go deep, and only skim the others.</p></div>
+      <div class="card"><h4>Learning every AI framework</h4><p>LangChain, LlamaIndex, LangGraph, CrewAI, and more launch constantly — pick one, understand the concepts, transfer them later.</p></div>
+      <div class="card"><h4>Collecting certificates</h4><p>A stack of course-completion certificates rarely moves a hiring decision on its own — see the section below.</p></div>
+      <div class="card"><h4>Watching endless tutorials</h4><p>Passive watching feels like progress and isn't. Cap tutorial time and spend the rest building.</p></div>
+      <div class="card"><h4>Building only notebooks</h4><p>A notebook that only you can run isn't a portfolio piece — ship it as a script, API, or app.</p></div>
+      <div class="card"><h4>Copy-pasting projects</h4><p>If you can't explain every architectural decision in an interview, the project won't hold up under questioning.</p></div>
+      <div class="card"><h4>Chasing every new framework release</h4><p>New tools launch weekly. Fundamentals (Phases 1–10) transfer across all of them; chasing hype does not.</p></div>
+      <div class="card"><h4>Training giant LLMs from scratch</h4><p>Unnecessary for almost every real job. Fine-tuning (LoRA/QLoRA) and RAG solve the vast majority of practical problems.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CERTIFICATIONS ===================== -->
+<section class="section" id="certs">
+  <div class="container">
+    <div class="sec-head">
+      <span class="sec-kicker">Honest Take</span>
+      <h2>Certifications: what actually helps</h2>
+    </div>
+    <div class="wrap-narrow">
+      <p style="color:var(--text-dim);font-size:14.5px;">Certifications are supporting evidence, not the main proof. A cloud certification (e.g. AWS Certified AI Practitioner / ML Specialty) can help pass an initial resume screen or show baseline cloud literacy, especially if you have no work experience. Vendor "prompt engineering" or "intro to AI" certificates from short courses carry very little weight on their own.</p>
+      <p style="color:var(--text-dim);font-size:14.5px;"><b style="color:var(--text)">Why projects matter more:</b> for most AI Engineering roles, hiring managers care whether you can debug a retrieval pipeline at 11pm, not whether you hold a badge. A working, well-documented project demonstrates judgment a certificate can't.</p>
+      <p style="color:var(--text-dim);font-size:14.5px;"><b style="color:var(--text)">How to balance them:</b> treat one relevant cloud certification as optional supporting evidence once your portfolio is solid — never as a substitute for it, and never at the cost of project time.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== RESOURCES ===================== -->
+<section class="section" style="background:var(--bg-elev);" id="resources">
+  <div class="container">
+    <div class="sec-head">
+      <span class="sec-kicker">Curated</span>
+      <h2>Recommended resources</h2>
+      <p class="sec-desc">Prefer official documentation over blog posts — docs stay accurate as APIs change; tutorials go stale within months.</p>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>Category</th><th>Where to go</th></tr>
+        <tr><td>Python</td><td>Official Python docs; "Automate the Boring Stuff with Python" for beginners; real-world codebases on GitHub for reading practice.</td></tr>
+        <tr><td>Mathematics</td><td>3Blue1Brown's linear algebra & neural network video series for intuition; "Mathematics for Machine Learning" (free book) for depth.</td></tr>
+        <tr><td>ML</td><td>scikit-learn's own documentation and examples; "An Introduction to Statistical Learning" (free book).</td></tr>
+        <tr><td>Deep Learning</td><td>PyTorch official tutorials; fast.ai's practical deep learning course; Andrej Karpathy's "Neural Networks: Zero to Hero" series.</td></tr>
+        <tr><td>Transformers</td><td>The "Attention Is All You Need" paper itself; Hugging Face's NLP course; Jay Alammar's "The Illustrated Transformer."</td></tr>
+        <tr><td>LLMs & Prompting</td><td>Official docs for whichever provider you use (Anthropic, OpenAI, Google) — check them regularly, they change fast.</td></tr>
+        <tr><td>RAG</td><td>LlamaIndex and LangChain's own RAG documentation and cookbooks.</td></tr>
+        <tr><td>Agents</td><td>LangGraph documentation; provider-specific agent/tool-use guides.</td></tr>
+        <tr><td>MLOps</td><td>MLflow docs; "Designing Machine Learning Systems" by Chip Huyen.</td></tr>
+        <tr><td>Cloud</td><td>AWS Skill Builder's free tier content; official AWS Well-Architected docs.</td></tr>
+        <tr><td>System Design</td><td>"Designing Data-Intensive Applications" by Martin Kleppmann for the underlying principles.</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PAPERS ===================== -->
+<section class="section" id="papers">
+  <div class="container">
+    <div class="sec-head">
+      <span class="sec-kicker">Read The Originals</span>
+      <h2>Papers every AI Engineer should know</h2>
+      <p class="sec-desc">You don't need to memorize equations — you need to recognize the idea each paper introduced and why it mattered.</p>
+    </div>
+    <div class="cards">
+      <div class="card"><h4>Attention Is All You Need <span class="tag tag-should" style="float:right;">Med</span></h4><p>Introduced the transformer architecture itself — the single most important paper on this list. Understand self-attention, not the exact hyperparameters.</p></div>
+      <div class="card"><h4>Word2Vec <span class="tag tag-nice" style="float:right;">Easy</span></h4><p>Showed that word meaning could be captured as vector arithmetic — the conceptual root of all modern embeddings.</p></div>
+      <div class="card"><h4>BERT <span class="tag tag-should" style="float:right;">Med</span></h4><p>Introduced bidirectional pretraining for language understanding — understand masked-language-modeling, skip exact training details.</p></div>
+      <div class="card"><h4>GPT (foundational language modeling work) <span class="tag tag-should" style="float:right;">Med</span></h4><p>Established decoder-only, autoregressive pretraining at scale as the dominant recipe for modern LLMs.</p></div>
+      <div class="card"><h4>ResNet <span class="tag tag-nice" style="float:right;">Easy</span></h4><p>Introduced residual connections, solving the vanishing-gradient problem in deep networks — the idea still underlies transformer blocks today.</p></div>
+      <div class="card"><h4>RAG (retrieval-augmented generation) <span class="tag tag-should" style="float:right;">Med</span></h4><p>Formalized combining retrieval with generation — the direct ancestor of everything in Phase 9. Understand the motivation, not the exact benchmark numbers.</p></div>
+      <div class="card"><h4>LoRA <span class="tag tag-should" style="float:right;">Med</span></h4><p>Showed you can fine-tune huge models by training small low-rank adapter matrices — what makes Phase-19-style fine-tuning affordable.</p></div>
+      <div class="card"><h4>RLHF-related foundational work <span class="tag tag-nice" style="float:right;">Hard</span></h4><p>Introduced using human preference data to align model behavior — the idea behind why modern chat models "feel" helpful and safe. Understand the concept, not the RL math.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FINAL SECTION ===================== -->
+<section class="section" style="background:var(--bg-elev);">
+  <div class="container">
+    <div class="sec-head" style="max-width:820px;">
+      <span class="sec-kicker">Ready Check</span>
+      <h2>If you can build these, you're ready to apply</h2>
+    </div>
+    <ul class="chk-list" style="grid-template-columns:repeat(auto-fill,minmax(260px,1fr));">
+      <li class="chk-item"><span>Explain how attention works, on a whiteboard, without notes.</span></li>
+      <li class="chk-item"><span>Build a RAG pipeline from raw documents to a cited answer, from scratch.</span></li>
+      <li class="chk-item"><span>Debug why a RAG system hallucinated on a specific query.</span></li>
+      <li class="chk-item"><span>Design and reason about a basic agent's tool loop and failure modes.</span></li>
+      <li class="chk-item"><span>Wrap a model behind a FastAPI service with streaming and rate limiting.</span></li>
+      <li class="chk-item"><span>Containerize a project and get it live behind a real URL.</span></li>
+      <li class="chk-item"><span>Write an evaluation script that reports real numbers, not vibes.</span></li>
+      <li class="chk-item"><span>Explain, in plain English, three trade-offs in your biggest project.</span></li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p class="golden-rule">The Golden Rule: <span style="color:var(--accent)">"Don't just learn AI. Build AI systems."</span></p>
+    <p style="color:var(--text-dim);max-width:560px;margin:0 auto;font-size:14.5px;">AI Engineering is a continuous-learning field — the frameworks in this roadmap will look different in a year, but attention, gradients, evaluation and good engineering judgment won't go out of date. Ship something small this week.</p>
+    <p class="fine">Decode AI Community Resource · Authored by Himanshu Pandey · Verify current model names, pricing and framework APIs against official documentation.</p>
+  </div>
+</footer>
+
+<button id="backTop" class="icon-btn btn-primary" style="border-radius:50%;width:44px;height:44px;" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="m18 15-6-6-6 6"/></svg>
+</button>
+
+</main>
+
+<script>
+/* ============ PHASE TOGGLE ============ */
+function togglePhase(headEl){
+  const card = headEl.closest('.phase-card');
+  if(card) card.classList.toggle('open');
+}
+
+/* ============ SEARCH ============ */
+function buildIndex(){
+  const items = [];
+  document.querySelectorAll('.station[id], section[id]').forEach(container => {
+    const id = container.id;
+    if(!id) return;
+    const h3 = container.querySelector('.phase-title h3');
+    const h2 = container.querySelector('.sec-head h2');
+    const phaseLabel = (h3 || h2) ? (h3||h2).textContent.trim() : id;
+    const seen = new Set();
+    container.querySelectorAll('.topic h4, .explainer h4, .card h4, .proj-card h4, .pill, td b').forEach(el=>{
+      let t = el.textContent.replace(/[🟢🟡🔵🔴]/g,'').trim();
+      if(t && t.length>1 && !seen.has(t.toLowerCase())){ seen.add(t.toLowerCase()); items.push({text:t, phase:phaseLabel, id:id}); }
+    });
+    items.push({text:phaseLabel, phase:phaseLabel, id:id});
+  });
+  return items;
+}
+let searchIndex = null;
+const searchInput = document.getElementById('searchInput');
+const searchResults = document.getElementById('searchResults');
+searchInput.addEventListener('input', ()=>{
+  if(!searchIndex) searchIndex = buildIndex();
+  const q = searchInput.value.trim().toLowerCase();
+  if(!q){ searchResults.classList.remove('show'); searchResults.innerHTML=''; return; }
+  const matches = searchIndex.filter(it=>it.text.toLowerCase().includes(q)).slice(0,18);
+  if(matches.length===0){
+    searchResults.innerHTML = '<div class="sr-empty">No matches. Try another term.</div>';
+  } else {
+    searchResults.innerHTML = matches.map(m=>
+      '<a href="#" onclick="goToResult(\''+m.id+'\');return false;"><span class="sr-phase">'+m.phase.replace(/</g,'&lt;')+'</span><br>'+m.text.replace(/</g,'&lt;')+'</a>'
+    ).join('');
+  }
+  searchResults.classList.add('show');
+});
+document.addEventListener('click', (e)=>{
+  if(!e.target.closest('.search-box') && !e.target.closest('#searchResults')){
+    searchResults.classList.remove('show');
+  }
+});
+function goToResult(id){
+  searchResults.classList.remove('show');
+  searchInput.value = '';
+  const el = document.getElementById(id);
+  if(!el) return;
+  const card = el.classList && el.classList.contains('phase-card') ? el : el.querySelector('.phase-card');
+  if(card) card.classList.add('open');
+  el.scrollIntoView({behavior:'smooth', block:'start'});
+  el.classList.add('hl-target');
+  setTimeout(()=>el.classList.remove('hl-target'), 1700);
+}
+document.querySelectorAll('.nav-link').forEach(a=>{
+  a.addEventListener('click', ()=>{
+    const id = a.getAttribute('href').slice(1);
+    setTimeout(()=>{
+      const el = document.getElementById(id);
+      const card = el && el.querySelector('.phase-card');
+      if(card) card.classList.add('open');
+    }, 60);
+  });
+});
+
+/* ============ CHECKLIST + PROGRESS (localStorage) ============ */
+const STORAGE_KEY = 'ai_roadmap_progress_v1';
+function loadProgress(){ try{ return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }catch(e){ return {}; } }
+function saveProgress(obj){ try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(obj)); }catch(e){} }
+const checkboxes = Array.from(document.querySelectorAll('.chk-item input[type=checkbox]'));
+let progress = loadProgress();
+function updateProgressUI(){
+  const total = checkboxes.length;
+  const checked = checkboxes.filter(cb=>cb.checked).length;
+  const pct = total ? Math.round((checked/total)*100) : 0;
+  const pctEl = document.getElementById('progressPct');
+  const countEl = document.getElementById('progressCount');
+  const barEl = document.getElementById('miniBarFill');
+  if(pctEl) pctEl.textContent = pct+'%';
+  if(countEl) countEl.textContent = '('+checked+' / '+total+' topics)';
+  if(barEl) barEl.style.width = pct+'%';
+}
+checkboxes.forEach(cb=>{
+  const key = cb.dataset.key;
+  if(key && progress[key]){
+    cb.checked = true;
+    cb.closest('.chk-item').classList.add('checked');
+  }
+  cb.addEventListener('change', ()=>{
+    if(!key) return;
+    progress[key] = cb.checked;
+    cb.closest('.chk-item').classList.toggle('checked', cb.checked);
+    saveProgress(progress);
+    updateProgressUI();
+  });
+});
+updateProgressUI();
+const resetBtn = document.getElementById('resetProgress');
+if(resetBtn){
+  resetBtn.addEventListener('click', ()=>{
+    if(!confirm('Reset all checklist progress? This cannot be undone.')) return;
+    progress = {};
+    saveProgress(progress);
+    checkboxes.forEach(cb=>{ cb.checked = false; cb.closest('.chk-item').classList.remove('checked'); });
+    updateProgressUI();
+  });
+}
+
+/* ============ THEME TOGGLE ============ */
+const THEME_KEY = 'ai_roadmap_theme';
+const moonPath = '<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>';
+const sunPath = '<circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M3 12h2M19 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/>';
+function applyTheme(t){
+  document.body.setAttribute('data-theme', t);
+  const icon = document.getElementById('themeIcon');
+  if(icon) icon.innerHTML = t === 'light' ? sunPath : moonPath;
+}
+let savedTheme = 'dark';
+try{ savedTheme = localStorage.getItem(THEME_KEY) || 'dark'; }catch(e){}
+applyTheme(savedTheme);
+const themeToggle = document.getElementById('themeToggle');
+if(themeToggle){
+  themeToggle.addEventListener('click', ()=>{
+    const cur = document.body.getAttribute('data-theme');
+    const next = cur === 'dark' ? 'light' : 'dark';
+    applyTheme(next);
+    try{ localStorage.setItem(THEME_KEY, next); }catch(e){}
+  });
+}
+
+/* ============ PRINT ============ */
+const printBtn = document.getElementById('printBtn');
+if(printBtn) printBtn.addEventListener('click', ()=>window.print());
+
+/* ============ PROJECT TABS ============ */
+document.querySelectorAll('.proj-tab').forEach(tab=>{
+  tab.addEventListener('click', ()=>{
+    document.querySelectorAll('.proj-tab').forEach(t=>t.classList.remove('active'));
+    tab.classList.add('active');
+    const key = tab.dataset.tab;
+    document.querySelectorAll('.proj-panel').forEach(p=>p.classList.toggle('active', p.dataset.panel === key));
+  });
+});
+
+/* ============ TIMELINE TABS ============ */
+document.querySelectorAll('.tl-tab').forEach(tab=>{
+  tab.addEventListener('click', ()=>{
+    document.querySelectorAll('.tl-tab').forEach(t=>t.classList.remove('active'));
+    tab.classList.add('active');
+    const key = tab.dataset.tl;
+    document.querySelectorAll('.tl-panel').forEach(p=>p.classList.toggle('active', p.dataset.tlpanel === key));
+  });
+});
+
+/* ============ SCROLL PROGRESS + BACK TO TOP ============ */
+const progressFill = document.getElementById('progressFill');
+const backTop = document.getElementById('backTop');
+window.addEventListener('scroll', ()=>{
+  const doc = document.documentElement;
+  const scrollTop = doc.scrollTop || document.body.scrollTop;
+  const scrollHeight = (doc.scrollHeight || document.body.scrollHeight) - doc.clientHeight;
+  const pct = scrollHeight > 0 ? (scrollTop/scrollHeight*100) : 0;
+  if(progressFill) progressFill.style.width = pct + '%';
+  if(backTop) backTop.classList.toggle('show', scrollTop > 700);
+}, {passive:true});
+
+/* ============ OPEN PHASE FROM URL HASH ============ */
+window.addEventListener('DOMContentLoaded', ()=>{
+  if(location.hash){
+    const el = document.querySelector(location.hash);
+    if(el){ const card = el.querySelector('.phase-card'); if(card) card.classList.add('open'); }
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Learning Roadmaps — Decode AI</title>
+  <meta name="description" content="Structured career roadmaps for AI Engineers, Machine Learning Engineers, and Generative AI Specialists. Authored by Himanshu Pandey.">
+  
+  <link rel="icon" href="assets/favicon.png" type="image/png">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Sticky Navbar -->
+  <header class="navbar">
+    <div class="container navbar-container">
+      <a href="index.html" class="brand-logo">
+        <img src="assets/logo.png" alt="Decode AI Logo" class="logo-img js-logo-img">
+        <div>
+          <span class="brand-text">DECODE AI</span>
+          <span class="brand-tagline-sub">LEARN AI. BUILD FUTURE.</span>
+        </div>
+      </a>
+
+      <nav>
+        <ul id="nav-menu" class="nav-menu">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="resources.html" class="nav-link">Resources</a></li>
+          <li><a href="roadmaps.html" class="nav-link active">Roadmaps</a></li>
+          <li><a href="notes.html" class="nav-link">Notes</a></li>
+          <li><a href="community.html" class="nav-link">Community</a></li>
+          <li><a href="contribute.html" class="nav-link">Contribute</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="btn-search-trigger js-open-search" aria-label="Search Knowledge Base">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <span>Search</span>
+          <span class="kbd-shortcut">⌘K</span>
+        </button>
+
+        <button class="btn-icon js-theme-toggle" aria-label="Toggle Theme">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle></svg>
+        </button>
+
+        <button id="mobile-menu-toggle" class="mobile-toggle" aria-label="Toggle Navigation Menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Interactive Roadmap Section -->
+  <main class="section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">Career Architecture</div>
+        <h1>AI Engineer Career Roadmap 2026</h1>
+        <p>A complete 23-phase interactive guide from Python fundamentals to production AI systems. Authored by <strong>Himanshu Pandey</strong>.</p>
+        
+        <div style="margin-top: 1.5rem;">
+          <a href="resource-detail.html?slug=ai-engineer-roadmap" class="btn btn-primary btn-lg">Launch Full 23-Phase Interactive Guide ↗</a>
+        </div>
+      </div>
+
+      <!-- Embedded Full Interactive Roadmap Viewer -->
+      <div style="margin-top: 2.5rem; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border-color); background: var(--bg-surface);">
+        <iframe src="content/html/ai-engineer-roadmap-2026.html" style="width: 100%; height: 850px; border: none;" title="23-Phase AI Engineer Roadmap 2026"></iframe>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <div>© 2026 DECODE AI. Founded by <a href="https://www.linkedin.com/in/himanshu-pandey12" target="_blank">Himanshu Pandey</a>. Built by learners, for learners.</div>
+        <div class="social-links">
+          <a href="https://github.com/HimanshuPandey216" target="_blank" aria-label="GitHub">GitHub</a>
+          <a href="https://www.linkedin.com/in/himanshu-pandey12" target="_blank" aria-label="LinkedIn">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/search.js"></script>
+  <script src="js/resources.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
