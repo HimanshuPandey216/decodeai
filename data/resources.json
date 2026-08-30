@@ -18,6 +18,24 @@
     "estimatedReadingTime": "25 min read"
   },
   {
+    "id": "res-001b",
+    "title": "Machine Learning Engineer Roadmap 2026 — Beginner to Job-Ready",
+    "slug": "ml-engineer-roadmap",
+    "description": "A complete, practical 25-phase roadmap for becoming a job-ready Machine Learning Engineer in 2026 — math, classical ML, deep learning, PyTorch, CV/NLP, MLOps, and system design.",
+    "category": "Machine Learning",
+    "subcategory": "Career Paths",
+    "level": "Beginner",
+    "type": "ROADMAP",
+    "author": "Himanshu Pandey",
+    "contributor": "Himanshu Pandey",
+    "tags": ["Machine Learning", "ML Engineer", "Roadmap", "PyTorch", "MLOps", "2026"],
+    "date": "2026-08-30",
+    "featured": true,
+    "file": "/content/html/ml-engineer-roadmap-2026.html",
+    "externalLink": null,
+    "estimatedReadingTime": "30 min read"
+  },
+  {
     "id": "res-002",
     "title": "Transformers Architecture Explained: From QKV to Multi-Head Attention",
     "slug": "transformers-explained",

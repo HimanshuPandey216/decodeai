@@ -4,12 +4,46 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Interactive Learning Roadmaps — Decode AI</title>
-  <meta name="description" content="Structured career roadmaps for AI Engineers, Machine Learning Engineers, and Generative AI Specialists. Authored by Himanshu Pandey.">
+  <meta name="description" content="Structured career roadmaps for AI Engineers and Machine Learning Engineers. Authored by Himanshu Pandey.">
   
   <link rel="icon" href="assets/favicon.png" type="image/png">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/responsive.css">
+  <style>
+    .roadmap-selector {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin: 2rem 0;
+      flex-wrap: wrap;
+    }
+    .roadmap-tab {
+      padding: 0.85rem 1.75rem;
+      border-radius: var(--radius-full);
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      transition: all var(--transition-fast);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .roadmap-tab:hover {
+      border-color: var(--border-hover);
+      color: var(--text-primary);
+      transform: translateY(-2px);
+    }
+    .roadmap-tab.active {
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+      color: #070B12;
+      border-color: transparent;
+      box-shadow: var(--shadow-glow);
+    }
+  </style>
 </head>
 <body>
 
@@ -55,19 +89,29 @@
   <!-- Interactive Roadmap Section -->
   <main class="section">
     <div class="container">
-      <div class="section-header">
+      <div class="section-header" style="margin-bottom: 1.5rem;">
         <div class="section-badge">Career Architecture</div>
-        <h1>AI Engineer Career Roadmap 2026</h1>
-        <p>A complete 23-phase interactive guide from Python fundamentals to production AI systems. Authored by <strong>Himanshu Pandey</strong>.</p>
+        <h1 id="roadmap-main-title">AI Engineer Career Roadmap 2026</h1>
+        <p id="roadmap-main-desc">A complete 23-phase interactive guide from Python fundamentals to production AI systems. Authored by <strong>Himanshu Pandey</strong>.</p>
         
-        <div style="margin-top: 1.5rem;">
-          <a href="resource-detail.html?slug=ai-engineer-roadmap" class="btn btn-primary btn-lg">Launch Full 23-Phase Interactive Guide ↗</a>
+        <!-- Roadmap Selector Tabs -->
+        <div class="roadmap-selector">
+          <button id="tab-ai-engineer" class="roadmap-tab active" onclick="switchRoadmap('ai-engineer')">
+            🤖 AI Engineer Roadmap (23-Phase)
+          </button>
+          <button id="tab-ml-engineer" class="roadmap-tab" onclick="switchRoadmap('ml-engineer')">
+            ⚙️ Machine Learning Engineer Roadmap (25-Phase)
+          </button>
+        </div>
+
+        <div style="margin-top: 1rem;">
+          <a id="roadmap-launch-btn" href="resource-detail.html?slug=ai-engineer-roadmap" class="btn btn-primary btn-lg">Launch Full Interactive Guide ↗</a>
         </div>
       </div>
 
       <!-- Embedded Full Interactive Roadmap Viewer -->
-      <div style="margin-top: 2.5rem; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border-color); background: var(--bg-surface);">
-        <iframe src="content/html/ai-engineer-roadmap-2026.html" style="width: 100%; height: 850px; border: none;" title="23-Phase AI Engineer Roadmap 2026"></iframe>
+      <div style="margin-top: 2rem; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border-color); background: var(--bg-surface);">
+        <iframe id="roadmap-iframe" src="content/html/ai-engineer-roadmap-2026.html" style="width: 100%; height: 880px; border: none;" title="Career Roadmap 2026"></iframe>
       </div>
     </div>
   </main>
@@ -91,5 +135,42 @@
   <script src="js/search.js"></script>
   <script src="js/resources.js"></script>
   <script src="js/app.js"></script>
+  <script>
+    function switchRoadmap(id) {
+      const titleEl = document.getElementById('roadmap-main-title');
+      const descEl = document.getElementById('roadmap-main-desc');
+      const btnEl = document.getElementById('roadmap-launch-btn');
+      const iframeEl = document.getElementById('roadmap-iframe');
+      const tabAi = document.getElementById('tab-ai-engineer');
+      const tabMl = document.getElementById('tab-ml-engineer');
+
+      if (id === 'ml-engineer' || id === 'ml') {
+        tabAi.classList.remove('active');
+        tabMl.classList.add('active');
+
+        titleEl.textContent = 'Machine Learning Engineer Roadmap 2026';
+        descEl.innerHTML = 'A complete 25-phase interactive guide covering math rigor, classical ML, deep learning, PyTorch, CV/NLP, MLOps, and system design. Authored by <strong>Himanshu Pandey</strong>.';
+        btnEl.href = 'resource-detail.html?slug=ml-engineer-roadmap';
+        iframeEl.src = 'content/html/ml-engineer-roadmap-2026.html';
+      } else {
+        tabMl.classList.remove('active');
+        tabAi.classList.add('active');
+
+        titleEl.textContent = 'AI Engineer Career Roadmap 2026';
+        descEl.innerHTML = 'A complete 23-phase interactive guide from Python fundamentals to production AI systems, LLMs, RAG, and Agents. Authored by <strong>Himanshu Pandey</strong>.';
+        btnEl.href = 'resource-detail.html?slug=ai-engineer-roadmap';
+        iframeEl.src = 'content/html/ai-engineer-roadmap-2026.html';
+      }
+    }
+
+    // Auto-detect URL query parameter (e.g. roadmaps.html?id=ml-engineer)
+    document.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const id = urlParams.get('id') || urlParams.get('slug');
+      if (id) {
+        switchRoadmap(id);
+      }
+    });
+  </script>
 </body>
 </html>
