@@ -686,6 +686,750 @@ footer .fine{color:var(--text-faint); font-size:12.5px; margin-top:26px;}
     </div>
   </div>
 </div>
+<!-- ===================== PHASE 6 ===================== -->
+<div class="station" data-n="6" id="phase6">
+  <div class="phase-card">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 6 · Classical ML</span><h3>Regression Algorithms</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">Predicting a continuous number — the simplest place to build real evaluation instincts before adding complexity.</p>
+        <div class="pill-row">
+          <span class="pill">Linear Regression 🟢</span><span class="pill">Multiple Linear Regression 🟢</span><span class="pill">Polynomial Regression 🟡</span>
+          <span class="pill">Ridge 🟢</span><span class="pill">Lasso 🟢</span><span class="pill">Elastic Net 🟡</span>
+        </div>
+        <div class="explainer">
+          <h4>Assumptions worth knowing (for Linear Regression)</h4>
+          <div class="ex-row"><b>Linearity</b><span>Relationship between features and target is approximately linear.</span></div>
+          <div class="ex-row"><b>Independence & homoscedasticity</b><span>Errors are independent, with roughly constant variance across predictions.</span></div>
+          <div class="ex-row"><b>No severe multicollinearity</b><span>Highly correlated features make coefficients unstable and hard to interpret.</span></div>
+        </div>
+        <div class="tbl-wrap">
+          <table><tr><th>Metric</th><th>What it tells you</th></tr>
+            <tr><td>MAE</td><td>Average absolute error, in the target's own units — robust to outliers.</td></tr>
+            <tr><td>MSE / RMSE</td><td>Penalizes large errors more heavily; RMSE is back in the target's units.</td></tr>
+            <tr><td>R²</td><td>Proportion of variance explained — 0 means "no better than predicting the mean."</td></tr>
+          </table>
+        </div>
+        <div class="mm-row"><b>Common mistake</b><span>Reporting R² alone. A high R² can still hide a model that's terrible on the exact cases that matter most (e.g. high-value customers).</span></div>
+        <div class="callout callout-info"><b>Practical exercise:</b> fit plain Linear Regression, then Ridge, then Lasso on the same dataset with a few collinear features — watch how the coefficients change and connect that back to the regularization theory.</div>
+        <ul class="chk-list">
+          <li class="chk-item"><input type="checkbox" data-key="p6-linear"><span>Linear & multiple regression <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p6-reg"><span>Ridge / Lasso / Elastic Net <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p6-metrics"><span>MAE, MSE, RMSE, R² <span class="tag tag-must">🟢</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PHASE 7 ===================== -->
+<div class="station" data-n="7" id="phase7">
+  <div class="phase-card">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 7 · Classical ML</span><h3>Classification Algorithms</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">Predicting a category — where evaluation gets genuinely tricky, especially once classes are imbalanced.</p>
+        <div class="pill-row">
+          <span class="pill">Logistic Regression 🟢</span><span class="pill">KNN 🟡</span><span class="pill">Naive Bayes 🟡</span><span class="pill">SVM 🟡</span>
+          <span class="pill">Decision Trees 🟢</span><span class="pill">Random Forest 🟢</span><span class="pill">Gradient Boosting 🟢</span>
+          <span class="pill">XGBoost 🟢</span><span class="pill">LightGBM 🟡</span><span class="pill">CatBoost 🔵</span>
+        </div>
+        <div class="tbl-wrap">
+          <table><tr><th>Metric</th><th>Use when</th></tr>
+            <tr><td>Accuracy</td><td>Classes are roughly balanced — otherwise misleading.</td></tr>
+            <tr><td>Precision</td><td>False positives are expensive (e.g. flagging a legit transaction as fraud).</td></tr>
+            <tr><td>Recall</td><td>False negatives are expensive (e.g. missing an actual fraud case).</td></tr>
+            <tr><td>F1-score</td><td>You need a single number balancing precision & recall.</td></tr>
+            <tr><td>ROC-AUC</td><td>Ranking quality across all thresholds — less useful under heavy imbalance.</td></tr>
+            <tr><td>PR-AUC</td><td>Better than ROC-AUC when the positive class is rare.</td></tr>
+            <tr><td>Confusion Matrix</td><td>Always look at this before trusting any single metric.</td></tr>
+          </table>
+        </div>
+        <div class="callout callout-warn"><b>Class imbalance:</b> a fraud model predicting "not fraud" every time can hit 99% accuracy while being completely useless. This is where PR-AUC, class weights, and resampling (Phase 8) become essential, not optional.</div>
+        <div class="mm-row"><b>Common mistake</b><span>Defaulting to accuracy as the headline metric on an imbalanced dataset without even checking the class distribution first.</span></div>
+        <div class="explainer">
+          <h4>Practical exercise</h4>
+          <div class="ex-row"><b>Task</b><span>Train Logistic Regression, Random Forest, and XGBoost on the same imbalanced dataset; compare confusion matrices, not just one aggregate metric.</span></div>
+        </div>
+        <ul class="chk-list">
+          <li class="chk-item"><input type="checkbox" data-key="p7-algos"><span>Core classification algorithms <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p7-boost"><span>Gradient boosting family (XGBoost at minimum) <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p7-metrics"><span>Full classification metric set <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p7-imbalance"><span>Class imbalance awareness <span class="tag tag-must">🟢</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PHASE 8 ===================== -->
+<div class="station" data-n="8" id="phase8">
+  <div class="phase-card">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 8 · Classical ML</span><h3>Feature Engineering and Model Improvement</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">This is usually where the real performance gains come from — not swapping algorithms.</p>
+        <div class="topic-grid">
+          <div class="topic"><div class="topic-top"><h4>Scaling</h4><span class="tag tag-must">🟢</span></div><p>Standardization (z-score) vs normalization (min-max) — required for distance/gradient-based models.</p></div>
+          <div class="topic"><div class="topic-top"><h4>Encoding categoricals</h4><span class="tag tag-must">🟢</span></div><p>One-hot for low-cardinality, label/target encoding for high-cardinality — with leakage caution on target encoding.</p></div>
+          <div class="topic"><div class="topic-top"><h4>Feature selection</h4><span class="tag tag-should">🟡</span></div><p>Removing noisy features improves both performance and interpretability.</p></div>
+          <div class="topic"><div class="topic-top"><h4>Feature importance</h4><span class="tag tag-must">🟢</span></div><p>Tree-based importances, permutation importance — first line of model debugging.</p></div>
+          <div class="topic"><div class="topic-top"><h4>PCA</h4><span class="tag tag-should">🟡</span></div><p>Dimensionality reduction — useful, but hurts interpretability.</p></div>
+        </div>
+        <div class="explainer">
+          <h4>Handling imbalanced datasets</h4>
+          <div class="ex-row"><b>Class weights</b><span>Cheapest fix — penalize misclassifying the minority class more heavily during training.</span></div>
+          <div class="ex-row"><b>Oversampling / SMOTE</b><span>Synthesize minority-class examples — apply only on the training fold, never before splitting.</span></div>
+        </div>
+        <div class="explainer">
+          <h4>Hyperparameter tuning</h4>
+          <div class="ex-row"><b>Grid Search</b><span>Exhaustive — fine for small search spaces.</span></div>
+          <div class="ex-row"><b>Random Search</b><span>Often finds a near-optimal config faster than grid search on large spaces.</span></div>
+          <div class="ex-row"><b>Bayesian optimization</b><span>Uses past results to choose the next config intelligently (e.g. Optuna) — the production default.</span></div>
+        </div>
+        <div class="mm-row"><b>Common mistake</b><span>Applying SMOTE before the train/test split — it leaks synthetic near-duplicates of test-set patterns into training.</span></div>
+        <ul class="chk-list">
+          <li class="chk-item"><input type="checkbox" data-key="p8-scale"><span>Scaling & encoding <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p8-select"><span>Feature selection & importance <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p8-imbalance"><span>Class weights & SMOTE <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p8-tune"><span>Hyperparameter tuning (all 3 methods) <span class="tag tag-must">🟢</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PHASE 9 ===================== -->
+<div class="station" data-n="9" id="phase9">
+  <div class="phase-card">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 9 · Classical ML</span><h3>Unsupervised Learning</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">No labels, just structure. Less commonly the whole job, but shows up constantly inside bigger pipelines (segmentation, anomaly flags, visualization).</p>
+        <div class="pill-row">
+          <span class="pill">K-Means 🟢</span><span class="pill">Hierarchical clustering 🔵</span><span class="pill">DBSCAN 🟡</span>
+          <span class="pill">PCA 🟢</span><span class="pill">t-SNE 🔵</span><span class="pill">UMAP 🔵</span><span class="pill">Anomaly detection 🟡</span>
+        </div>
+        <div class="explainer">
+          <div class="ex-row"><b>K-Means</b><span>Fast, simple, needs you to choose K in advance — use the elbow method or silhouette score.</span></div>
+          <div class="ex-row"><b>DBSCAN</b><span>Finds arbitrarily-shaped clusters and flags outliers automatically — no need to pre-specify cluster count.</span></div>
+          <div class="ex-row"><b>t-SNE / UMAP</b><span>For visualizing high-dimensional embeddings in 2D — good for exploration, not for feeding into a downstream model.</span></div>
+        </div>
+        <div class="mm-row"><b>Common mistake</b><span>Treating t-SNE cluster distances as meaningful — t-SNE distorts global distances by design; only local neighborhoods are trustworthy.</span></div>
+        <ul class="chk-list">
+          <li class="chk-item"><input type="checkbox" data-key="p9-cluster"><span>K-Means & DBSCAN <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p9-viz"><span>PCA / t-SNE / UMAP for visualization <span class="tag tag-should">🟡</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p9-anomaly"><span>Anomaly detection basics <span class="tag tag-should">🟡</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ===================== PHASE 10 ===================== -->
+<div class="station" data-n="10" id="phase10">
+  <div class="phase-card">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 10 · Proof of Work</span><h3>End-to-End Classical ML Projects</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">Stop here and actually build 3–4 full projects before moving to deep learning. This is where Phases 5–9 turn into instinct instead of theory.</p>
+
+        <h4 style="margin:18px 0 4px;font-size:15px;">Beginner</h4>
+        <div class="proj-panel active" style="display:grid;">
+          <div class="proj-card">
+            <h4>Customer Churn Prediction</h4>
+            <div class="proj-meta"><span>Dataset: telecom/subscription churn</span></div>
+            <p><b>Workflow:</b> EDA → encode categoricals → Logistic Regression baseline → Random Forest/XGBoost → precision/recall trade-off analysis.</p>
+            <div class="proj-detail"><b>Error analysis:</b> which customer segments does the model miss most? <b>Deployment idea:</b> a simple FastAPI endpoint returning churn probability.</div>
+          </div>
+          <div class="proj-card">
+            <h4>House Price Prediction</h4>
+            <div class="proj-meta"><span>Dataset: housing/real-estate</span></div>
+            <p><b>Workflow:</b> handle skewed target (log-transform) → feature engineering from location/size → Linear/Ridge → Gradient Boosting.</p>
+            <div class="proj-detail"><b>Error analysis:</b> plot residuals vs. predicted price — look for systematic bias at price extremes. <b>Deployment idea:</b> Streamlit price estimator.</div>
+          </div>
+          <div class="proj-card">
+            <h4>Loan / Default Prediction</h4>
+            <div class="proj-meta"><span>Dataset: loan applications</span></div>
+            <p><b>Workflow:</b> handle imbalance (defaults are rare) → class weights → PR-AUC as the headline metric.</p>
+            <div class="proj-detail"><b>Error analysis:</b> cost-sensitive threshold tuning — a false negative (missed default) usually costs more than a false positive. <b>Deployment idea:</b> a scoring API with an explainable threshold.</div>
+          </div>
+        </div>
+
+        <h4 style="margin:22px 0 4px;font-size:15px;">Intermediate</h4>
+        <div class="proj-panel active" style="display:grid;">
+          <div class="proj-card">
+            <h4>Fraud Detection</h4>
+            <div class="proj-meta"><span>Difficulty: Intermediate</span></div>
+            <p>Extreme class imbalance (often &lt;1% positive). <b>Skills:</b> SMOTE/class weights, PR-AUC, threshold tuning, feature engineering from transaction velocity.</p>
+            <div class="proj-detail"><b>What recruiters learn:</b> you understand imbalanced-learning trade-offs, not just "use accuracy."</div>
+          </div>
+          <div class="proj-card">
+            <h4>Recommendation System</h4>
+            <div class="proj-meta"><span>Difficulty: Intermediate</span></div>
+            <p>Collaborative filtering on a ratings dataset. <b>Skills:</b> matrix factorization, ranking metrics (precision@k, recall@k).</p>
+            <div class="proj-detail"><b>What recruiters learn:</b> ranking-metric fluency beyond classification metrics.</div>
+          </div>
+          <div class="proj-card">
+            <h4>Demand Forecasting</h4>
+            <div class="proj-meta"><span>Difficulty: Intermediate</span></div>
+            <p>Predict future sales/demand from historical + seasonal data. <b>Skills:</b> lag features, rolling windows, time-aware validation splits.</p>
+            <div class="proj-detail"><b>What recruiters learn:</b> you know that random k-fold is <i>wrong</i> for time series.</div>
+          </div>
+          <div class="proj-card">
+            <h4>Anomaly Detection</h4>
+            <div class="proj-meta"><span>Difficulty: Intermediate</span></div>
+            <p>Flag rare abnormal events (e.g. sensor failures) with little/no labeled anomaly data. <b>Skills:</b> isolation forest, statistical thresholds.</p>
+            <div class="proj-detail"><b>What recruiters learn:</b> comfort with unsupervised/semi-supervised problem framing.</div>
+          </div>
+        </div>
+        <div class="callout callout-info">Every project here should get a proper README (problem statement, workflow, results, what you'd improve) — see Phase 22 for the full portfolio bar.</div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ===================== PHASE 11 ===================== -->
+<div class="station" data-n="11" id="phase11">
+  <div class="phase-card">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 11 · Deep Learning</span><h3>Deep Learning Foundations</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">Neural networks, mechanically. Understand this once with plain code before letting PyTorch abstract it away.</p>
+        <div class="explainer">
+          <div class="ex-row"><b>Concept</b><span>Perceptron → layers → activations → forward propagation → loss → backpropagation → gradient descent.</span></div>
+          <div class="ex-row"><b>Practical exercise</b><span>Implement a 2-layer network with only NumPy: forward pass, MSE loss, manual backprop — before writing a single line of PyTorch.</span></div>
+          <div class="mm-row"><b>Common mistake</b><span>Jumping to PyTorch's autograd before understanding what a gradient update is actually doing to the weights.</span></div>
+        </div>
+        <div class="tbl-wrap">
+          <table>
+            <tr><th>Category</th><th>Items</th></tr>
+            <tr><td>Optimizers</td><td>SGD, mini-batch gradient descent, Adam <span class="tag tag-must">🟢</span></td></tr>
+            <tr><td>Training controls</td><td>Learning rate, epochs, batch size, weight initialization</td></tr>
+            <tr><td>Regularization</td><td>Dropout, batch normalization</td></tr>
+          </table>
+        </div>
+        <ul class="chk-list">
+          <li class="chk-item"><input type="checkbox" data-key="p11-basics"><span>Forward prop → backprop from scratch <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p11-opt"><span>Optimizers (SGD → Adam) <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p11-reg"><span>Dropout & batch normalization <span class="tag tag-must">🟢</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PHASE 12 ===================== -->
+<div class="station" data-n="12" id="phase12">
+  <div class="phase-card">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 12 · Deep Learning</span><h3>PyTorch</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">PyTorch is the default framework for nearly every deep learning role in 2026. This phase deserves real depth — you should be able to read someone else's training script and know exactly what it's doing.</p>
+        <div class="topic-grid">
+          <div class="topic"><div class="topic-top"><h4>Tensors</h4><span class="tag tag-must">🟢</span></div><p>Creation, shapes, device placement (CPU/GPU), broadcasting.</p></div>
+          <div class="topic"><div class="topic-top"><h4>Autograd</h4><span class="tag tag-must">🟢</span></div><p>How <span class="mono">.backward()</span> computes gradients automatically — the engine behind training.</p></div>
+          <div class="topic"><div class="topic-top"><h4>Dataset & DataLoader</h4><span class="tag tag-must">🟢</span></div><p>Custom datasets, batching, shuffling, multi-worker loading.</p></div>
+          <div class="topic"><div class="topic-top"><h4>nn.Module</h4><span class="tag tag-must">🟢</span></div><p>Defining model architecture as composable layers.</p></div>
+          <div class="topic"><div class="topic-top"><h4>Training/validation loop</h4><span class="tag tag-must">🟢</span></div><p>Zero grad → forward → loss → backward → step, plus a no-grad validation pass each epoch.</p></div>
+          <div class="topic"><div class="topic-top"><h4>GPU usage</h4><span class="tag tag-must">🟢</span></div><p><span class="mono">.to(device)</span> discipline — moving both model and data consistently.</p></div>
+          <div class="topic"><div class="topic-top"><h4>Save/load models</h4><span class="tag tag-must">🟢</span></div><p><span class="mono">state_dict</span> checkpoints — required for any real training run.</p></div>
+          <div class="topic"><div class="topic-top"><h4>Custom datasets</h4><span class="tag tag-should">🟡</span></div><p>Wrapping real files/folders (images, text) into a <span class="mono">Dataset</span> subclass.</p></div>
+          <div class="topic"><div class="topic-top"><h4>Debugging training</h4><span class="tag tag-must">🟢</span></div><p>Loss not decreasing? Check learning rate, data normalization, and label alignment first.</p></div>
+          <div class="topic"><div class="topic-top"><h4>Mixed precision</h4><span class="tag tag-nice">🔵</span></div><p>fp16/bf16 training for speed and memory — good to know exists, not urgent to master.</p></div>
+        </div>
+        <div class="mm-row"><b>Common mistake</b><span>Forgetting <span class="mono">optimizer.zero_grad()</span> — gradients silently accumulate across batches and training goes haywire in a way that's hard to spot.</span></div>
+        <div class="callout callout-info"><b>Practical exercise:</b> train an MNIST-style classifier end-to-end in PyTorch, including a proper train/val loop, checkpointing the best model, and plotting loss curves for both splits.</div>
+        <ul class="chk-list">
+          <li class="chk-item"><input type="checkbox" data-key="p12-tensors"><span>Tensors & autograd <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p12-data"><span>Dataset & DataLoader <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p12-loop"><span>Full training + validation loop <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p12-gpu"><span>GPU usage <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p12-save"><span>Saving/loading checkpoints <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p12-debug"><span>Debugging a training run <span class="tag tag-must">🟢</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ===================== PHASE 13 ===================== -->
+<div class="station" data-n="13" id="phase13">
+  <div class="phase-card">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 13 · Specialization</span><h3>Computer Vision</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">Images as tensors, and the architecture family built specifically to exploit their spatial structure.</p>
+        <div class="explainer">
+          <h4>CNN intuition</h4>
+          <div class="ex-row"><b>Convolution</b><span>A small filter slides across the image, learning to detect local patterns (edges, textures).</span></div>
+          <div class="ex-row"><b>Padding & stride</b><span>Control output size and how much the filter overlaps as it moves.</span></div>
+          <div class="ex-row"><b>Pooling</b><span>Downsamples feature maps, adding translation tolerance and reducing compute.</span></div>
+          <div class="ex-row"><b>Feature maps</b><span>Early layers learn edges; deeper layers learn increasingly abstract shapes.</span></div>
+        </div>
+        <div class="pill-row">
+          <span class="pill">Transfer learning 🟢</span><span class="pill">Image augmentation 🟢</span><span class="pill">ResNet 🟢</span>
+          <span class="pill">EfficientNet 🟡</span><span class="pill">Object detection overview 🟡</span><span class="pill">YOLO overview 🟡</span><span class="pill">Segmentation overview 🔵</span>
+        </div>
+        <div class="callout callout-info"><b>Transfer learning is the practical default:</b> fine-tuning a pretrained ResNet/EfficientNet on your dataset almost always beats training a CNN from scratch unless you have a huge labeled dataset.</div>
+        <div class="mm-row"><b>Common mistake</b><span>Skipping data augmentation on a small image dataset, then being confused why the model overfits within a few epochs.</span></div>
+        <h4 style="margin:16px 0 4px;font-size:15px;">Projects</h4>
+        <div class="pill-row"><span class="pill">Image classifier</span><span class="pill">Defect detection</span><span class="pill">Object detection project</span></div>
+        <ul class="chk-list">
+          <li class="chk-item"><input type="checkbox" data-key="p13-cnn"><span>CNN mechanics (conv, pooling, padding) <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p13-transfer"><span>Transfer learning with a pretrained model <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p13-aug"><span>Image augmentation <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p13-detect"><span>Object detection / segmentation overview <span class="tag tag-should">🟡</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PHASE 14 ===================== -->
+<div class="station" data-n="14" id="phase14">
+  <div class="phase-card">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 14 · Specialization</span><h3>NLP and Transformers</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">Text has its own preprocessing rules and its own dominant architecture — the transformer.</p>
+        <div class="topic-grid">
+          <div class="topic"><div class="topic-top"><h4>Text preprocessing & tokenization</h4><span class="tag tag-must">🟢</span></div><p>Turning raw text into model-ready units.</p></div>
+          <div class="topic"><div class="topic-top"><h4>TF-IDF</h4><span class="tag tag-must">🟢</span></div><p>Classical, fast, and still a solid baseline before reaching for a transformer.</p></div>
+          <div class="topic"><div class="topic-top"><h4>Word embeddings / Word2Vec</h4><span class="tag tag-must">🟢</span></div><p>Words as vectors — meaning captured as geometry.</p></div>
+          <div class="topic"><div class="topic-top"><h4>Sequence models (overview)</h4><span class="tag tag-nice">🔵</span></div><p>RNN/LSTM — historically important, mostly superseded by attention now.</p></div>
+          <div class="topic"><div class="topic-top"><h4>Attention & Transformers</h4><span class="tag tag-must">🟢</span></div><p>Self-attention lets every token weigh every other token — the mechanism behind BERT/GPT.</p></div>
+          <div class="topic"><div class="topic-top"><h4>Hugging Face</h4><span class="tag tag-must">🟢</span></div><p>The standard toolkit for loading, fine-tuning and serving transformer models.</p></div>
+        </div>
+        <div class="explainer">
+          <h4>Fine-tuning a transformer for text classification</h4>
+          <div class="ex-row"><b>Practical exercise</b><span>Fine-tune a small pretrained BERT-family model on a text classification dataset using Hugging Face's <span class="mono">Trainer</span>, and compare it against your TF-IDF + Logistic Regression baseline.</span></div>
+        </div>
+        <div class="mm-row"><b>Common mistake</b><span>Reaching for a transformer before trying TF-IDF + a linear model — on many small text datasets the simple baseline is competitive and far cheaper.</span></div>
+        <ul class="chk-list">
+          <li class="chk-item"><input type="checkbox" data-key="p14-prep"><span>Text preprocessing & TF-IDF <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p14-embed"><span>Word embeddings (Word2Vec) <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p14-attn"><span>Attention & transformer intuition <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p14-hf"><span>Fine-tune a model with Hugging Face <span class="tag tag-must">🟢</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ===================== PHASE 15 ===================== -->
+<div class="station" data-n="15" id="phase15">
+  <div class="phase-card">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 15 · Specialization</span><h3>Time Series and Recommendation Systems</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">Two extremely common "hidden" ML problems in real companies — forecasting and personalization.</p>
+        <h4 style="margin:18px 0 4px;font-size:15px;">Time series</h4>
+        <div class="pill-row">
+          <span class="pill">Stationarity 🟢</span><span class="pill">Lag features 🟢</span><span class="pill">ARIMA overview 🟡</span>
+          <span class="pill">Prophet overview 🟡</span><span class="pill">ML-based forecasting 🟢</span>
+        </div>
+        <div class="callout callout-warn"><b>Critical rule:</b> never use random k-fold cross-validation on time series — always split chronologically, or you're training on the future to predict the past.</div>
+        <h4 style="margin:18px 0 4px;font-size:15px;">Recommendation systems</h4>
+        <div class="pill-row">
+          <span class="pill">Collaborative filtering 🟢</span><span class="pill">Matrix factorization 🟢</span><span class="pill">Ranking metrics 🟢</span>
+        </div>
+        <div class="mm-row"><b>Common mistake</b><span>Evaluating a recommender with accuracy/RMSE alone instead of ranking metrics (precision@k, NDCG) that reflect what users actually see.</span></div>
+        <ul class="chk-list">
+          <li class="chk-item"><input type="checkbox" data-key="p15-ts"><span>Time series fundamentals + chronological splits <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p15-rec"><span>Collaborative filtering & ranking metrics <span class="tag tag-must">🟢</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PHASE 16 ===================== -->
+<div class="station" data-n="16" id="phase16">
+  <div class="phase-card">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 16 · Production</span><h3>ML System Design</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">How the pieces fit together at the system level — this is where senior interviews live.</p>
+        <div class="tbl-wrap">
+          <table>
+            <tr><th>Concept</th><th>What it means</th></tr>
+            <tr><td>Batch vs real-time inference</td><td>Precompute predictions on a schedule vs. serve them on-demand per request.</td></tr>
+            <tr><td>Offline vs online features</td><td>Features computed from historical data vs. features requiring live/streaming values.</td></tr>
+            <tr><td>Feature stores</td><td>A shared system ensuring training and serving use identical feature computation — prevents training/serving skew.</td></tr>
+            <tr><td>Latency & throughput</td><td>How fast one prediction returns vs. how many predictions/sec the system handles.</td></tr>
+            <tr><td>Model & data versioning</td><td>Knowing exactly which model + which data produced a given prediction, for debugging and rollback.</td></tr>
+          </table>
+        </div>
+        <div class="mm-row"><b>Common mistake</b><span>Training on offline-computed features that subtly differ from what's available at serving time — a leading cause of "it worked in the notebook but not in production."</span></div>
+        <ul class="chk-list">
+          <li class="chk-item"><input type="checkbox" data-key="p16-pipe"><span>Data/training/inference pipeline stages <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p16-batch"><span>Batch vs real-time inference <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p16-fs"><span>Feature stores (concept) <span class="tag tag-should">🟡</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p16-version"><span>Model & data versioning <span class="tag tag-must">🟢</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PHASE 17 ===================== -->
+<div class="station" data-n="17" id="phase17">
+  <div class="phase-card">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 17 · Production</span><h3>Model Deployment and Backend</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">A model that only runs in your notebook doesn't exist to anyone else. This is how you make it real.</p>
+        <div class="pill-row">
+          <span class="pill">FastAPI 🟢</span><span class="pill">REST APIs 🟢</span><span class="pill">Request/response validation 🟢</span>
+          <span class="pill">Model serving 🟢</span><span class="pill">Docker 🟢</span><span class="pill">Batch inference 🟡</span>
+          <span class="pill">Real-time inference 🟢</span><span class="pill">API testing 🟡</span>
+        </div>
+        <div class="callout callout-info"><b>Practical exercise:</b> take your best classical-ML project from Phase 10, wrap it in a FastAPI endpoint with Pydantic request validation, containerize it with Docker, and confirm it runs identically on a clean machine.</div>
+        <div class="mm-row"><b>Common mistake</b><span>Loading the model fresh from disk on every request instead of once at startup — kills latency under any real load.</span></div>
+        <ul class="chk-list">
+          <li class="chk-item"><input type="checkbox" data-key="p17-fastapi"><span>FastAPI model serving <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p17-docker"><span>Dockerizing an ML app <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p17-cloud"><span>Basic cloud deployment <span class="tag tag-must">🟢</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ===================== PHASE 18 ===================== -->
+<div class="station" data-n="18" id="phase18">
+  <div class="phase-card">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 18 · Production</span><h3>MLOps</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">The single biggest differentiator between "trained a model once" and "Machine Learning <i>Engineer</i>." Give this real time.</p>
+        <div class="explainer">
+          <h4>Why MLOps</h4>
+          <div class="ex-row"><b>The problem</b><span>Models silently decay — the world changes, users change, and a model frozen at deploy-time drifts further from reality every week.</span></div>
+          <div class="ex-row"><b>The ML lifecycle</b><span>Data → train → evaluate → deploy → monitor → retrain — a loop, not a one-time pipeline (see the Phase 0 diagram).</span></div>
+        </div>
+        <div class="tbl-wrap">
+          <table>
+            <tr><th>Area</th><th>What it covers</th><th>Tools</th></tr>
+            <tr><td>Experiment tracking</td><td>Logging every run's params, metrics, and artifacts so results are comparable and reproducible.</td><td class="mono">MLflow, W&B</td></tr>
+            <tr><td>Data & model versioning</td><td>Which exact dataset and model version produced a given result — essential for debugging and rollback.</td><td class="mono">DVC, model registry</td></tr>
+            <tr><td>Pipelines</td><td>Automating the data → train → eval → deploy steps so they run reliably and repeatably.</td><td class="mono">Airflow / Prefect-style tools</td></tr>
+            <tr><td>CI/CD for ML</td><td>Automated testing + deployment triggered on code or data changes.</td><td class="mono">GitHub Actions</td></tr>
+            <tr><td>Monitoring</td><td>Tracking prediction distributions, latency, and errors in production.</td><td class="mono">Logging + dashboards</td></tr>
+          </table>
+        </div>
+        <div class="explainer">
+          <h4>Drift — the concept every MLOps interview asks about</h4>
+          <div class="ex-row"><b>Data drift</b><span>The distribution of incoming input features changes over time (e.g. new customer demographics).</span></div>
+          <div class="ex-row"><b>Concept drift</b><span>The relationship between features and the target itself changes (e.g. fraud patterns evolve).</span></div>
+          <div class="ex-row"><b>Response</b><span>Monitor both, set alert thresholds, and have a retraining trigger/schedule rather than reacting only after complaints.</span></div>
+        </div>
+        <div class="mm-row"><b>Common mistake</b><span>Treating "deployed" as "done." A model with no monitoring is a silent liability — you find out it broke from a business metric dropping, weeks later.</span></div>
+        <div class="callout callout-info"><b>Practical exercise:</b> track 5 training runs of the same model with different hyperparameters in MLflow, register the best one, and write a short report on what changed and why.</div>
+        <ul class="chk-list">
+          <li class="chk-item"><input type="checkbox" data-key="p18-track"><span>Experiment tracking (MLflow/W&B) <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p18-version"><span>Data versioning (DVC) & model registry <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p18-cicd"><span>CI/CD for ML pipelines <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p18-drift"><span>Data drift vs concept drift <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p18-retrain"><span>Monitoring & retraining triggers <span class="tag tag-must">🟢</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PHASE 19 ===================== -->
+<div class="station" data-n="19" id="phase19">
+  <div class="phase-card">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 19 · Production</span><h3>Cloud and Production Infrastructure</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede"><b style="color:var(--text)">Pick one cloud</b> — go deep enough to actually deploy things, and treat the rest as "I can find my way around it."</p>
+        <div class="pill-row">
+          <span class="pill">S3 🟢</span><span class="pill">EC2 🟢</span><span class="pill">IAM 🟢</span><span class="pill">Containers (Docker) 🟢</span>
+          <span class="pill">Kubernetes overview 🔵</span><span class="pill">Managed ML platforms overview 🟡</span><span class="pill">GPU basics 🟡</span><span class="pill">Cost optimization 🟡</span>
+        </div>
+        <div class="callout callout-warn">GPUs are billed by the hour whether they're busy or idle — always know your instance type and shut it down when a training run finishes. This single habit saves more money than any code optimization early on.</div>
+        <ul class="chk-list">
+          <li class="chk-item"><input type="checkbox" data-key="p19-basics"><span>S3, EC2, IAM basics <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p19-k8s"><span>Kubernetes overview <span class="tag tag-nice">🔵</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p19-gpu"><span>GPU basics & cost awareness <span class="tag tag-should">🟡</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ===================== PHASE 20 ===================== -->
+<div class="station" data-n="20" id="phase20">
+  <div class="phase-card">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 20 · Advanced</span><h3>Advanced Machine Learning</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">Once the core loop is second nature, these are the topics that separate a competent ML Engineer from a strong one.</p>
+        <div class="topic-grid">
+          <div class="topic"><div class="topic-top"><h4>Ensemble methods</h4><span class="tag tag-must">🟢</span></div><p>Bagging, boosting, and stacking — combining models to reduce variance or bias.</p></div>
+          <div class="topic"><div class="topic-top"><h4>Calibration</h4><span class="tag tag-should">🟡</span></div><p>Making predicted probabilities actually mean what they say (a 0.7 should be right ~70% of the time).</p></div>
+          <div class="topic"><div class="topic-top"><h4>Uncertainty (overview)</h4><span class="tag tag-nice">🔵</span></div><p>Knowing when a model doesn't know — important in high-stakes deployments.</p></div>
+          <div class="topic"><div class="topic-top"><h4>Explainability: SHAP</h4><span class="tag tag-must">🟢</span></div><p>Per-prediction feature attribution — what recruiters and stakeholders actually ask to see.</p></div>
+          <div class="topic"><div class="topic-top"><h4>LIME (overview)</h4><span class="tag tag-should">🟡</span></div><p>Local surrogate-model explanations — a lighter alternative to SHAP.</p></div>
+          <div class="topic"><div class="topic-top"><h4>Causal inference (overview)</h4><span class="tag tag-nice">🔵</span></div><p>Correlation vs. causation — increasingly asked about at senior levels.</p></div>
+        </div>
+        <div class="callout callout-info"><b>Practical exercise:</b> run SHAP on your best classification model from Phase 7/8 and write 3 sentences on what it reveals that feature importance alone didn't.</div>
+        <ul class="chk-list">
+          <li class="chk-item"><input type="checkbox" data-key="p20-ensemble"><span>Ensembles & stacking <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p20-shap"><span>SHAP for explainability <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p20-calib"><span>Calibration <span class="tag tag-should">🟡</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PHASE 21 ===================== -->
+<div class="station" data-n="21" id="phase21">
+  <div class="phase-card">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 21 · Advanced</span><h3>ML Evaluation and Error Analysis</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">A single aggregate metric hides where a model actually fails. This is the discipline that catches problems before users do.</p>
+        <div class="pill-row">
+          <span class="pill">Golden/benchmark datasets</span><span class="pill">Per-class metrics</span><span class="pill">Slice-based evaluation</span>
+          <span class="pill">Failure analysis</span><span class="pill">Threshold tuning</span><span class="pill">Robustness testing</span>
+        </div>
+        <div class="explainer">
+          <h4>Slice-based evaluation</h4>
+          <div class="ex-row"><b>What it is</b><span>Breaking evaluation down by meaningful subgroups (region, device, customer tier) instead of one blended number.</span></div>
+          <div class="ex-row"><b>Why it matters</b><span>A model can look great overall while failing badly on a 5% slice that happens to matter most to the business.</span></div>
+        </div>
+        <div class="mm-row"><b>Common mistake</b><span>Declaring a model "done" after one evaluation run with no re-check against a fixed benchmark/golden set as the pipeline changes over time.</span></div>
+        <ul class="chk-list">
+          <li class="chk-item"><input type="checkbox" data-key="p21-slice"><span>Slice-based evaluation <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p21-fail"><span>Failure/error analysis process <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p21-thresh"><span>Threshold tuning <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p21-robust"><span>Robustness testing <span class="tag tag-should">🟡</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ===================== PHASE 22 ===================== -->
+<div class="station" data-n="22" id="phase22">
+  <div class="phase-card">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 22 · Proof of Work</span><h3>Portfolio and Project Roadmap</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">16 projects, four tiers. Each one should get a real README — problem statement, workflow, results, and what you'd improve with more time.</p>
+
+        <div class="proj-tabs" id="projTabs">
+          <button class="proj-tab active" data-tab="beg">Beginner</button>
+          <button class="proj-tab" data-tab="int">Intermediate</button>
+          <button class="proj-tab" data-tab="adv">Advanced</button>
+          <button class="proj-tab" data-tab="port">Portfolio-Level</button>
+        </div>
+
+        <div class="proj-panel active" data-panel="beg">
+          <div class="proj-card">
+            <h4>EDA-to-Insights Sales Report</h4>
+            <div class="proj-meta"><span>Difficulty: Beginner</span>·<span>~4 days</span></div>
+            <p><b>Problem:</b> turn a raw retail sales dataset into a decision-ready report. <b>Skills demonstrated:</b> pandas, SQL, visualization, written communication.</p>
+            <div class="proj-stack"><span>pandas</span><span>seaborn</span><span>SQL</span></div>
+            <div class="proj-detail"><b>Recruiters learn:</b> you can find and communicate a real insight, not just run code. <b>README:</b> 3 key findings + supporting charts. <b>Deploy:</b> not required — a clean notebook + write-up is fine.</div>
+          </div>
+          <div class="proj-card">
+            <h4>Survival / Outcome Classifier</h4>
+            <div class="proj-meta"><span>Difficulty: Beginner</span>·<span>~1 week</span></div>
+            <p><b>Problem:</b> binary classification on a classic tabular dataset. <b>Skills demonstrated:</b> full sklearn workflow, confusion-matrix-driven error analysis.</p>
+            <div class="proj-stack"><span>scikit-learn</span><span>pandas</span></div>
+            <div class="proj-detail"><b>Recruiters learn:</b> you understand precision/recall trade-offs, not just <span class="mono">.score()</span>. <b>README:</b> metric choice justification. <b>Deploy:</b> Streamlit demo.</div>
+          </div>
+          <div class="proj-card">
+            <h4>Customer Segmentation (K-Means)</h4>
+            <div class="proj-meta"><span>Difficulty: Beginner</span>·<span>~5 days</span></div>
+            <p><b>Problem:</b> group customers into meaningful segments from purchase behavior. <b>Skills demonstrated:</b> unsupervised learning, choosing K, business interpretation of clusters.</p>
+            <div class="proj-stack"><span>scikit-learn</span><span>PCA for viz</span></div>
+            <div class="proj-detail"><b>Recruiters learn:</b> you can turn unlabeled data into an actionable business narrative. <b>README:</b> segment personas. <b>Deploy:</b> not required.</div>
+          </div>
+          <div class="proj-card">
+            <h4>Movie Review Sentiment Classifier</h4>
+            <div class="proj-meta"><span>Difficulty: Beginner</span>·<span>~1 week</span></div>
+            <p><b>Problem:</b> classify review sentiment with a TF-IDF baseline. <b>Skills demonstrated:</b> text preprocessing, TF-IDF, Logistic Regression/Naive Bayes.</p>
+            <div class="proj-stack"><span>scikit-learn</span><span>nltk</span></div>
+            <div class="proj-detail"><b>Recruiters learn:</b> you know when a simple baseline beats jumping straight to a transformer. <b>README:</b> baseline vs. more complex model comparison. <b>Deploy:</b> FastAPI endpoint.</div>
+          </div>
+        </div>
+
+        <div class="proj-panel" data-panel="int">
+          <div class="proj-card">
+            <h4>Credit Card Fraud Detection</h4>
+            <div class="proj-meta"><span>Difficulty: Intermediate</span>·<span>~2 weeks</span></div>
+            <p><b>Problem:</b> detect rare fraudulent transactions (extreme imbalance). <b>Skills demonstrated:</b> SMOTE/class weights, PR-AUC, cost-sensitive threshold tuning.</p>
+            <div class="proj-stack"><span>XGBoost</span><span>imbalanced-learn</span></div>
+            <div class="proj-detail"><b>Recruiters learn:</b> real imbalanced-learning judgment. <b>README:</b> PR curve + chosen threshold rationale. <b>Deploy:</b> FastAPI scoring endpoint.</div>
+          </div>
+          <div class="proj-card">
+            <h4>Sales Demand Forecasting</h4>
+            <div class="proj-meta"><span>Difficulty: Intermediate</span>·<span>~2 weeks</span></div>
+            <p><b>Problem:</b> forecast future demand from historical + seasonal signals. <b>Skills demonstrated:</b> lag/rolling features, chronological validation, ML-based forecasting.</p>
+            <div class="proj-stack"><span>LightGBM</span><span>pandas</span></div>
+            <div class="proj-detail"><b>Recruiters learn:</b> you know time series needs a fundamentally different validation strategy. <b>README:</b> forecast error by horizon length. <b>Deploy:</b> scheduled batch job.</div>
+          </div>
+          <div class="proj-card">
+            <h4>Book / Movie Recommendation Engine</h4>
+            <div class="proj-meta"><span>Difficulty: Intermediate</span>·<span>~1.5 weeks</span></div>
+            <p><b>Problem:</b> "users who liked X also liked Y." <b>Skills demonstrated:</b> collaborative filtering, matrix factorization, ranking metrics.</p>
+            <div class="proj-stack"><span>implicit / scikit-learn</span><span>PostgreSQL</span></div>
+            <div class="proj-detail"><b>Recruiters learn:</b> ranking-metric fluency beyond classification. <b>README:</b> precision@k results. <b>Deploy:</b> FastAPI recommendation endpoint.</div>
+          </div>
+          <div class="proj-card">
+            <h4>Network Intrusion / Anomaly Detection</h4>
+            <div class="proj-meta"><span>Difficulty: Intermediate</span>·<span>~1.5 weeks</span></div>
+            <p><b>Problem:</b> flag abnormal network activity with little labeled anomaly data. <b>Skills demonstrated:</b> isolation forest, statistical thresholds, semi-supervised framing.</p>
+            <div class="proj-stack"><span>scikit-learn</span></div>
+            <div class="proj-detail"><b>Recruiters learn:</b> comfort with problems that don't fit neatly into "just train a classifier." <b>README:</b> false-alarm rate analysis. <b>Deploy:</b> batch scoring script.</div>
+          </div>
+        </div>
+
+        <div class="proj-panel" data-panel="adv">
+          <div class="proj-card">
+            <h4>Computer Vision Defect Detection</h4>
+            <div class="proj-meta"><span>Difficulty: Advanced</span>·<span>~3 weeks</span></div>
+            <p><b>Problem:</b> flag manufacturing defects from product images. <b>Skills demonstrated:</b> transfer learning, augmentation, class imbalance in images.</p>
+            <div class="proj-stack"><span>PyTorch</span><span>torchvision</span><span>ResNet</span></div>
+            <div class="proj-detail"><b>Recruiters learn:</b> applied CV beyond tutorial-level image classification. <b>README:</b> per-defect-type recall. <b>Deploy:</b> FastAPI inference endpoint with image upload.</div>
+          </div>
+          <div class="proj-card">
+            <h4>Fine-Tuned NLP Text Classifier</h4>
+            <div class="proj-meta"><span>Difficulty: Advanced</span>·<span>~2.5 weeks</span></div>
+            <p><b>Problem:</b> domain-specific text classification (support tickets, news categories). <b>Skills demonstrated:</b> Hugging Face fine-tuning, evaluation vs. baseline.</p>
+            <div class="proj-stack"><span>Hugging Face Transformers</span><span>PyTorch</span></div>
+            <div class="proj-detail"><b>Recruiters learn:</b> real transformer fine-tuning experience, not just calling an API. <b>README:</b> before/after fine-tune metrics. <b>Deploy:</b> FastAPI inference endpoint.</div>
+          </div>
+          <div class="proj-card">
+            <h4>Real-Time ML Inference API</h4>
+            <div class="proj-meta"><span>Difficulty: Advanced</span>·<span>~2 weeks</span></div>
+            <p><b>Problem:</b> serve predictions with strict low-latency requirements under load. <b>Skills demonstrated:</b> FastAPI async, load testing, response-time budgeting.</p>
+            <div class="proj-stack"><span>FastAPI</span><span>Docker</span><span>Locust/k6 for load testing</span></div>
+            <div class="proj-detail"><b>Recruiters learn:</b> production-latency thinking, not just "it returns a prediction." <b>README:</b> p50/p95/p99 latency numbers. <b>Deploy:</b> containerized, load-tested.</div>
+          </div>
+          <div class="proj-card">
+            <h4>End-to-End Fraud Detection System</h4>
+            <div class="proj-meta"><span>Difficulty: Advanced</span>·<span>~3 weeks</span></div>
+            <p><b>Problem:</b> production version of the Phase-10 fraud project — full feature pipeline, model, and serving layer together. <b>Skills demonstrated:</b> pipeline design, feature engineering at scale, real-time scoring.</p>
+            <div class="proj-stack"><span>XGBoost</span><span>FastAPI</span><span>PostgreSQL</span><span>Docker</span></div>
+            <div class="proj-detail"><b>Recruiters learn:</b> ability to own a problem end-to-end, not just the modeling slice. <b>README:</b> full architecture diagram. <b>Deploy:</b> Docker Compose stack.</div>
+          </div>
+        </div>
+
+        <div class="proj-panel" data-panel="port">
+          <div class="proj-card">
+            <h4>Full MLOps Pipeline</h4>
+            <div class="proj-meta"><span>Difficulty: Portfolio</span>·<span>~4 weeks</span></div>
+            <p><b>Problem:</b> wrap an existing model project with tracking, versioning, registry and CI/CD. <b>Skills demonstrated:</b> Phase 18 in full, production discipline.</p>
+            <div class="proj-stack"><span>MLflow</span><span>DVC</span><span>GitHub Actions</span><span>Docker</span></div>
+            <div class="proj-detail"><b>Recruiters learn:</b> you think about reproducibility and rollback, not just accuracy. <b>README:</b> pipeline diagram + rollback plan. <b>Deploy:</b> full CI/CD to a cloud target.</div>
+          </div>
+          <div class="proj-card">
+            <h4>Model Monitoring Dashboard</h4>
+            <div class="proj-meta"><span>Difficulty: Portfolio</span>·<span>~3 weeks</span></div>
+            <p><b>Problem:</b> a live dashboard tracking prediction distributions, drift signals, and latency for a deployed model. <b>Skills demonstrated:</b> data/concept drift detection, alerting design.</p>
+            <div class="proj-stack"><span>FastAPI</span><span>Plotly/Streamlit</span><span>PostgreSQL</span></div>
+            <div class="proj-detail"><b>Recruiters learn:</b> you understand that shipping isn't the finish line. <b>README:</b> what triggers an alert and why. <b>Deploy:</b> Docker, live dashboard URL.</div>
+          </div>
+          <div class="proj-card">
+            <h4>Production ML System (multi-service)</h4>
+            <div class="proj-meta"><span>Difficulty: Portfolio</span>·<span>~5 weeks</span></div>
+            <p><b>Problem:</b> a full system — ingestion → feature computation → training pipeline → serving API → monitoring — as separate, communicating services. <b>Skills demonstrated:</b> systems thinking across the entire ML lifecycle.</p>
+            <div class="proj-stack"><span>FastAPI</span><span>PostgreSQL</span><span>Docker Compose</span><span>MLflow</span></div>
+            <div class="proj-detail"><b>Recruiters learn:</b> this is the single strongest signal on a junior ML Engineer resume — it shows you can own the whole lifecycle. <b>README:</b> full system architecture diagram + demo video. <b>Deploy:</b> multi-container deployment.</div>
+          </div>
+          <div class="proj-card">
+            <h4>Production Recommendation Platform</h4>
+            <div class="proj-meta"><span>Difficulty: Portfolio</span>·<span>~4 weeks</span></div>
+            <p><b>Problem:</b> a recommendation service with an offline training job, an online serving API, and a basic A/B-test framework for comparing model versions. <b>Skills demonstrated:</b> offline/online split, experimentation design.</p>
+            <div class="proj-stack"><span>FastAPI</span><span>PostgreSQL</span><span>Redis (caching)</span></div>
+            <div class="proj-detail"><b>Recruiters learn:</b> you understand that "which model is better" is itself an experiment to design. <b>README:</b> A/B test methodology. <b>Deploy:</b> containerized, with a demo video.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ===================== PHASE 23 ===================== -->
+<div class="station" data-n="23" id="phase23">
+  <div class="phase-card">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 23 · Positioning</span><h3>Interview Preparation</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <div class="tbl-wrap">
+          <table>
+            <tr><th>Track</th><th>Focus</th><th>Sample question & what a strong answer covers</th></tr>
+            <tr><td>Python</td><td>Data structures, OOP, gotchas</td><td>"What's the difference between a list and a generator?" — a strong answer covers memory/laziness and gives a concrete use case.</td></tr>
+            <tr><td>SQL</td><td>Joins, window functions</td><td>"Find the second-highest salary per department." — a strong answer reaches for <span class="mono">RANK()</span>/<span class="mono">ROW_NUMBER()</span> over a self-join.</td></tr>
+            <tr><td>Statistics</td><td>Distributions, hypothesis testing</td><td>"How would you know if a new model is actually better, not just lucky?" — a strong answer proposes a proper significance test, not "the metric went up."</td></tr>
+            <tr><td>ML theory</td><td>Bias/variance, regularization, evaluation</td><td>"Your model has 98% accuracy but is useless — why?" — a strong answer reaches for class imbalance immediately.</td></tr>
+            <tr><td>Algorithms</td><td>How specific models actually work</td><td>"Why does XGBoost usually beat a single decision tree?" — a strong answer explains boosting's sequential error-correction.</td></tr>
+            <tr><td>Deep Learning</td><td>Backprop, CNNs, transformers</td><td>"Walk me through backpropagation for a 2-layer network." — a strong answer can write the chain-rule steps, not just describe them.</td></tr>
+            <tr><td>PyTorch</td><td>Training loop internals</td><td>"What does <span class="mono">loss.backward()</span> actually do?" — a strong answer explains autograd's computation graph.</td></tr>
+            <tr><td>MLOps</td><td>Drift, reproducibility, CI/CD</td><td>"How would you know if your production model started failing silently?" — a strong answer describes monitoring + drift detection, not "check the logs."</td></tr>
+            <tr><td>ML system design</td><td>End-to-end architecture</td><td>"Design a fraud detection system for 1M transactions/day." — a strong answer covers latency budget, feature freshness, and a fallback for model failure.</td></tr>
+            <tr><td>Case studies</td><td>Applied judgment</td><td>"A stakeholder says the model is wrong on a specific customer — how do you investigate?" — a strong answer starts with slicing the data, not retraining blindly.</td></tr>
+          </table>
+        </div>
+        <div class="callout callout-info">Prepare a 90-second walkthrough of your strongest Phase-22 project you can give with zero slides — nearly every ML interview asks for this.</div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- ===================== PHASE 24 — JOB READY CHECKLIST ===================== -->
 <div class="station" data-n="24" id="phase24">
@@ -833,6 +1577,16 @@ function goToResult(id){
   el.classList.add('hl-target');
   setTimeout(()=>el.classList.remove('hl-target'), 1700);
 }
+document.querySelectorAll('.nav-link').forEach(a=>{
+  a.addEventListener('click', ()=>{
+    const id = a.getAttribute('href').slice(1);
+    setTimeout(()=>{
+      const el = document.getElementById(id);
+      const card = el && el.querySelector('.phase-card');
+      if(card) card.classList.add('open');
+    }, 60);
+  });
+});
 
 /* ============ CHECKLIST + PROGRESS (localStorage) ============ */
 const STORAGE_KEY = 'ml_roadmap_progress_v1';
