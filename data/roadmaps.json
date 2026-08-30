@@ -1,134 +1,62 @@
 [
   {
     "id": "ai-engineer",
-    "title": "AI Engineer Career Roadmap",
+    "slug": "ai-engineer-roadmap",
+    "title": "AI Engineer Career Roadmap 2026",
+    "icon": "🤖",
+    "phaseCount": "23 Phases",
     "tagline": "From Python & Math fundamentals to Autonomous Agents & Production LLM Infrastructure",
-    "description": "Designed for developers transitioning into AI Engineering. Focuses on building practical AI systems, prompt engineering, vector databases, RAG, and agentic workflows.",
+    "description": "23-phase interactive guide covering Python, LLMs, Vector DBs, RAG, Autonomous Agents, PyTorch, and Cloud Deployment.",
     "level": "Beginner to Advanced",
     "estimatedDuration": "6 - 9 Months",
-    "stages": [
-      {
-        "step": 1,
-        "name": "Python & CS Fundamentals",
-        "description": "Master modern Python 3.12+, async/await, typing, data structures, OOP, and REST APIs.",
-        "topics": ["Python 3.12", "Data Structures", "Pydantic", "FastAPI", "Git"],
-        "recommendedResourceSlug": "ai-engineer-roadmap"
-      },
-      {
-        "step": 2,
-        "name": "Mathematics for AI",
-        "description": "Linear algebra basics, matrix multiplication, vector spaces, derivatives, probability & Bayes theorem.",
-        "topics": ["Vectors & Matrices", "Gradients", "Probability", "Loss Functions"],
-        "recommendedResourceSlug": "math-for-ml"
-      },
-      {
-        "step": 3,
-        "name": "Data Manipulation & SQL",
-        "description": "Pandas, NumPy array operations, data cleaning, parquet, PostgreSQL, and vector embeddings.",
-        "topics": ["NumPy", "Pandas", "SQL", "Data Cleaning"],
-        "recommendedResourceSlug": "hands-on-ml-summary"
-      },
-      {
-        "step": 4,
-        "name": "Machine Learning Fundamentals",
-        "description": "Supervised vs Unsupervised learning, Scikit-Learn pipelines, Decision Trees, Gradient Boosting.",
-        "topics": ["Regression", "Classification", "XGBoost", "Model Evaluation"],
-        "recommendedResourceSlug": "hands-on-ml-summary"
-      },
-      {
-        "step": 5,
-        "name": "Deep Learning & PyTorch",
-        "description": "Neural network architectures, Backpropagation, Autograd, PyTorch Tensors, DataLoaders, and GPUs.",
-        "topics": ["PyTorch", "Backpropagation", "Tensors", "CUDA"],
-        "recommendedResourceSlug": "deep-learning-pytorch"
-      },
-      {
-        "step": 6,
-        "name": "Transformers & NLP",
-        "description": "Self-attention mechanism, Multi-Head Attention, BERT, GPT, Hugging Face Transformers library.",
-        "topics": ["Self-Attention", "Hugging Face", "Tokenizers", "Positional Encoding"],
-        "recommendedResourceSlug": "transformers-explained"
-      },
-      {
-        "step": 7,
-        "name": "LLM Fundamentals & Prompt Engineering",
-        "description": "Tokenization, context windows, zero-shot/few-shot prompting, system instructions, and structured output.",
-        "topics": ["Context Window", "Structured Outputs", "Function Calling", "Temperature"],
-        "recommendedResourceSlug": "rag-complete-guide"
-      },
-      {
-        "step": 8,
-        "name": "RAG (Retrieval-Augmented Generation)",
-        "description": "Chunking strategies, Vector Databases (Chroma, Qdrant, Pinecone), Hybrid Search, BM25, and Reranking.",
-        "topics": ["Vector DBs", "Embeddings", "Hybrid Search", "Reranking", "Ragas"],
-        "recommendedResourceSlug": "rag-complete-guide"
-      },
-      {
-        "step": 9,
-        "name": "Autonomous AI Agents",
-        "description": "ReAct framework, multi-agent frameworks (LangGraph, CrewAI), memory stores, and tool calling.",
-        "topics": ["ReAct Loop", "LangGraph", "Tool Calling", "Memory Management"],
-        "recommendedResourceSlug": "ai-agents-tool-calling"
-      },
-      {
-        "step": 10,
-        "name": "PEFT & Fine-Tuning",
-        "description": "Parameter-Efficient Fine-Tuning using LoRA, QLoRA, SFT (Supervised Fine-Tuning), DPO, and Unsloth.",
-        "topics": ["LoRA", "QLoRA", "SFT", "DPO", "Unsloth"],
-        "recommendedResourceSlug": "lora-paper-explainer"
-      },
-      {
-        "step": 11,
-        "name": "MLOps & LLMOps",
-        "description": "Model serving (vLLM, Ollama, TensorRT-LLM), observability (LangSmith, Phoenix), and CI/CD for AI.",
-        "topics": ["vLLM", "Observability", "LangSmith", "Docker", "Render/AWS"],
-        "recommendedResourceSlug": "designing-ml-systems"
-      },
-      {
-        "step": 12,
-        "name": "AI System Design & Production",
-        "description": "Designing end-to-end resilient AI microservices, rate limiting, caching semantic results, and cost guardrails.",
-        "topics": ["Semantic Caching", "Rate Limiting", "System Design", "Cost Optimization"],
-        "recommendedResourceSlug": "ai-system-design-interview"
-      }
-    ]
+    "author": "Himanshu Pandey",
+    "file": "content/html/ai-engineer-roadmap-2026.html",
+    "badge": "23 PHASES",
+    "active": true
   },
   {
     "id": "ml-engineer",
-    "title": "Machine Learning Engineer Roadmap",
-    "tagline": "Mathematical rigor, algorithmic deep-dives, and production ML pipelines",
-    "description": "Tailored for engineers who want to focus on building, training, evaluating, and deploying custom ML models at scale.",
-    "level": "Intermediate to Advanced",
+    "slug": "ml-engineer-roadmap",
+    "title": "Machine Learning Engineer Roadmap 2026",
+    "icon": "⚙️",
+    "phaseCount": "25 Phases",
+    "tagline": "Mathematical rigor, algorithm design, PyTorch, CV/NLP, and MLOps pipelines",
+    "description": "25-phase deep-dive covering Linear Algebra, Calculus, Classical ML, PyTorch, Computer Vision, NLP, MLOps & System Design.",
+    "level": "Beginner to Job-Ready",
     "estimatedDuration": "8 - 12 Months",
-    "stages": [
-      {
-        "step": 1,
-        "name": "Linear Algebra & Calculus",
-        "description": "Vector spaces, matrix decomposition, gradients, optimization algorithms.",
-        "topics": ["SVD", "Eigenvalues", "Gradient Descent", "Hessians"],
-        "recommendedResourceSlug": "math-for-ml"
-      },
-      {
-        "step": 2,
-        "name": "Statistical Machine Learning",
-        "description": "Probabilistic modeling, Naive Bayes, SVMs, Decision Trees, Ensemble methods.",
-        "topics": ["Random Forests", "XGBoost", "Cross-Validation", "Bias-Variance"],
-        "recommendedResourceSlug": "hands-on-ml-summary"
-      },
-      {
-        "step": 3,
-        "name": "Deep Learning & Computer Vision",
-        "description": "CNNs, Residual Networks (ResNet), object detection, and Vision Transformers.",
-        "topics": ["Convolutions", "ResNet", "YOLO", "PyTorch"],
-        "recommendedResourceSlug": "deep-learning-pytorch"
-      },
-      {
-        "step": 4,
-        "name": "ML Operations (MLOps)",
-        "description": "Data pipelines, MLflow, feature stores, model monitoring, and automated retraining.",
-        "topics": ["MLflow", "Feature Stores", "Drift Detection", "Kubeflow"],
-        "recommendedResourceSlug": "designing-ml-systems"
-      }
-    ]
+    "author": "Himanshu Pandey",
+    "file": "content/html/ml-engineer-roadmap-2026.html",
+    "badge": "25 PHASES",
+    "active": false
+  },
+  {
+    "id": "genai-specialist",
+    "slug": "genai-specialist",
+    "title": "Generative AI Specialist Roadmap",
+    "icon": "🧠",
+    "phaseCount": "18 Phases",
+    "tagline": "Fine-Tuning (LoRA/QLoRA), Diffusion Models, Prompt Engineering & Multi-Agent Systems",
+    "description": "Specialized path focusing on foundation models, parameter-efficient fine-tuning (LoRA), vision-language models, and agentic workflows.",
+    "level": "Intermediate to Advanced",
+    "estimatedDuration": "4 - 6 Months",
+    "author": "Himanshu Pandey",
+    "file": "content/html/ai-engineer-roadmap-2026.html",
+    "badge": "GENAI TRACK",
+    "active": false
+  },
+  {
+    "id": "data-scientist",
+    "slug": "data-scientist",
+    "title": "Data Scientist Career Roadmap",
+    "icon": "📊",
+    "phaseCount": "20 Phases",
+    "tagline": "Statistical Modeling, Hypothesis Testing, SQL, EDA & Business Analytics",
+    "description": "Focuses on statistical rigor, exploratory data analysis, A/B testing, predictive modeling, and business insight delivery.",
+    "level": "Beginner to Intermediate",
+    "estimatedDuration": "6 Months",
+    "author": "Himanshu Pandey",
+    "file": "content/html/ml-engineer-roadmap-2026.html",
+    "badge": "DATA TRACK",
+    "active": false
   }
 ]
