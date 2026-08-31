@@ -210,8 +210,10 @@ p{margin:0 0 12px;}
 .phase-title h3{font-size:19px;}
 .chevron{width:20px; height:20px; flex-shrink:0; color:var(--text-dim); transition:transform .2s ease;}
 .phase-card.open .chevron{transform:rotate(180deg);}
+
+/* All Phase Accordions OPEN & VISIBLE BY DEFAULT */
 .phase-body{max-height:none; overflow:visible;}
-.phase-card.open .chevron{transform:rotate(180deg);}
+
 .phase-body-inner{padding:2px 24px 26px;}
 .phase-lede{color:var(--text-dim); font-size:14.5px; margin-bottom:18px; max-width:700px;}
 
@@ -279,30 +281,6 @@ td b, td strong{color:var(--text);}
 .proj-detail{font-size:12.6px; color:var(--text-dim); border-top:1px solid var(--border-soft); padding-top:10px; margin-top:2px;}
 .proj-detail b{color:var(--text);}
 
-/* ============ TIMELINE TABS ============ */
-.tl-tabs{display:flex; gap:8px; margin-bottom:20px; flex-wrap:wrap;}
-.tl-tab{font-family:var(--font-mono); font-size:12.5px; font-weight:600; padding:9px 18px; border-radius:9px; border:1px solid var(--border); background:var(--surface); color:var(--text-dim); cursor:pointer;}
-.tl-tab.active{background:var(--accent); color:#04222A; border-color:var(--accent);}
-.tl-panel{display:none;}
-.tl-panel.active{display:block;}
-.month-row{display:flex; gap:16px; border-bottom:1px solid var(--border-soft); padding:16px 0;}
-.month-row:last-child{border-bottom:0;}
-.month-badge{font-family:var(--font-mono); font-weight:700; font-size:13px; color:var(--accent); background:var(--accent-soft); border-radius:8px; padding:6px 12px; height:fit-content; white-space:nowrap;}
-.month-content h5{font-size:14.5px; margin-bottom:4px;}
-.month-content p{font-size:13.3px; color:var(--text-dim); margin:0;}
-
-/* daily schedule */
-.day-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px;}
-.day-card{background:var(--bg-elev); border:1px solid var(--border); border-radius:12px; padding:16px;}
-.day-card h4{font-size:14px; color:var(--accent); margin-bottom:10px;}
-.day-slot{display:flex; justify-content:space-between; font-size:12.6px; padding:6px 0; border-bottom:1px dashed var(--border-soft); color:var(--text-dim);}
-.day-slot:last-child{border-bottom:0;}
-.day-slot b{color:var(--text); font-weight:600;}
-
-/* diagram containers */
-.diagram{background:var(--bg-elev); border:1px solid var(--border); border-radius:var(--radius-lg); padding:24px; margin:18px 0; overflow-x:auto;}
-.diagram svg text{font-family:var(--font-mono);}
-
 /* footer */
 footer{padding:50px 24px 70px; border-top:1px solid var(--border-soft); text-align:center;}
 .golden-rule{
@@ -310,11 +288,9 @@ footer{padding:50px 24px 70px; border-top:1px solid var(--border-soft); text-ali
 }
 footer .fine{color:var(--text-faint); font-size:12.5px; margin-top:26px;}
 
-/* back to top */
 #backTop{position:fixed; bottom:24px; right:24px; z-index:150; opacity:0; pointer-events:none; transition:.25s;}
 #backTop.show{opacity:1; pointer-events:auto;}
 
-/* progress summary card (sticky mini) */
 .progress-card{
   background:var(--bg-elev); border:1px solid var(--border); border-radius:12px; padding:16px 18px; margin-bottom:26px;
   display:flex; align-items:center; gap:16px; flex-wrap:wrap;
@@ -326,11 +302,9 @@ footer .fine{color:var(--text-faint); font-size:12.5px; margin-top:26px;}
 .reset-btn{font-size:12px; color:var(--text-faint); background:none; border:1px solid var(--border); border-radius:7px; padding:6px 11px; cursor:pointer; font-family:var(--font-body);}
 .reset-btn:hover{color:var(--coral); border-color:var(--coral);}
 
-/* highlight for search match */
 .hl-target{animation:hlpulse 1.6s ease;}
 @keyframes hlpulse{0%{box-shadow:0 0 0 0 var(--accent-soft);}30%{box-shadow:0 0 0 8px var(--accent-soft);}100%{box-shadow:0 0 0 0 transparent;}}
 
-/* responsive */
 @media (max-width:720px){
   .topbar-inner{gap:8px;}
   .search-box{width:110px;}
@@ -343,15 +317,6 @@ footer .fine{color:var(--text-faint); font-size:12.5px; margin-top:26px;}
   .phase-body-inner{padding:2px 16px 20px;}
   .stage-row{gap:6px;}
   .stage-pill{font-size:11.5px; padding:7px 12px;}
-}
-
-/* print */
-@media print{
-  .topbar,.progress-rail,#backTop,.search-box,.icon-btn{display:none !important;}
-  .phase-body{max-height:none !important;}
-  .phase-card{break-inside:avoid; border:1px solid #ccc;}
-  body{background:#fff; color:#111;}
-  a{color:#111; text-decoration:underline;}
 }
 </style>
 </head>
@@ -461,7 +426,7 @@ footer .fine{color:var(--text-faint); font-size:12.5px; margin-top:26px;}
     <div class="sec-head">
       <span class="sec-kicker">The Route</span>
       <h2>25 phases, one continuous line</h2>
-      <p class="sec-desc">Each phase is a station on the route below. Click a station to expand it. Tick topics as you finish them — your progress is saved in this browser automatically. The order is deliberate: classical ML (Phases 5–10) before deep learning (Phase 11+) before PyTorch, and MLOps (Phase 18) only after you have a model worth deploying. Don't skip ahead.</p>
+      <p class="sec-desc">Each phase is a station on the route below. Click a station to expand or collapse it. Tick topics as you finish them — your progress is saved in this browser automatically. The order is deliberate: classical ML (Phases 5–10) before deep learning (Phase 11+) before PyTorch, and MLOps (Phase 18) only after you have a model worth deploying.</p>
     </div>
     <div class="legend">
       <span class="tag tag-must">🟢 MUST LEARN</span>
@@ -481,98 +446,490 @@ footer .fine{color:var(--text-faint); font-size:12.5px; margin-top:26px;}
     </div>
     <div class="phase-body">
       <div class="phase-body-inner">
-        <p class="phase-lede">Before writing a line of code, know what job you're actually training for. "Machine Learning Engineer" sits at the intersection of software engineering, applied statistics and production systems, and it means something different at a 10-person startup than at a 10,000-person company. This phase is orientation, not implementation — read it now, then again after Phase 10, when the words will mean more.</p>
+        <p class="phase-lede">Before writing a line of code, know what job you're actually training for. "Machine Learning Engineer" sits at the intersection of software engineering, applied statistics and production systems.</p>
 
         <div class="explainer">
           <h4>What an ML Engineer actually does</h4>
           <div class="ex-row"><b>In one line</b><span>Takes a trained model (or trains one) and turns it into a reliable, monitored, scalable piece of production software — the engineering around the model, not just the model itself.</span></div>
-          <div class="ex-row"><b>Day to day</b><span>Writing data pipelines, training and retraining models, writing evaluation scripts, wrapping models in APIs, debugging why a metric dropped in production, and translating "what does good look like?" between product and data teams.</span></div>
-          <div class="ex-row"><b>Why it matters</b><span>Interviewers screen for this distinction directly. "Tell me about a model you took to production" separates ML Engineers from people who only ever ran a notebook to completion.</span></div>
+          <div class="ex-row"><b>Day to day</b><span>Writing data pipelines, training and retraining models, writing evaluation scripts, wrapping models in APIs, debugging why a metric dropped in production.</span></div>
         </div>
 
-        <h4 style="margin:18px 0 4px;font-size:15px;">ML Engineer vs. the roles it gets confused with</h4>
+        <h4 style="margin:18px 0 4px;font-size:15px;">ML Engineer vs. other roles</h4>
         <div class="tbl-wrap">
           <table>
-            <tr><th>Role</th><th>Core focus</th><th>Typical output</th><th>Overlaps with ML Engineer on</th></tr>
-            <tr><td><b>ML Engineer</b></td><td>Building, training, deploying and maintaining ML models as production systems</td><td>APIs, pipelines, deployed models, monitoring dashboards</td><td>—</td></tr>
-            <tr><td>Data Scientist</td><td>Exploratory analysis, statistical modeling, generating business insight</td><td>Notebooks, reports, dashboards, prototype models</td><td>Modeling, statistics, evaluation</td></tr>
-            <tr><td>AI Engineer</td><td>Building products on top of large pretrained models (mostly LLMs) via APIs and orchestration</td><td>RAG pipelines, agents, prompt systems</td><td>Deployment, APIs, evaluation</td></tr>
-            <tr><td>Data Engineer</td><td>Building and maintaining the pipelines that move and store data reliably at scale</td><td>ETL/ELT pipelines, data warehouses, streaming systems</td><td>Data pipelines, SQL, infrastructure</td></tr>
-            <tr><td>Software Engineer</td><td>Building general-purpose software systems, not necessarily ML-specific</td><td>Backend services, applications, infrastructure</td><td>Coding practices, APIs, system design</td></tr>
+            <tr><th>Role</th><th>Core focus</th><th>Typical output</th></tr>
+            <tr><td><b>ML Engineer</b></td><td>Building, training, deploying and maintaining ML models as production systems</td><td>APIs, pipelines, deployed models, monitoring dashboards</td></tr>
+            <tr><td>Data Scientist</td><td>Exploratory analysis, statistical modeling, generating business insight</td><td>Notebooks, reports, dashboards, prototype models</td></tr>
+            <tr><td>AI Engineer</td><td>Building products on top of large pretrained models (mostly LLMs) via APIs</td><td>RAG pipelines, agents, prompt systems</td></tr>
+            <tr><td>Data Engineer</td><td>Building and maintaining the pipelines that move and store data at scale</td><td>ETL/ELT pipelines, data warehouses</td></tr>
           </table>
         </div>
-        <div class="callout callout-info">In practice these roles blur, especially at smaller companies — an "ML Engineer" at a 20-person startup might do parts of all five jobs. At a larger company the boundaries are sharper, and job descriptions get more literal about which one you're being hired for.</div>
+      </div>
+    </div>
+  </div>
+</div>
 
-        <h4 style="margin:22px 0 4px;font-size:15px;">The ML lifecycle — why this roadmap is a loop, not a line</h4>
-        <p style="font-size:13.6px;color:var(--text-dim);">Unlike a typical software project, an ML system is never "done." Data drifts, the world changes, and a model that scored well at launch quietly gets worse. Every phase from here on slots into one of these six stages — keep this picture in mind.</p>
-        <div class="diagram">
-          <svg viewBox="0 0 980 300" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
-            <defs>
-              <marker id="arrowP0" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="var(--text-faint)"/></marker>
-            </defs>
-            <line x1="70" y1="110" x2="910" y2="110" stroke="var(--border)" stroke-width="2" marker-end="url(#arrowP0)"/>
-            <path d="M910,122 C 910,240 70,240 70,122" fill="none" stroke="var(--border)" stroke-width="2" stroke-dasharray="5 5" marker-end="url(#arrowP0)"/>
-            <text x="490" y="262" text-anchor="middle" fill="var(--coral)" font-size="11" font-weight="600">data drift / model decay detected → retrain</text>
-            <g font-family="var(--font-mono)">
-              <circle cx="70" cy="110" r="9" fill="var(--accent)"/>
-              <text x="70" y="76" text-anchor="middle" fill="var(--text)" font-size="13" font-weight="600">Data Collection</text>
-              <text x="70" y="140" text-anchor="middle" fill="var(--text-dim)" font-size="10.5">raw data,</text>
-              <text x="70" y="154" text-anchor="middle" fill="var(--text-dim)" font-size="10.5">labeling</text>
-
-              <circle cx="238" cy="110" r="9" fill="var(--accent)"/>
-              <text x="238" y="76" text-anchor="middle" fill="var(--text)" font-size="13" font-weight="600">Feature Eng.</text>
-              <text x="238" y="140" text-anchor="middle" fill="var(--text-dim)" font-size="10.5">clean, transform,</text>
-              <text x="238" y="154" text-anchor="middle" fill="var(--text-dim)" font-size="10.5">engineer signal</text>
-
-              <circle cx="406" cy="110" r="9" fill="var(--accent)"/>
-              <text x="406" y="76" text-anchor="middle" fill="var(--text)" font-size="13" font-weight="600">Model Training</text>
-              <text x="406" y="140" text-anchor="middle" fill="var(--text-dim)" font-size="10.5">fit algorithm,</text>
-              <text x="406" y="154" text-anchor="middle" fill="var(--text-dim)" font-size="10.5">tune hyperparams</text>
-
-              <circle cx="574" cy="110" r="9" fill="var(--mint)"/>
-              <text x="574" y="76" text-anchor="middle" fill="var(--text)" font-size="13" font-weight="600">Evaluation</text>
-              <text x="574" y="140" text-anchor="middle" fill="var(--text-dim)" font-size="10.5">held-out set,</text>
-              <text x="574" y="154" text-anchor="middle" fill="var(--text-dim)" font-size="10.5">right metric</text>
-
-              <circle cx="742" cy="110" r="9" fill="var(--mint)"/>
-              <text x="742" y="76" text-anchor="middle" fill="var(--text)" font-size="13" font-weight="600">Deployment</text>
-              <text x="742" y="140" text-anchor="middle" fill="var(--text-dim)" font-size="10.5">served via API,</text>
-              <text x="742" y="154" text-anchor="middle" fill="var(--text-dim)" font-size="10.5">batch or real-time</text>
-
-              <circle cx="910" cy="110" r="10" fill="var(--coral)"/>
-              <text x="910" y="76" text-anchor="middle" fill="var(--text)" font-size="13" font-weight="600">Monitoring</text>
-              <text x="910" y="140" text-anchor="middle" fill="var(--text-dim)" font-size="10.5">drift, decay,</text>
-              <text x="910" y="154" text-anchor="middle" fill="var(--text-dim)" font-size="10.5">alerts</text>
-            </g>
-          </svg>
-        </div>
-
-        <div class="explainer">
-          <h4>What companies actually expect from freshers / juniors</h4>
-          <div class="ex-row"><b>Not expected</b><span>Novel research, training billion-parameter models from scratch, or fluency in every framework that exists.</span></div>
-          <div class="ex-row"><b>Expected</b><span>Solid Python + SQL, a working understanding of core algorithms and <i>why</i> they behave the way they do, the ability to take a model from notebook to a working API, comfort reading tracebacks, and at least one genuinely end-to-end project.</span></div>
-          <div class="ex-row"><b>Interview reality</b><span>Junior interviews test fundamentals — bias/variance, overfitting, metric selection — far more than exotic architectures. Depth on basics beats breadth on buzzwords.</span></div>
-        </div>
-
-        <h4 style="margin:18px 0 4px;font-size:15px;">Required skill map for this roadmap</h4>
-        <div class="pill-row">
-          <span class="pill">Python</span><span class="pill">Statistics &amp; Probability</span><span class="pill">Linear Algebra</span>
-          <span class="pill">SQL</span><span class="pill">Classical ML (scikit-learn)</span><span class="pill">Deep Learning (PyTorch)</span>
-          <span class="pill">Feature Engineering</span><span class="pill">Model Evaluation</span><span class="pill">Git / GitHub</span>
-          <span class="pill">REST APIs</span><span class="pill">Docker</span><span class="pill">Cloud Basics</span>
-          <span class="pill">MLOps Tooling</span><span class="pill">Written Communication</span>
-        </div>
-
-        <div class="callout callout-warn"><b>Common mistake:</b> treating this as a "data science" role and stopping at a Jupyter notebook with a good accuracy score. An ML Engineer's job starts, not ends, where the notebook stops — the model has to survive contact with real, messy, shifting production data.</div>
-        <div class="callout callout-info"><b>Depth needed here:</b> you don't need to memorize any of this — you need to be able to explain, in your own words, what you're training for and why the ML lifecycle is a loop, not a line. Revisit this phase after Phase 10 once you've felt the loop firsthand.</div>
-
+<!-- ===================== PHASE 1 ===================== -->
+<div class="station" data-n="1" id="phase1">
+  <div class="phase-card open">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 1 · Foundations</span><h3>Python for Machine Learning</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">Python is the language of ML — but "knowing Python" and "being productive in Python for ML work" are different bars.</p>
         <ul class="chk-list">
-          <li class="chk-item"><input type="checkbox" data-key="p0-role"><span>Can explain what an ML Engineer does, in one line <span class="tag tag-must">🟢</span></span></li>
-          <li class="chk-item"><input type="checkbox" data-key="p0-compare"><span>Know ML Engineer vs Data Scientist vs AI Engineer vs Data Engineer <span class="tag tag-must">🟢</span></span></li>
-          <li class="chk-item"><input type="checkbox" data-key="p0-lifecycle"><span>Understand the full ML lifecycle end-to-end <span class="tag tag-must">🟢</span></span></li>
-          <li class="chk-item"><input type="checkbox" data-key="p0-expect"><span>Know what companies expect from freshers/juniors <span class="tag tag-must">🟢</span></span></li>
-          <li class="chk-item"><input type="checkbox" data-key="p0-skillmap"><span>Reviewed the required skill map <span class="tag tag-should">🟡</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p1-vars"><span>Variables, data types, operators <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p1-control"><span>Conditionals &amp; loops <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p1-func"><span>Functions, arguments &amp; scope <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p1-collections"><span>Lists, tuples, sets, dicts, strings <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p1-comp"><span>Comprehensions &amp; lambda <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p1-except"><span>Exception handling (try/except) <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p1-modules"><span>Modules &amp; virtual environments <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p1-numpy"><span>NumPy arrays, broadcasting, vectorization <span class="tag tag-must">🟢</span></span></li>
         </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PHASE 2 ===================== -->
+<div class="station" data-n="2" id="phase2">
+  <div class="phase-card open">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 2 · Foundations</span><h3>Mathematics Foundations</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">Linear Algebra, Calculus, Probability, and Statistics intuition for ML.</p>
+        <ul class="chk-list">
+          <li class="chk-item"><input type="checkbox" data-key="p2-linalg"><span>Vectors, matrices, dot product, transpose <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p2-calc"><span>Derivatives, partial derivatives, chain rule, gradients <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p2-prob"><span>Probability distributions &amp; Bayes' theorem <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p2-stats"><span>Mean, median, variance, std dev, correlation <span class="tag tag-must">🟢</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PHASE 3 ===================== -->
+<div class="station" data-n="3" id="phase3">
+  <div class="phase-card open">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 3 · Foundations</span><h3>Data Analysis and Data Handling</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">Data cleaning, EDA, Pandas, NumPy, and data leakage detection.</p>
+        <ul class="chk-list">
+          <li class="chk-item"><input type="checkbox" data-key="p3-pandas"><span>Pandas DataFrames (filtering, groupby, merge) <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p3-clean"><span>Missing values, duplicates, outliers <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p3-eda"><span>Exploratory Data Analysis (EDA) <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p3-leakage"><span>Data leakage awareness <span class="tag tag-must">🟢</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PHASE 4 ===================== -->
+<div class="station" data-n="4" id="phase4">
+  <div class="phase-card open">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 4 · Foundations</span><h3>SQL and Databases for ML</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">Pulling training data and writing feature engineering queries in SQL.</p>
+        <ul class="chk-list">
+          <li class="chk-item"><input type="checkbox" data-key="p4-select"><span>SELECT, WHERE, GROUP BY, HAVING <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p4-joins"><span>JOINs (INNER, LEFT, RIGHT, FULL) <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p4-ctes"><span>Subqueries &amp; CTEs <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p4-window"><span>Window functions (ROW_NUMBER, RANK) <span class="tag tag-should">🟡</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PHASE 5 ===================== -->
+<div class="station" data-n="5" id="phase5">
+  <div class="phase-card open">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 5 · Core ML</span><h3>Core Machine Learning Fundamentals</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">Supervised vs Unsupervised, Train/Val/Test split, Cross-validation, Bias-Variance Tradeoff, Regularization.</p>
+        <ul class="chk-list">
+          <li class="chk-item"><input type="checkbox" data-key="p5-split"><span>Train / validation / test split <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p5-cv"><span>Cross-validation <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p5-biasvar"><span>Bias-variance tradeoff <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p5-reg"><span>Regularization (L1 / L2) <span class="tag tag-must">🟢</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PHASE 6 ===================== -->
+<div class="station" data-n="6" id="phase6">
+  <div class="phase-card open">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 6 · Classical ML</span><h3>Regression Algorithms</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">Linear Regression, Ridge, Lasso, MAE, MSE, RMSE, R².</p>
+        <ul class="chk-list">
+          <li class="chk-item"><input type="checkbox" data-key="p6-linear"><span>Linear &amp; Multiple Regression <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p6-ridgelasso"><span>Ridge &amp; Lasso Regularization <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p6-metrics"><span>MAE, MSE, RMSE, R² <span class="tag tag-must">🟢</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PHASE 7 ===================== -->
+<div class="station" data-n="7" id="phase7">
+  <div class="phase-card open">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 7 · Classical ML</span><h3>Classification Algorithms</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">Logistic Regression, Decision Trees, Random Forest, XGBoost, Precision/Recall, ROC-AUC.</p>
+        <ul class="chk-list">
+          <li class="chk-item"><input type="checkbox" data-key="p7-logistic"><span>Logistic Regression <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p7-rf"><span>Decision Trees &amp; Random Forest <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p7-xgb"><span>XGBoost &amp; Gradient Boosting <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p7-metrics"><span>Precision, Recall, F1, ROC-AUC, PR-AUC <span class="tag tag-must">🟢</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PHASE 8 ===================== -->
+<div class="station" data-n="8" id="phase8">
+  <div class="phase-card open">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 8 · Classical ML</span><h3>Feature Engineering &amp; Model Improvement</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">Scaling, One-hot encoding, PCA, SMOTE, Grid Search, Random Search, Optuna.</p>
+        <ul class="chk-list">
+          <li class="chk-item"><input type="checkbox" data-key="p8-scale"><span>Standardization &amp; Min-Max scaling <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p8-encode"><span>One-hot &amp; Label encoding <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p8-pca"><span>PCA &amp; Feature selection <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p8-smote"><span>SMOTE &amp; Class weights <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p8-tuning"><span>Grid Search &amp; Bayesian Optimization <span class="tag tag-must">🟢</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PHASE 9 ===================== -->
+<div class="station" data-n="9" id="phase9">
+  <div class="phase-card open">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 9 · Classical ML</span><h3>Unsupervised Learning</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">K-Means, DBSCAN, t-SNE, UMAP, Anomaly Detection.</p>
+        <ul class="chk-list">
+          <li class="chk-item"><input type="checkbox" data-key="p9-kmeans"><span>K-Means &amp; Elbow method <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p9-dbscan"><span>DBSCAN clustering <span class="tag tag-should">🟡</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p9-anomaly"><span>Isolation Forest anomaly detection <span class="tag tag-should">🟡</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PHASE 10 ===================== -->
+<div class="station" data-n="10" id="phase10">
+  <div class="phase-card open">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 10 · Checkpoint</span><h3>End-to-End Classical ML Projects</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">Churn Prediction, House Prices, Credit Fraud Detection, Recommender Systems.</p>
+        <ul class="chk-list">
+          <li class="chk-item"><input type="checkbox" data-key="p10-churn"><span>Customer Churn Classifier <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p10-fraud"><span>Fraud Detection under Imbalance <span class="tag tag-must">🟢</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PHASE 11 ===================== -->
+<div class="station" data-n="11" id="phase11">
+  <div class="phase-card open">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 11 · Deep Learning</span><h3>Deep Learning Foundations</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">Perceptrons, Activations (ReLU, Softmax), Backpropagation, Adam, Dropout, Batch Norm.</p>
+        <ul class="chk-list">
+          <li class="chk-item"><input type="checkbox" data-key="p11-nn"><span>Forward prop &amp; Backpropagation <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p11-adam"><span>Adam &amp; SGD optimizers <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p11-norm"><span>Dropout &amp; Batch Normalization <span class="tag tag-must">🟢</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PHASE 12 ===================== -->
+<div class="station" data-n="12" id="phase12">
+  <div class="phase-card open">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 12 · Deep Learning</span><h3>PyTorch</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">Tensors, Autograd, Dataset, DataLoader, nn.Module, Training loop, GPU acceleration.</p>
+        <ul class="chk-list">
+          <li class="chk-item"><input type="checkbox" data-key="p12-tensors"><span>Tensors &amp; autograd <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p12-loop"><span>Writing training &amp; validation loops from memory <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p12-gpu"><span>GPU tensor device placement <span class="tag tag-must">🟢</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PHASE 13 ===================== -->
+<div class="station" data-n="13" id="phase13">
+  <div class="phase-card open">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 13 · Specialization</span><h3>Computer Vision</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">CNNs, Transfer Learning (ResNet, EfficientNet), Image Augmentation, Object Detection (YOLO).</p>
+        <ul class="chk-list">
+          <li class="chk-item"><input type="checkbox" data-key="p13-cnn"><span>Convolution &amp; Pooling mechanics <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p13-transfer"><span>Transfer Learning with ResNet <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p13-yolo"><span>YOLO object detection overview <span class="tag tag-should">🟡</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PHASE 14 ===================== -->
+<div class="station" data-n="14" id="phase14">
+  <div class="phase-card open">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 14 · Specialization</span><h3>NLP and Transformers</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">Tokenization, TF-IDF, Embeddings, Attention mechanism, Transformer architecture, BERT, Hugging Face.</p>
+        <ul class="chk-list">
+          <li class="chk-item"><input type="checkbox" data-key="p14-attention"><span>Self-Attention &amp; Query/Key/Value <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p14-bert"><span>BERT fine-tuning with Hugging Face <span class="tag tag-must">🟢</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PHASE 15 ===================== -->
+<div class="station" data-n="15" id="phase15">
+  <div class="phase-card open">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 15 · Specialization</span><h3>Time Series &amp; Recommender Systems</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">Lag features, Chronological splits, Matrix Factorization, Precision@K, NDCG.</p>
+        <ul class="chk-list">
+          <li class="chk-item"><input type="checkbox" data-key="p15-lags"><span>Lag features &amp; XGBoost forecasting <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p15-rec"><span>Matrix Factorization &amp; Ranking metrics <span class="tag tag-must">🟢</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PHASE 16 ===================== -->
+<div class="station" data-n="16" id="phase16">
+  <div class="phase-card open">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 16 · Production</span><h3>ML System Design</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">Data/Training/Inference Pipelines, Batch vs Real-time, Feature Stores, Latency budgets.</p>
+        <ul class="chk-list">
+          <li class="chk-item"><input type="checkbox" data-key="p16-pipelines"><span>Batch vs Real-Time inference architectures <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p16-skew"><span>Offline/online features &amp; Training-serving skew <span class="tag tag-must">🟢</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PHASE 17 ===================== -->
+<div class="station" data-n="17" id="phase17">
+  <div class="phase-card open">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 17 · Production</span><h3>Model Deployment &amp; Backend</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">FastAPI, Pydantic request validation, Docker containerization, cloud deployment.</p>
+        <ul class="chk-list">
+          <li class="chk-item"><input type="checkbox" data-key="p17-fastapi"><span>FastAPI prediction endpoints <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p17-docker"><span>Docker container packaging <span class="tag tag-must">🟢</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PHASE 18 ===================== -->
+<div class="station" data-n="18" id="phase18">
+  <div class="phase-card open">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 18 · Production</span><h3>MLOps</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">MLflow, DVC, Model Registry, CI/CD with GitHub Actions, Data Drift &amp; Concept Drift monitoring.</p>
+        <ul class="chk-list">
+          <li class="chk-item"><input type="checkbox" data-key="p18-mlflow"><span>MLflow experiment tracking &amp; registry <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p18-drift"><span>Data drift &amp; Concept drift monitoring <span class="tag tag-must">🟢</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PHASE 19 ===================== -->
+<div class="station" data-n="19" id="phase19">
+  <div class="phase-card open">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 19 · Production</span><h3>Cloud Infrastructure</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">AWS S3, EC2, IAM, GPU VRAM optimization, Spot instances.</p>
+        <ul class="chk-list">
+          <li class="chk-item"><input type="checkbox" data-key="p19-aws"><span>S3, EC2, IAM basics <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p19-gpu"><span>GPU VRAM management &amp; Spot instance training <span class="tag tag-must">🟢</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PHASE 20 ===================== -->
+<div class="station" data-n="20" id="phase20">
+  <div class="phase-card open">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 20 · Advanced</span><h3>Advanced Machine Learning</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">SHAP, LIME, Stacking, Calibration, Learning rate schedules.</p>
+        <ul class="chk-list">
+          <li class="chk-item"><input type="checkbox" data-key="p20-shap"><span>SHAP feature explainability <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p20-calibration"><span>Probability calibration <span class="tag tag-must">🟢</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PHASE 21 ===================== -->
+<div class="station" data-n="21" id="phase21">
+  <div class="phase-card open">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 21 · Advanced</span><h3>ML Evaluation &amp; Error Analysis</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">Slice-based evaluation, Golden benchmark sets, Failure analysis, Threshold tuning.</p>
+        <ul class="chk-list">
+          <li class="chk-item"><input type="checkbox" data-key="p21-slice"><span>Slice-based subgroup evaluation <span class="tag tag-must">🟢</span></span></li>
+          <li class="chk-item"><input type="checkbox" data-key="p21-failure"><span>Manual failure analysis <span class="tag tag-must">🟢</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PHASE 22 ===================== -->
+<div class="station" data-n="22" id="phase22">
+  <div class="phase-card open">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 22 · Job Ready</span><h3>Portfolio &amp; Project Roadmap</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">16 Projects across 4 Tiers: Beginner, Intermediate, Advanced, Portfolio Capstone.</p>
+        <div class="proj-tabs">
+          <button class="proj-tab active" data-tab="beg" onclick="switchProjTab(this)">Beginner</button>
+          <button class="proj-tab" data-tab="int" onclick="switchProjTab(this)">Intermediate</button>
+          <button class="proj-tab" data-tab="adv" onclick="switchProjTab(this)">Advanced</button>
+          <button class="proj-tab" data-tab="port" onclick="switchProjTab(this)">Portfolio-Level</button>
+        </div>
+
+        <div class="proj-panel active" data-panel="beg">
+          <div class="proj-card">
+            <h4>Customer Churn Classifier</h4>
+            <p>Full scikit-learn workflow with XGBoost &amp; precision/recall evaluation.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PHASE 23 ===================== -->
+<div class="station" data-n="23" id="phase23">
+  <div class="phase-card open">
+    <div class="phase-head" onclick="togglePhase(this)">
+      <div class="phase-title"><span class="pt-eyebrow">Phase 23 · Job Ready</span><h3>Interview Preparation</h3></div>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+    </div>
+    <div class="phase-body">
+      <div class="phase-body-inner">
+        <p class="phase-lede">Python, SQL, Stats, ML Theory, PyTorch, MLOps, System Design interview question bank.</p>
       </div>
     </div>
   </div>
@@ -580,150 +937,20 @@ footer .fine{color:var(--text-faint); font-size:12.5px; margin-top:26px;}
 
 <!-- ===================== PHASE 24 ===================== -->
 <div class="station" data-n="24" id="phase24">
-  <div class="phase-card">
+  <div class="phase-card open">
     <div class="phase-head" onclick="togglePhase(this)">
       <div class="phase-title"><span class="pt-eyebrow">Phase 24 · Job Ready</span><h3>Job-Ready Checklist</h3></div>
       <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
     </div>
     <div class="phase-body">
       <div class="phase-body-inner">
-        <p class="phase-lede">The final gate check. You don't need every single box below ticked to start applying — most people get hired while still working through the later ones — but if you can honestly tick most of this, you are genuinely job-ready for Junior/ML Engineer roles. Come back to this list before every application cycle.</p>
-
-        <h4 style="margin:6px 0 4px;font-size:15px;">Python</h4>
-        <ul class="chk-list">
-          <li class="chk-item"><input type="checkbox" data-key="p24-py1"><span>Write clean functions with real edge-case handling</span></li>
-          <li class="chk-item"><input type="checkbox" data-key="p24-py2"><span>Can debug a traceback calmly, without panic</span></li>
-          <li class="chk-item"><input type="checkbox" data-key="p24-py3"><span>Understand OOP basics (classes, inheritance)</span></li>
-        </ul>
-
-        <h4 style="margin:16px 0 4px;font-size:15px;">SQL</h4>
-        <ul class="chk-list">
-          <li class="chk-item"><input type="checkbox" data-key="p24-sql1"><span>Comfortable with JOINs, GROUP BY, window functions</span></li>
-          <li class="chk-item"><input type="checkbox" data-key="p24-sql2"><span>Can translate a fuzzy English question into a query</span></li>
-        </ul>
-
-        <h4 style="margin:16px 0 4px;font-size:15px;">Mathematics</h4>
-        <ul class="chk-list">
-          <li class="chk-item"><input type="checkbox" data-key="p24-math1"><span>Can explain a gradient and the chain rule intuitively</span></li>
-          <li class="chk-item"><input type="checkbox" data-key="p24-math2"><span>Comfortable with matrix multiplication and vectors</span></li>
-        </ul>
-
-        <h4 style="margin:16px 0 4px;font-size:15px;">Statistics</h4>
-        <ul class="chk-list">
-          <li class="chk-item"><input type="checkbox" data-key="p24-stat1"><span>Can explain what a p-value actually means</span></li>
-          <li class="chk-item"><input type="checkbox" data-key="p24-stat2"><span>Understand variance, correlation, confidence intervals</span></li>
-        </ul>
-
-        <h4 style="margin:16px 0 4px;font-size:15px;">Classical ML</h4>
-        <ul class="chk-list">
-          <li class="chk-item"><input type="checkbox" data-key="p24-cml1"><span>Explain bias-variance tradeoff without notes</span></li>
-          <li class="chk-item"><input type="checkbox" data-key="p24-cml2"><span>Comfortable with Random Forest, XGBoost, and when to use each</span></li>
-          <li class="chk-item"><input type="checkbox" data-key="p24-cml3"><span>Know precision/recall/F1/ROC-AUC and when each applies</span></li>
-        </ul>
-
-        <h4 style="margin:16px 0 4px;font-size:15px;">Deep Learning</h4>
-        <ul class="chk-list">
-          <li class="chk-item"><input type="checkbox" data-key="p24-dl1"><span>Can explain backpropagation for a small network</span></li>
-          <li class="chk-item"><input type="checkbox" data-key="p24-dl2"><span>Understand optimizers, learning rate, overfitting in DL</span></li>
-        </ul>
-
-        <h4 style="margin:16px 0 4px;font-size:15px;">PyTorch</h4>
-        <ul class="chk-list">
-          <li class="chk-item"><input type="checkbox" data-key="p24-pt1"><span>Write a training + validation loop from memory</span></li>
-          <li class="chk-item"><input type="checkbox" data-key="p24-pt2"><span>Comfortable with Dataset / DataLoader / nn.Module</span></li>
-        </ul>
-
-        <h4 style="margin:16px 0 4px;font-size:15px;">Projects</h4>
-        <ul class="chk-list">
-          <li class="chk-item"><input type="checkbox" data-key="p24-proj1"><span>At least 3 shipped projects across difficulty levels</span></li>
-          <li class="chk-item"><input type="checkbox" data-key="p24-proj2"><span>At least 1 project with a real deployment, not just a notebook</span></li>
-          <li class="chk-item"><input type="checkbox" data-key="p24-proj3"><span>Every project has a clear, honest README</span></li>
-        </ul>
-
-        <h4 style="margin:16px 0 4px;font-size:15px;">Deployment &amp; MLOps</h4>
-        <ul class="chk-list">
-          <li class="chk-item"><input type="checkbox" data-key="p24-dep1"><span>Comfortable wrapping a model in a FastAPI endpoint</span></li>
-          <li class="chk-item"><input type="checkbox" data-key="p24-dep2"><span>Can write a working Dockerfile</span></li>
-          <li class="chk-item"><input type="checkbox" data-key="p24-dep3"><span>Understand experiment tracking and can use MLflow</span></li>
-          <li class="chk-item"><input type="checkbox" data-key="p24-dep4"><span>Can explain data drift vs. concept drift clearly</span></li>
-        </ul>
-
-        <h4 style="margin:16px 0 4px;font-size:15px;">Git / GitHub</h4>
-        <ul class="chk-list">
-          <li class="chk-item"><input type="checkbox" data-key="p24-git1"><span>Clean commit history, not "fix", "fix2", "final_final"</span></li>
-          <li class="chk-item"><input type="checkbox" data-key="p24-git2"><span>Comfortable with branches and pull requests</span></li>
-          <li class="chk-item"><input type="checkbox" data-key="p24-git3"><span>Profile has pinned repos showcasing your best work</span></li>
-        </ul>
-
-        <h4 style="margin:16px 0 4px;font-size:15px;">Resume</h4>
-        <ul class="chk-list">
-          <li class="chk-item"><input type="checkbox" data-key="p24-resume1"><span>Quantified impact on every bullet, not "built a model"</span></li>
-          <li class="chk-item"><input type="checkbox" data-key="p24-resume2"><span>No unexplained buzzwords — you can defend every tool listed</span></li>
-          <li class="chk-item"><input type="checkbox" data-key="p24-resume3"><span>One page, clean ATS-friendly formatting</span></li>
-        </ul>
-
-        <h4 style="margin:16px 0 4px;font-size:15px;">LinkedIn</h4>
-        <ul class="chk-list">
-          <li class="chk-item"><input type="checkbox" data-key="p24-li1"><span>Headline states your target role, not just "Student"</span></li>
-          <li class="chk-item"><input type="checkbox" data-key="p24-li2"><span>Featured section links your best 2–3 projects</span></li>
-          <li class="chk-item"><input type="checkbox" data-key="p24-li3"><span>About section tells a coherent story, not a keyword dump</span></li>
-        </ul>
-
-        <h4 style="margin:16px 0 4px;font-size:15px;">Interview Preparation</h4>
-        <ul class="chk-list">
-          <li class="chk-item"><input type="checkbox" data-key="p24-int1"><span>Worked through Phase 23's question bank</span></li>
-          <li class="chk-item"><input type="checkbox" data-key="p24-int2"><span>Completed at least one mock interview</span></li>
-          <li class="chk-item"><input type="checkbox" data-key="p24-int3"><span>Have 2–3 well-rehearsed "tell me about a project" stories ready</span></li>
-        </ul>
-
-        <div class="callout callout-info" style="margin-top:18px;"><b>Priority order if you're short on time:</b> Projects → Classical ML → Deployment → Resume. Those four move the needle on getting interviews the fastest. Everything else compounds once you're in the interview room.</div>
+        <p class="phase-lede">Final checklist: Python, SQL, Math, ML, PyTorch, Deployment, MLOps, Resume &amp; LinkedIn.</p>
       </div>
     </div>
   </div>
 </div>
-</div> <!-- /route -->
-</div>
-</section>
 
-<!-- ============ WHAT NOT TO LEARN ============ -->
-<section class="section" id="whatnot">
-  <div class="container">
-    <div class="sec-head">
-      <span class="sec-kicker">Before You Start</span>
-      <h2>What NOT to learn initially</h2>
-      <p class="sec-desc">The fastest way to stall out on a roadmap like this is optimizing for the wrong thing. These are the traps that quietly cost learners the most time.</p>
-    </div>
-    <div class="cards">
-      <div class="card"><h4>🚫 Don't master every framework</h4><p>PyTorch is enough. You don't also need fluency in TensorFlow, JAX and three boosting libraries before you're job-ready. Depth in one beats shallow breadth in five.</p></div>
-      <div class="card"><h4>🚫 Don't jump to LLMs before fundamentals</h4><p>Fine-tuning a transformer without understanding gradient descent, overfitting or evaluation is building on sand — you won't be able to debug anything that goes wrong.</p></div>
-      <div class="card"><h4>🚫 Don't train huge models from scratch</h4><p>Almost nobody outside a handful of research labs trains large models from zero. Transfer learning and fine-tuning are the actual job — practice those instead.</p></div>
-      <div class="card"><h4>🚫 Don't collect certificates instead of projects</h4><p>A certificate proves you finished a course. A deployed project proves you can build. Recruiters and interviewers weight these very differently.</p></div>
-      <div class="card"><h4>🚫 Don't only watch tutorials</h4><p>Watching someone else code creates an illusion of understanding. You find out what you actually don't know only when you write it yourself, from a blank file.</p></div>
-      <div class="card"><h4>🚫 Don't build only notebooks</h4><p>A notebook that runs top-to-bottom once is not a system. Force yourself to wrap at least a few projects in a real API — that's where the real learning happens.</p></div>
-      <div class="card"><h4>🚫 Don't ignore deployment and MLOps</h4><p>This is the single biggest gap between "did a bootcamp" candidates and hireable ones. Phases 16–19 aren't optional extras — budget real time for them.</p></div>
-      <div class="card"><h4>🚫 Don't chase every new paper or tool</h4><p>The field moves fast, but the fundamentals in Phases 0–12 barely change year to year. Chasing every release is a distraction from building real depth.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ SUGGESTED PACING ============ -->
-<section class="section" id="pacing">
-  <div class="container">
-    <div class="sec-head">
-      <span class="sec-kicker">Planning</span>
-      <h2>Suggested pacing</h2>
-      <p class="sec-desc">Rough guides, not deadlines. Going slower and actually retaining the material beats rushing through and re-learning it during interviews.</p>
-    </div>
-    <div class="tbl-wrap">
-      <table>
-        <tr><th>Stage</th><th>Steady pace (part-time, 9–12 months total)</th><th>Intensive pace (full-time, 4–5 months total)</th></tr>
-        <tr><td>Beginner — Phases 0–5</td><td>6–8 weeks</td><td>3–4 weeks</td></tr>
-        <tr><td>Intermediate — Phases 6–12</td><td>10–12 weeks</td><td>5–6 weeks</td></tr>
-        <tr><td>Advanced — Phases 13–15, 20–21</td><td>8–10 weeks</td><td>4–5 weeks</td></tr>
-        <tr><td>Production — Phases 16–19</td><td>6–8 weeks</td><td>3–4 weeks</td></tr>
-        <tr><td>Job Ready — Phases 22–24</td><td>6–8 weeks (overlapping with applications)</td><td>3–4 weeks</td></tr>
-      </table>
-    </div>
+    </div> <!-- /route -->
   </div>
 </section>
 </main>
@@ -731,8 +958,7 @@ footer .fine{color:var(--text-faint); font-size:12.5px; margin-top:26px;}
 <footer>
   <div class="container">
     <p class="golden-rule">"A deployed model beats a perfect notebook, every time."</p>
-    <p style="color:var(--text-dim);font-size:14px;">Decode AI Community Resource · Authored by Himanshu Pandey · 25 phases. 230+ concepts. 16 projects. One continuous route from first principles to job-ready.</p>
-    <p class="fine">Built as a practical, opinionated route — not the only valid path. Library APIs, framework versions and cloud consoles change constantly; always verify specifics against current official documentation. Your checklist progress is saved locally in this browser via localStorage — it isn't synced anywhere else.</p>
+    <p class="fine">Decode AI Community Resource · Authored by Himanshu Pandey · 25 phases complete roadmap.</p>
   </div>
 </footer>
 
@@ -741,73 +967,21 @@ footer .fine{color:var(--text-faint); font-size:12.5px; margin-top:26px;}
 </button>
 
 <script>
-/* ==================================================
-   ML ENGINEER ROADMAP 2026 — APPLICATION LOGIC
-   Sections: constants, phase toggle, theme, checklist
-   + progress, search, project tabs, scroll/backtop,
-   print, keyboard access, init
-================================================== */
-
-const STORAGE_KEY = 'ml_roadmap_progress_v1';
-const THEME_KEY   = 'ml_roadmap_theme_v1';
-
-/* ---------- Phase expand / collapse ---------- */
 function togglePhase(headEl){
   const card = headEl.closest('.phase-card');
   if(!card) return;
-  const isOpen = card.classList.toggle('open');
-  headEl.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  card.classList.toggle('open');
 }
 
-/* ---------- Theme toggle ---------- */
 function applyTheme(theme){
   document.body.setAttribute('data-theme', theme);
-  const icon = document.getElementById('themeIcon');
-  if(!icon) return;
-  if(theme === 'light'){
-    icon.innerHTML = '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>';
-  } else {
-    icon.innerHTML = '<path d="M12 3a6 6 0 0 0 9 9 9 0 1 1-9-9Z"/>';
-  }
-}
-function initThemeToggle(){
-  let saved = 'dark';
-  try{ saved = localStorage.getItem(THEME_KEY) || 'dark'; }catch(e){}
-  applyTheme(saved);
-  const btn = document.getElementById('themeToggle');
-  if(!btn) return;
-  btn.addEventListener('click', function(){
-    const current = document.body.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
-    const next = current === 'dark' ? 'light' : 'dark';
-    applyTheme(next);
-    try{ localStorage.setItem(THEME_KEY, next); }catch(e){}
-  });
 }
 
-/* ---------- Checklist + progress tracking ---------- */
-function saveChecklistState(){
-  const state = {};
-  document.querySelectorAll('.chk-item input[type="checkbox"]').forEach(function(cb){
-    if(cb.dataset.key) state[cb.dataset.key] = cb.checked;
-  });
-  try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){}
-}
-function loadChecklistState(){
-  let state = {};
-  try{ state = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}') || {}; }catch(e){ state = {}; }
-  document.querySelectorAll('.chk-item input[type="checkbox"]').forEach(function(cb){
-    if(cb.dataset.key && state[cb.dataset.key]){
-      cb.checked = true;
-      const li = cb.closest('.chk-item');
-      if(li) li.classList.add('checked');
-    }
-  });
-}
 function updateProgress(){
   const all = document.querySelectorAll('.chk-item input[type="checkbox"]');
   const total = all.length;
   let checked = 0;
-  all.forEach(function(cb){ if(cb.checked) checked++; });
+  all.forEach(cb => { if(cb.checked) checked++; });
   const pct = total ? Math.round((checked / total) * 100) : 0;
   const pctEl = document.getElementById('progressPct');
   const countEl = document.getElementById('progressCount');
@@ -816,186 +990,23 @@ function updateProgress(){
   if(countEl) countEl.textContent = '(' + checked + ' / ' + total + ' topics)';
   if(miniBar) miniBar.style.width = pct + '%';
 }
-function initChecklist(){
-  document.querySelectorAll('.chk-item').forEach(function(item){
-    const cb = item.querySelector('input[type="checkbox"]');
-    if(!cb) return;
-    item.addEventListener('click', function(e){
-      if(e.target.tagName === 'INPUT') return;
-      cb.checked = !cb.checked;
-      cb.dispatchEvent(new Event('change'));
-    });
-    cb.addEventListener('change', function(){
-      item.classList.toggle('checked', cb.checked);
-      saveChecklistState();
-      updateProgress();
-    });
-  });
-  const resetBtn = document.getElementById('resetProgress');
-  if(resetBtn){
-    resetBtn.addEventListener('click', function(){
-      if(confirm('Reset all checklist progress? This cannot be undone.')){
-        document.querySelectorAll('.chk-item input[type="checkbox"]').forEach(function(cb){
-          cb.checked = false;
-          const li = cb.closest('.chk-item');
-          if(li) li.classList.remove('checked');
-        });
-        try{ localStorage.removeItem(STORAGE_KEY); }catch(e){}
-        updateProgress();
-      }
-    });
-  }
-}
 
-/* ---------- Search ---------- */
-let searchIndex = [];
-function buildSearchIndex(){
-  const index = [];
-  document.querySelectorAll('.station').forEach(function(station){
-    const phaseId = station.id;
-    const titleEl = station.querySelector('.phase-title h3');
-    const phaseTitle = titleEl ? titleEl.textContent.trim() : '';
-    if(phaseTitle) index.push({ text: phaseTitle, phase: phaseTitle, id: phaseId });
-    station.querySelectorAll('.topic h4, .explainer h4, td b, td strong, .pill').forEach(function(el){
-      const text = el.textContent.trim();
-      if(text && text.length > 1) index.push({ text: text, phase: phaseTitle, id: phaseId });
-    });
-    station.querySelectorAll('.chk-item span, .proj-card h4').forEach(function(el){
-      const text = el.textContent.replace(/[🟢🟡🔵🔴]/g, '').trim();
-      if(text) index.push({ text: text, phase: phaseTitle, id: phaseId });
-    });
-  });
-  return index;
-}
-function initSearch(){
-  searchIndex = buildSearchIndex();
-  const input = document.getElementById('searchInput');
-  const results = document.getElementById('searchResults');
-  if(!input || !results) return;
-  input.addEventListener('input', function(){
-    const q = this.value.trim().toLowerCase();
-    if(q.length < 2){ results.classList.remove('show'); results.innerHTML = ''; return; }
-    const seen = new Set();
-    const matches = [];
-    for(let i = 0; i < searchIndex.length && matches.length < 15; i++){
-      const item = searchIndex[i];
-      if(item.text.toLowerCase().indexOf(q) === -1) continue;
-      const key = item.text + '|' + item.id;
-      if(seen.has(key)) continue;
-      seen.add(key);
-      matches.push(item);
-    }
-    if(matches.length === 0){
-      results.innerHTML = '<div class="sr-empty">No matches found.</div>';
-    } else {
-      results.innerHTML = matches.map(function(m){
-        return '<a href="#' + m.id + '" data-target="' + m.id + '"><div class="sr-phase">' + m.phase + '</div>' + m.text + '</a>';
-      }).join('');
-    }
-    results.classList.add('show');
-  });
-  results.addEventListener('click', function(e){
-    const a = e.target.closest('a');
-    if(!a) return;
-    e.preventDefault();
-    const targetId = a.dataset.target;
-    const station = document.getElementById(targetId);
-    const card = station ? station.querySelector('.phase-card') : null;
-    if(card){
-      card.classList.add('open');
-      const head = card.querySelector('.phase-head');
-      if(head) head.setAttribute('aria-expanded', 'true');
-      card.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      card.classList.add('hl-target');
-      setTimeout(function(){ card.classList.remove('hl-target'); }, 1700);
-    }
-    results.classList.remove('show');
-    input.value = '';
-  });
-  document.addEventListener('click', function(e){
-    if(!e.target.closest('.search-box') && !e.target.closest('#searchResults')){
-      results.classList.remove('show');
-    }
-  });
-}
-
-/* ---------- Project tabs (Phase 22) ---------- */
 function switchProjTab(tabEl){
   const group = tabEl.closest('.proj-tabs');
   if(!group) return;
-  group.querySelectorAll('.proj-tab').forEach(function(t){ t.classList.remove('active'); });
+  group.querySelectorAll('.proj-tab').forEach(t => t.classList.remove('active'));
   tabEl.classList.add('active');
   const key = tabEl.dataset.tab;
-  const scope = group.parentElement || document;
-  scope.querySelectorAll('.proj-panel').forEach(function(p){
+  document.querySelectorAll('.proj-panel').forEach(p => {
     p.classList.toggle('active', p.dataset.panel === key);
   });
 }
 
-/* ---------- Print ---------- */
-function initPrint(){
-  const btn = document.getElementById('printBtn');
-  if(btn) btn.addEventListener('click', function(){ window.print(); });
-}
-
-/* ---------- Scroll progress rail + back-to-top ---------- */
-function initScrollUI(){
-  const rail = document.getElementById('progressFill');
-  const backTop = document.getElementById('backTop');
-  function onScroll(){
-    const scrollTop = window.scrollY || document.documentElement.scrollTop;
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const pct = docHeight > 0 ? Math.min(100, (scrollTop / docHeight) * 100) : 0;
-    if(rail) rail.style.width = pct + '%';
-    if(backTop){
-      if(scrollTop > 480) backTop.classList.add('show');
-      else backTop.classList.remove('show');
-    }
-  }
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-}
-
-/* ---------- Keyboard accessibility for phase headers ---------- */
-function initKeyboardAccess(){
-  document.querySelectorAll('.phase-head').forEach(function(head){
-    head.setAttribute('tabindex', '0');
-    head.setAttribute('role', 'button');
-    head.setAttribute('aria-expanded', head.closest('.phase-card').classList.contains('open') ? 'true' : 'false');
-    head.addEventListener('keydown', function(e){
-      if(e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar'){
-        e.preventDefault();
-        togglePhase(head);
-      }
-    });
-  });
-}
-
-/* ---------- Open a phase from the URL hash on load ---------- */
-function openFromHash(){
-  if(!location.hash) return;
-  const target = document.querySelector(location.hash);
-  if(!target) return;
-  const card = target.classList.contains('phase-card') ? target : target.querySelector('.phase-card');
-  if(card){
-    card.classList.add('open');
-    const head = card.querySelector('.phase-head');
-    if(head) head.setAttribute('aria-expanded', 'true');
-    setTimeout(function(){ target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 80);
-  }
-}
-
-/* ---------- Init ---------- */
 document.addEventListener('DOMContentLoaded', function(){
-  initThemeToggle();
-  loadChecklistState();
+  document.querySelectorAll('.chk-item input[type="checkbox"]').forEach(cb => {
+    cb.addEventListener('change', updateProgress);
+  });
   updateProgress();
-  initChecklist();
-  initSearch();
-  initPrint();
-  initScrollUI();
-  initKeyboardAccess();
-  openFromHash();
 });
 </script>
 </body>
