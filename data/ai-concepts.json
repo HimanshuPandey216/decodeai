@@ -1,0 +1,67 @@
+[
+  {
+    "id": "concept-001",
+    "title": "Transformers Architecture & Self-Attention Explained",
+    "slug": "transformers-explained",
+    "description": "Deconstructing Query, Key, Value vectors, Multi-Head Attention, and positional encoding with diagrams.",
+    "category": "Deep Learning",
+    "file": "content/html/transformers-explained.html",
+    "author": "Himanshu Pandey",
+    "icon": "🧠",
+    "date": "2026-08-28",
+    "readingTime": "18 min read",
+    "tags": ["Transformers", "Attention", "Deep Learning", "PyTorch"]
+  },
+  {
+    "id": "concept-002",
+    "title": "Retrieval-Augmented Generation (RAG) Complete Production Guide",
+    "slug": "rag-complete-guide",
+    "description": "Master Naive RAG, Advanced Chunking, Hybrid Search with BM25 & Dense Vectors, Reranking, and Ragas evaluation.",
+    "category": "LLMs & GenAI",
+    "file": "content/html/rag-complete-guide.html",
+    "author": "Himanshu Pandey",
+    "icon": "💬",
+    "date": "2026-08-28",
+    "readingTime": "22 min read",
+    "tags": ["RAG", "LLMs", "Vector DB", "LangChain"]
+  },
+  {
+    "id": "concept-003",
+    "title": "Mathematics for Machine Learning Essentials",
+    "slug": "math-for-ml",
+    "description": "Linear Algebra, Vector Spaces, Calculus, Gradients, Jacobians, Hessians, and Probability distributions simplified.",
+    "category": "Mathematics",
+    "file": "content/html/math-for-ml.html",
+    "author": "Himanshu Pandey",
+    "icon": "📐",
+    "date": "2026-08-28",
+    "readingTime": "25 min read",
+    "tags": ["Mathematics", "Linear Algebra", "Calculus"]
+  },
+  {
+    "id": "concept-004",
+    "title": "AI Engineer Career Roadmap 2026 — 23-Phase Guide",
+    "slug": "ai-engineer-roadmap",
+    "description": "Comprehensive 23-phase interactive study notes from Python basics to autonomous agents and cloud deployment.",
+    "category": "Career Paths",
+    "file": "content/html/ai-engineer-roadmap-2026.html",
+    "author": "Himanshu Pandey",
+    "icon": "🚀",
+    "date": "2026-08-28",
+    "readingTime": "30 min read",
+    "tags": ["AI Engineering", "Roadmap", "LLMs", "Agents"]
+  },
+  {
+    "id": "concept-005",
+    "title": "Machine Learning Engineer Roadmap 2026 — 25-Phase Guide",
+    "slug": "ml-engineer-roadmap",
+    "description": "Full 25-phase interactive notes covering math rigor, classical ML, PyTorch, CV/NLP, MLOps and system design.",
+    "category": "Career Paths",
+    "file": "content/html/ml-engineer-roadmap-2026.html",
+    "author": "Himanshu Pandey",
+    "icon": "⚙️",
+    "date": "2026-09-01",
+    "readingTime": "35 min read",
+    "tags": ["Machine Learning", "PyTorch", "MLOps", "Roadmap"]
+  }
+]

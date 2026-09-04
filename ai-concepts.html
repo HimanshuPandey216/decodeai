@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Concepts & Notes Hub — Decode AI</title>
+  <meta name="description" content="Explore simplified HTML notes, math derivations, and core AI concept guides. Upload your AI notes and study material. Authored by Himanshu Pandey.">
+  
+  <link rel="icon" href="assets/favicon.png" type="image/png">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <style>
+    .concept-filters {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin: 1.5rem 0 2rem 0;
+    }
+
+    .concept-filter-btn {
+      padding: 0.6rem 1.25rem;
+      border-radius: var(--radius-full);
+      font-size: 0.875rem;
+      font-weight: 600;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .concept-filter-btn:hover,
+    .concept-filter-btn.active {
+      background: var(--accent-cyan);
+      color: #070B12;
+      border-color: var(--accent-cyan);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .concept-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.75rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .concept-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all var(--transition-normal);
+    }
+
+    .concept-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent-cyan);
+      box-shadow: var(--shadow-md);
+      background: var(--bg-card-hover);
+    }
+
+    .concept-card-icon {
+      font-size: 2.2rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .concept-card-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .concept-card-desc {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      margin-bottom: 1.25rem;
+    }
+
+    .upload-guide-box {
+      background: linear-gradient(135deg, rgba(0, 240, 255, 0.05), rgba(59, 130, 246, 0.05));
+      border: 1px dashed var(--accent-cyan);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      margin-top: 3rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Navbar -->
+  <header class="navbar">
+    <div class="container navbar-container">
+      <a href="index.html" class="brand-logo">
+        <img src="assets/logo.png" alt="Decode AI Logo" class="logo-img js-logo-img">
+        <div>
+          <span class="brand-text">DECODE AI</span>
+          <span class="brand-tagline-sub">LEARN AI. BUILD FUTURE.</span>
+        </div>
+      </a>
+
+      <nav>
+        <ul id="nav-menu" class="nav-menu">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="resources.html" class="nav-link">Resources</a></li>
+          <li><a href="roadmaps.html" class="nav-link">Roadmaps</a></li>
+          <li><a href="ai-concepts.html" class="nav-link active">AI Concepts</a></li>
+          <li><a href="notes.html" class="nav-link">Notes</a></li>
+          <li><a href="community.html" class="nav-link">Community</a></li>
+          <li><a href="contribute.html" class="nav-link">Contribute</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="btn-search-trigger js-open-search" aria-label="Search Knowledge Base">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <span>Search</span>
+          <span class="kbd-shortcut">⌘K</span>
+        </button>
+
+        <button class="btn-icon js-theme-toggle" aria-label="Toggle Theme">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle></svg>
+        </button>
+
+        <button id="mobile-menu-toggle" class="mobile-toggle" aria-label="Toggle Navigation Menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <main class="section">
+    <div class="container">
+      <div class="section-header" style="text-align: left; margin-bottom: 1rem;">
+        <div class="section-badge">💡 Knowledge Repository</div>
+        <h1>AI Concepts &amp; HTML Notes Hub</h1>
+        <p>Interactive HTML study guides, mathematical breakdowns, and core AI principles. Upload your HTML notes directly into <code>/content/html/</code> to expand the library!</p>
+      </div>
+
+      <!-- Filters & Search -->
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+        <div id="concept-filters" class="concept-filters">
+          <button class="concept-filter-btn active" onclick="filterConcepts('all')">All Concepts</button>
+          <button class="concept-filter-btn" onclick="filterConcepts('Deep Learning')">Deep Learning</button>
+          <button class="concept-filter-btn" onclick="filterConcepts('LLMs & GenAI')">LLMs &amp; GenAI</button>
+          <button class="concept-filter-btn" onclick="filterConcepts('Mathematics')">Mathematics</button>
+          <button class="concept-filter-btn" onclick="filterConcepts('Career Paths')">Career Paths</button>
+        </div>
+
+        <div class="search-box" style="width: 260px;">
+          <input type="text" id="concept-search-input" placeholder="Filter AI concepts..." oninput="searchConcepts()">
+        </div>
+      </div>
+
+      <!-- Concepts Grid -->
+      <div id="concepts-grid" class="concept-grid">
+        <!-- Dynamically rendered via JavaScript from data/ai-concepts.json -->
+      </div>
+
+      <!-- Embedded Interactive Note Viewer Modal -->
+      <div id="note-viewer-container" style="display: none; margin-top: 2rem; scroll-margin-top: 6rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; background: var(--bg-surface); border: 1px solid var(--border-color); padding: 1rem 1.5rem; border-radius: var(--radius-lg) var(--radius-lg) 0 0; border-bottom: none;">
+          <div>
+            <span style="font-size: 0.8rem; font-weight: 700; color: var(--accent-cyan); text-transform: uppercase;">Viewing Concept Note</span>
+            <h2 id="viewer-title" style="font-size: 1.3rem; margin: 0;">Transformer Architecture</h2>
+          </div>
+          <div style="display: flex; gap: 0.75rem;">
+            <a id="viewer-external-link" href="#" target="_blank" class="btn btn-secondary btn-sm">Open in New Tab ↗</a>
+            <button onclick="closeViewer()" class="btn btn-ghost btn-sm">Close Viewer ✕</button>
+          </div>
+        </div>
+        <div style="border-radius: 0 0 var(--radius-lg) var(--radius-lg); overflow: hidden; border: 1px solid var(--border-color); background: var(--bg-surface);">
+          <iframe id="viewer-iframe" src="" style="width: 100%; height: 850px; border: none;" title="AI Concept Note Viewer"></iframe>
+        </div>
+      </div>
+
+      <!-- Upload Guide Box -->
+      <div class="upload-guide-box">
+        <h3 style="font-size: 1.4rem; margin-bottom: 0.75rem; color: var(--accent-cyan);">📤 How to Upload Your AI HTML Notes</h3>
+        <p style="font-size: 0.95rem; color: var(--text-secondary); max-width: 680px; margin: 0 auto 1.5rem auto;">
+          Got your own HTML study notes, cheat sheets, or AI guides? Uploading them to Decode AI is simple:
+        </p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; text-align: left; max-width: 850px; margin: 0 auto;">
+          <div style="background: var(--bg-card); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+            <div style="font-weight: 700; color: var(--accent-cyan); margin-bottom: 0.25rem;">Step 1</div>
+            <div style="font-size: 0.9rem;">Place your <code>.html</code> note file inside <code>content/html/</code> in your repo.</div>
+          </div>
+
+          <div style="background: var(--bg-card); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+            <div style="font-weight: 700; color: var(--accent-cyan); margin-bottom: 0.25rem;">Step 2</div>
+            <div style="font-size: 0.9rem;">Add a 5-line JSON entry inside <code>data/ai-concepts.json</code> with your note title &amp; file link.</div>
+          </div>
+
+          <div style="background: var(--bg-card); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+            <div style="font-weight: 700; color: var(--accent-cyan); margin-bottom: 0.25rem;">Step 3</div>
+            <div style="font-size: 0.9rem;">Push to GitHub! Vercel will auto-deploy your new AI concept note instantly.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <div>© 2026 DECODE AI. Founded by <a href="https://www.linkedin.com/in/himanshu-pandey12" target="_blank">Himanshu Pandey</a>. Built by learners, for learners.</div>
+        <div class="social-links">
+          <a href="https://github.com/HimanshuPandey216" target="_blank" aria-label="GitHub">GitHub</a>
+          <a href="https://www.linkedin.com/in/himanshu-pandey12" target="_blank" aria-label="LinkedIn">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/search.js"></script>
+  <script src="js/resources.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    let conceptsData = [];
+    let currentCategory = 'all';
+
+    async function loadAIConcepts() {
+      try {
+        const res = await fetch('data/ai-concepts.json');
+        if (!res.ok) return;
+        conceptsData = await res.json();
+        renderConcepts();
+      } catch (e) {
+        console.error('Failed to load AI concepts dataset:', e);
+      }
+    }
+
+    function renderConcepts() {
+      const grid = document.getElementById('concepts-grid');
+      const searchQuery = (document.getElementById('concept-search-input')?.value || '').toLowerCase().trim();
+
+      if (!grid) return;
+
+      const filtered = conceptsData.filter(item => {
+        const matchCat = currentCategory === 'all' || item.category === currentCategory;
+        const matchSearch = !searchQuery || 
+          item.title.toLowerCase().includes(searchQuery) || 
+          item.description.toLowerCase().includes(searchQuery) ||
+          (item.tags && item.tags.some(t => t.toLowerCase().includes(searchQuery)));
+        return matchCat && matchSearch;
+      });
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 3rem; color: var(--text-muted);">No AI concepts found matching your criteria.</div>`;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(item => `
+        <div class="concept-card">
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+              <span class="concept-card-icon">${item.icon || '🧠'}</span>
+              <span class="badge badge-book">${escapeHtml(item.category || 'AI Concept')}</span>
+            </div>
+            <h3 class="concept-card-title">${escapeHtml(item.title)}</h3>
+            <p class="concept-card-desc">${escapeHtml(item.description)}</p>
+            
+            <div style="display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 1rem;">
+              ${(item.tags || []).map(t => `<span style="font-size: 0.75rem; background: var(--bg-surface); padding: 0.2rem 0.6rem; border-radius: 4px; border: 1px solid var(--border-color); color: var(--text-dim);">${escapeHtml(t)}</span>`).join('')}
+            </div>
+          </div>
+
+          <div style="border-top: 1px solid var(--border-color); padding-top: 0.85rem; margin-top: 0.5rem; display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-size: 0.8rem; color: var(--text-muted);">${item.readingTime || 'Note'}</span>
+            <button onclick="openNoteViewer('${item.file}', '${escapeHtml(item.title)}')" class="btn btn-secondary btn-sm">
+              Read Notes →
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function filterConcepts(cat) {
+      currentCategory = cat;
+      document.querySelectorAll('.concept-filter-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.textContent.includes(cat) || (cat === 'all' && btn.textContent.includes('All')));
+      });
+      renderConcepts();
+    }
+
+    function searchConcepts() {
+      renderConcepts();
+    }
+
+    function openNoteViewer(filePath, title) {
+      const container = document.getElementById('note-viewer-container');
+      const titleEl = document.getElementById('viewer-title');
+      const iframeEl = document.getElementById('viewer-iframe');
+      const linkEl = document.getElementById('viewer-external-link');
+
+      if (container && iframeEl) {
+        titleEl.textContent = title;
+        iframeEl.src = filePath;
+        linkEl.href = filePath;
+        container.style.display = 'block';
+        container.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    function closeViewer() {
+      const container = document.getElementById('note-viewer-container');
+      if (container) container.style.display = 'none';
+    }
+
+    function escapeHtml(str) {
+      return String(str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    document.addEventListener('DOMContentLoaded', loadAIConcepts);
+  </script>
+</body>
+</html>

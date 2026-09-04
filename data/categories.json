@@ -1,5 +1,14 @@
 [
   {
+    "id": "ai-concepts",
+    "slug": "ai-concepts",
+    "name": "AI Concepts",
+    "description": "Simplified HTML notes, study guides, mathematical breakdowns, and core AI principles.",
+    "icon": "sparkles",
+    "color": "#00F0FF",
+    "resourceCount": 15
+  },
+  {
     "id": "ai",
     "slug": "ai",
     "name": "Artificial Intelligence",
