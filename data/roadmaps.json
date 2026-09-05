@@ -30,6 +30,21 @@
     "active": false
   },
   {
+    "id": "data-scientist",
+    "slug": "data-scientist-roadmap",
+    "title": "Data Scientist Roadmap & Study Dashboard",
+    "icon": "📊",
+    "phaseCount": "18 Phases",
+    "tagline": "Statistical Modeling, Hypothesis Testing, SQL, EDA & Business Analytics",
+    "description": "Focuses on statistical rigor, exploratory data analysis, A/B testing, predictive modeling, formula sheets, and business insight delivery.",
+    "level": "Beginner to Job-Ready",
+    "estimatedDuration": "6 - 8 Months",
+    "author": "Himanshu Pandey",
+    "file": "content/html/data-scientist-roadmap.html",
+    "badge": "DATA TRACK",
+    "active": false
+  },
+  {
     "id": "genai-specialist",
     "slug": "genai-specialist",
     "title": "Generative AI Specialist Roadmap",
@@ -42,21 +57,6 @@
     "author": "Himanshu Pandey",
     "file": "content/html/ai-engineer-roadmap-2026.html",
     "badge": "GENAI TRACK",
-    "active": false
-  },
-  {
-    "id": "data-scientist",
-    "slug": "data-scientist",
-    "title": "Data Scientist Career Roadmap",
-    "icon": "📊",
-    "phaseCount": "20 Phases",
-    "tagline": "Statistical Modeling, Hypothesis Testing, SQL, EDA & Business Analytics",
-    "description": "Focuses on statistical rigor, exploratory data analysis, A/B testing, predictive modeling, and business insight delivery.",
-    "level": "Beginner to Intermediate",
-    "estimatedDuration": "6 Months",
-    "author": "Himanshu Pandey",
-    "file": "content/html/ml-engineer-roadmap-2026.html",
-    "badge": "DATA TRACK",
     "active": false
   }
 ]

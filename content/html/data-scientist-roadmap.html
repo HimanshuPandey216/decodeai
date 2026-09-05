@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Data Scientist Roadmap & Study Dashboard</title>
+<style>
+:root{--bg:#f7f8fb;--panel:#fff;--text:#172033;--muted:#667085;--line:#e5e7eb;--accent:#4f46e5;--accent2:#7c3aed;--soft:#eef2ff;--code:#111827;--good:#15803d;--warn:#b45309;--danger:#b91c1c;--shadow:0 8px 28px #10182812}
+[data-theme=dark]{--bg:#0b1020;--panel:#111827;--text:#edf2f7;--muted:#9aa7b8;--line:#263244;--accent:#818cf8;--accent2:#a78bfa;--soft:#1c2340;--code:#070b14;--shadow:0 8px 28px #0008}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.65 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+button,input{font:inherit}.app{display:grid;grid-template-columns:280px 1fr;min-height:100vh}.sidebar{position:sticky;top:0;height:100vh;overflow:auto;padding:22px 16px;border-right:1px solid var(--line);background:var(--panel)}.brand{font-weight:800;font-size:18px;margin-bottom:18px}.brand span{color:var(--accent)}nav a{display:block;padding:8px 11px;margin:2px 0;color:var(--muted);text-decoration:none;border-radius:8px}nav a:hover,nav a.active{background:var(--soft);color:var(--accent);font-weight:600}.main{max-width:1250px;width:100%;margin:auto;padding:28px 34px 70px}.top{display:flex;gap:12px;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(10px);padding:8px 0 14px}.search{flex:1;max-width:650px;position:relative}.search input{width:100%;padding:12px 15px;border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:10px;outline:none}.btn{border:1px solid var(--line);background:var(--panel);color:var(--text);padding:10px 13px;border-radius:9px;cursor:pointer}.hero{padding:42px 0 26px}.hero h1{font-size:clamp(32px,5vw,58px);line-height:1.05;margin:0 0 14px;letter-spacing:-2px}.hero p{max-width:850px;color:var(--muted);font-size:17px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:var(--shadow)}.stat b{font-size:28px}.muted{color:var(--muted)}.progress{height:9px;background:var(--line);border-radius:20px;overflow:hidden}.progress>i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));width:0}.phase{margin:40px 0;scroll-margin-top:80px}.phase h2{font-size:28px;margin-bottom:6px}.phase>p{color:var(--muted)}details{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin:10px 0;overflow:hidden}summary{cursor:pointer;padding:14px 16px;font-weight:700;list-style:none}summary::-webkit-details-marker{display:none}.content{padding:0 16px 18px;border-top:1px solid var(--line)}.topic{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:start;padding:13px 0;border-bottom:1px solid var(--line)}.topic:last-child{border-bottom:0}.topic h4{margin:0 0 4px}.check{display:flex;gap:7px;align-items:center;white-space:nowrap;color:var(--muted);font-size:13px}.check input{accent-color:var(--accent)}.tag{display:inline-block;padding:2px 7px;border-radius:99px;background:var(--soft);color:var(--accent);font-size:11px;font-weight:700;margin-left:5px}.note{padding:12px 14px;border-left:3px solid var(--accent);background:var(--soft);margin:12px 0;border-radius:7px}.warn{border-color:var(--warn);background:color-mix(in srgb,var(--warn) 10%,var(--panel))}.good{border-color:var(--good)}pre{background:var(--code);color:#e5e7eb;padding:14px;border-radius:99px;overflow:auto;font-size:13px}code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}table{width:100%;border-collapse:collapse;margin:12px 0}th,td{border:1px solid var(--line);padding:9px;text-align:left;vertical-align:top}th{background:var(--soft)}.formula{font-family:Georgia,serif;font-size:18px;background:var(--soft);padding:12px;border-radius:8px}.q{padding:12px;border:1px solid var(--line);border-radius:99px;margin:8px 0}.q b{display:block}.kbd{border:1px solid var(--line);padding:2px 6px;border-radius:5px}.hidden{display:none!important}.mobileNav{display:none}.footer{text-align:center;color:var(--muted);padding:40px}
+@media(max-width:900px){.app{grid-template-columns:1fr}.sidebar{display:none}.mobileNav{display:block}.main{padding:16px}.top{position:sticky}.hero{padding-top:25px}.topic{grid-template-columns:1fr}}
+</style>
+</head>
+<body data-theme="dark">
+<div class="app">
+<aside class="sidebar">
+  <div class="brand">DECODE AI <span>DS Roadmap</span></div>
+  <nav id="nav"></nav>
+  <div class="card" style="margin-top:16px"><small>Overall progress</small><h3 id="sidePct">0%</h3><div class="progress"><i id="sideBar"></i></div></div>
+</aside>
+<main class="main">
+<div class="top">
+ <div class="mobileNav"><button class="btn" onclick="document.querySelector('.sidebar').style.display='block'">☰</button></div>
+ <div class="search"><input id="search" placeholder="Search notes, e.g. random forest, p-value, Bayes…" oninput="searchNotes()"></div>
+ <button class="btn" onclick="toggleTheme()">☀/☾</button>
+ <button class="btn" onclick="resetProgress()">Reset</button>
+</div>
+
+<section class="hero">
+<h1>Data Scientist<br><span style="color:var(--accent)">Roadmap & Study Dashboard</span></h1>
+<p>A self-contained learning system: foundations → statistics → ML → deep learning → GenAI → MLOps, with projects, formulas, revision notes and interview preparation. Authored by Himanshu Pandey.</p>
+<div class="grid">
+<div class="card stat"><span class="muted">Overall</span><br><b id="pct">0%</b><div class="progress"><i id="bar"></i></div></div>
+<div class="card stat"><span class="muted">Completed topics</span><br><b id="done">0</b></div>
+<div class="card stat"><span class="muted">Remaining</span><br><b id="remain">0</b></div>
+<div class="card stat"><span class="muted">Roadmap phases</span><br><b>18</b></div>
+</div>
+</section>
+
+<section id="readiness" class="phase">
+<h2>Job Readiness</h2><p>Use this as the final gate before applying.</p>
+<div class="grid">
+<div class="card"><h3>Must Know</h3><ul><li>Python + Pandas/NumPy</li><li>SQL joins, CTEs, windows</li><li>Statistics & experiment design</li><li>EDA & visualization</li><li>Core supervised ML</li><li>Feature engineering & evaluation</li><li>2–3 strong end-to-end projects</li></ul></div>
+<div class="card"><h3>Should Know</h3><ul><li>Unsupervised learning</li><li>Boosting + XGBoost</li><li>sklearn pipelines</li><li>Git/GitHub + APIs</li><li>Cloud/deployment basics</li><li>Model explainability</li><li>Time series or NLP</li></ul></div>
+<div class="card"><h3>Nice to Have</h3><ul><li>PyTorch</li><li>RAG/LLM evaluation</li><li>Docker + MLflow</li><li>Spark/Airflow basics</li><li>Advanced MLOps</li></ul></div>
+</div>
+<div class="card" style="margin-top:14px"><h3>Job Readiness Checklist</h3><div id="readinessList"></div></div>
+</section>
+
+<div id="phases"></div>
+
+<section id="projects" class="phase">
+<h2>Project Roadmap</h2><p>Build in increasing difficulty. Every project follows: Problem → Dataset → Cleaning → EDA → Features → Model → Evaluation → Deployment → Business Impact.</p>
+<div id="projectList" class="grid"></div>
+</section>
+
+<section id="revision" class="phase">
+<h2>Quick Revision</h2>
+<div class="grid">
+<div class="card"><h3>High-value differences</h3><table><tr><th>Concepts</th><th>Remember</th></tr>
+<tr><td>Mean vs Median</td><td>Mean uses every value and is sensitive to outliers; median is robust.</td></tr>
+<tr><td>Correlation vs Causation</td><td>Correlation measures association; it does not prove cause.</td></tr>
+<tr><td>Classification vs Regression</td><td>Class predicts categories; regression predicts numeric values.</td></tr>
+<tr><td>Bagging vs Boosting</td><td>Bagging reduces variance through parallel models; boosting builds sequentially to reduce error.</td></tr>
+<tr><td>RF vs XGBoost</td><td>RF is bagged trees; XGBoost is optimized gradient boosting.</td></tr>
+<tr><td>L1 vs L2</td><td>L1 can drive coefficients to zero; L2 shrinks them smoothly.</td></tr>
+<tr><td>Precision vs Recall</td><td>Precision: correctness of positive predictions. Recall: positives successfully found.</td></tr>
+<tr><td>Normalization vs Standardization</td><td>Normalization commonly maps a range; standardization centers/scales by mean and SD.</td></tr>
+<tr><td>Underfit vs Overfit</td><td>Underfit misses structure; overfit memorizes noise.</td></tr>
+<tr><td>Batch vs Epoch</td><td>Batch = one chunk of training examples; epoch = one full pass.</td></tr>
+<tr><td>RAG vs Fine-tuning</td><td>RAG supplies external context at inference; fine-tuning changes model parameters.</td></tr>
+</table></div>
+<div class="card"><h3>Statistical test chooser</h3><table><tr><th>Situation</th><th>Typical test</th></tr><tr><td>One mean vs known value</td><td>One-sample t/z test depending on assumptions and known variance</td></tr><tr><td>Two independent means</td><td>Independent t-test</td></tr><tr><td>Paired measurements</td><td>Paired t-test</td></tr><tr><td>Categorical association</td><td>Chi-square</td></tr><tr><td>3+ group means</td><td>ANOVA</td></tr><tr><td>Experiment/control</td><td>A/B test + appropriate metric/test</td></tr></table></div>
+</div>
+</section>
+
+<section id="formulas" class="phase">
+<h2>Formula Sheet</h2>
+<div class="grid">
+<div class="card"><h3>Mean</h3><div class="formula">x̄ = (1/n) Σxᵢ</div><p>xᵢ = observation, n = number of observations.</p></div>
+<div class="card"><h3>Variance</h3><div class="formula">s² = Σ(xᵢ−x̄)²/(n−1)</div><p>s² = sample variance; n−1 is Bessel's correction.</p></div>
+<div class="card"><h3>Standard deviation</h3><div class="formula">s = √s²</div><p>Square root of variance; same units as the data.</p></div>
+<div class="card"><h3>Probability</h3><div class="formula">P(A)=favorable outcomes / total outcomes</div></div>
+<div class="card"><h3>Bayes</h3><div class="formula">P(A|B)=P(B|A)P(A)/P(B)</div><p>Updates belief about A after observing B.</p></div>
+<div class="card"><h3>Covariance</h3><div class="formula">Cov(X,Y)=Σ(xᵢ−x̄)(yᵢ−ȳ)/(n−1)</div></div>
+<div class="card"><h3>Correlation</h3><div class="formula">r=Cov(X,Y)/(sₓsᵧ)</div><p>Standardized linear association, from −1 to +1.</p></div>
+<div class="card"><h3>Linear regression</h3><div class="formula">ŷ=β₀+β₁x</div><p>β₀ = intercept; β₁ = slope; ŷ = prediction.</p></div>
+<div class="card"><h3>Logistic regression</h3><div class="formula">p=1/(1+e⁻ᶻ), z=β₀+βᵀx</div><p>Maps a linear score to a probability.</p></div>
+<div class="card"><h3>MAE</h3><div class="formula">MAE=(1/n)Σ|yᵢ−ŷᵢ|</div></div>
+<div class="card"><h3>MSE</h3><div class="formula">MSE=(1/n)Σ(yᵢ−ŷᵢ)²</div></div>
+<div class="card"><h3>RMSE</h3><div class="formula">RMSE=√MSE</div></div>
+<div class="card"><h3>R²</h3><div class="formula">R²=1−SSres/SStot</div><p>SSres = residual sum of squares; SStot = total sum of squares.</p></div>
+<div class="card"><h3>Precision</h3><div class="formula">TP/(TP+FP)</div></div>
+<div class="card"><h3>Recall</h3><div class="formula">TP/(TP+FN)</div></div>
+<div class="card"><h3>F1</h3><div class="formula">2PR/(P+R)</div></div>
+<div class="card"><h3>Entropy</h3><div class="formula">H=−Σpᵢ log₂pᵢ</div></div>
+<div class="card"><h3>Gini impurity</h3><div class="formula">G=1−Σpᵢ²</div></div>
+<div class="card"><h3>Gradient descent</h3><div class="formula">θ←θ−η∇J(θ)</div><p>θ = parameters; η = learning rate; J = objective.</p></div>
+</div>
+</section>
+
+<section id="interview" class="phase">
+<h2>Interview Preparation</h2><p>Speak naturally. State the idea, then add a practical example or trade-off.</p>
+<div id="interviewList"></div>
+</section>
+
+<div class="footer">Decode AI Community Resource • Authored by Himanshu Pandey • Progress stored in localStorage</div>
+</main></div>
+
+<script>
+const phases=[
+["phase0","Phase 0 — Prerequisites",["Basic computer/programming concepts","Problem solving","Arithmetic and algebra foundations","Functions, exponents and logarithms","Basic probability","Basic statistics","Vectors and matrices"]],
+["phase1","Phase 1 — Python for Data Science",["Python basics","Variables and data types","Conditions","Loops","Functions","Lists, tuples, sets and dictionaries","List comprehensions","Exception handling","File handling","OOP basics","Modules and packages","Virtual environments","NumPy arrays and vectorization","Pandas Series/DataFrame","Pandas indexing, filtering and groupby","Pandas merge/join and reshaping"]],
+["phase2","Phase 2 — SQL & Databases",["SELECT and aliases","WHERE and logical conditions","GROUP BY and aggregations","HAVING","ORDER BY","JOINs","Subqueries","CTEs","Window functions","CASE WHEN","NULL handling","Database concepts","PostgreSQL/MySQL fundamentals","Indexes and query optimization basics"]],
+["phase3","Phase 3 — Mathematics for Data Science",["Arithmetic","Algebra","Functions","Logarithms","Exponents","Vectors","Matrices","Matrix operations","Probability","Conditional probability","Bayes theorem","Random variables","Distributions","Mean","Variance","Standard deviation","Covariance","Correlation"]],
+["phase4","Phase 4 — Statistics",["Descriptive statistics","Inferential statistics","Population vs sample","Sampling","Central tendency","Dispersion","Normal distribution","Binomial distribution","Central Limit Theorem","Confidence intervals","Null and alternative hypothesis","p-value","Type I and Type II errors","t-test","z-test","chi-square test","ANOVA","A/B testing","Statistical test selection"]],
+["phase5","Phase 5 — Data Analysis",["Data collection","Data loading","Data inspection","Data cleaning","Missing values","Duplicate values","Outliers","Data types","Feature/data transformations","Encoding","Scaling","EDA","Univariate analysis","Bivariate analysis","Multivariate analysis","Correlation analysis","Pandas","NumPy","Matplotlib","Seaborn"]],
+["phase6","Phase 6 — Data Visualization",["Bar chart","Line chart","Histogram","Box plot","Scatter plot","Heatmap","Pie chart","Distribution plots","Chart selection","Visualization mistakes","Communicating insights","Power BI","Tableau","Dashboard concepts"]],
+["phase7","Phase 7 — Machine Learning Fundamentals",["What is Machine Learning?","AI vs ML vs Deep Learning","Supervised learning","Unsupervised learning","Semi-supervised learning","Reinforcement learning","Features and labels","Training/validation/test data","Linear Regression","Multiple Linear Regression","Polynomial Regression","Ridge","Lasso","ElasticNet","Logistic Regression","KNN","Naive Bayes","Decision Tree","Random Forest","Gradient Boosting","XGBoost","LightGBM","CatBoost","SVM","K-Means","Hierarchical Clustering","DBSCAN","PCA","Dimensionality reduction"]],
+["phase8","Phase 8 — Feature Engineering",["Feature selection","Feature extraction","One-hot encoding","Label encoding","Target encoding","Scaling","Normalization","Standardization","Binning","Log transformation","Date/time features","Text features","Handling skewness","Handling outliers","Data leakage","Why feature engineering improves models"]],
+["phase9","Phase 9 — Model Evaluation",["MAE","MSE","RMSE","R²","Adjusted R²","MAPE","Accuracy","Precision","Recall","F1-score","Confusion Matrix","ROC-AUC","PR-AUC","Log Loss","Threshold selection","Class imbalance","Cross-validation","Stratified K-Fold","Bias vs variance","Underfitting","Overfitting","Regularization"]],
+["phase10","Phase 10 — ML Pipelines",["Train/validation/test split","Preprocessing pipelines","ColumnTransformer","sklearn Pipeline","Cross-validation","Hyperparameter tuning","GridSearchCV","RandomizedSearchCV","Model persistence"]],
+["phase11","Phase 11 — Advanced Machine Learning",["Ensemble learning","Bagging","Boosting","Stacking","Feature importance","SHAP","Explainable AI","Imbalanced datasets","SMOTE","Calibration","Model interpretability"]],
+["phase12","Phase 12 — Deep Learning Basics",["Neural Networks","Perceptron","Activation functions","Forward propagation","Backpropagation","Loss functions","Gradient descent","Optimizers","Learning rate","Batch size","Epoch","Dropout","Batch normalization","PyTorch","CNN","RNN","LSTM","Transformers"]],
+["phase13","Phase 13 — Time Series",["Time series components","Trend","Seasonality","Stationarity","Autocorrelation","Moving averages","ARIMA","SARIMA","Forecasting","Time-series validation"]],
+["phase14","Phase 14 — NLP Fundamentals",["Text preprocessing","Tokenization","Stopwords","Stemming","Lemmatization","Bag of Words","TF-IDF","Word embeddings","Sentiment analysis","Text classification","Transformers","BERT","LLM basics"]],
+["phase15","Phase 15 — Generative AI Fundamentals",["Generative AI","LLMs","Tokens","Embeddings","Transformers","Prompt engineering","Context window","Temperature","RAG","Vector databases","Chunking","Retrieval","Reranking","Fine-tuning","LLM evaluation","Hallucinations","Guardrails","Traditional ML → Deep Learning → GenAI → LLM → RAG"]],
+["phase16","Phase 16 — MLOps Basics",["Git","GitHub","Docker","MLflow","DVC","Model registry","Experiment tracking","CI/CD basics","REST APIs","FastAPI","Cloud basics","AWS fundamentals","Model deployment","Monitoring","Data drift","Model drift"]],
+["phase17","Phase 17 — Data Engineering Basics for Data Scientists",["ETL","ELT","Data warehouse","Data lake","Data lakehouse","Batch processing","Streaming basics","APIs","Spark basics","Airflow basics"]]
+];
+
+const details={
+"Python basics":"Python is the main working language for many DS workflows. Focus on readable functions, data structures, debugging and libraries rather than language trivia.",
+"NumPy arrays and vectorization":"NumPy arrays enable compact numerical operations. Prefer vectorized operations over Python loops when practical.",
+"Pandas DataFrame":"A DataFrame is a labeled tabular structure. Learn selection, filtering, aggregation, joins, reshaping and missing-value handling.",
+"JOINs":"INNER keeps matches; LEFT keeps every row from the left table; RIGHT/ FULL preserve rows from the corresponding side(s). Always check join keys and row multiplication.",
+"Window functions":"Window functions calculate across related rows without collapsing them. Common patterns: ROW_NUMBER, RANK, LAG/LEAD and SUM() OVER(PARTITION BY...).",
+"Bayes theorem":"Bayes updates a prior belief with evidence. P(A|B) is the probability of A after observing B; P(B|A) is the likelihood of evidence B under A.",
+"Central Limit Theorem":"Under common conditions, the sampling distribution of a sample mean approaches normality as sample size grows, supporting many confidence intervals and tests.",
+"p-value":"A p-value is the probability, under the null model, of data at least as incompatible with that model as the observed result. It is not the probability that the null is true.",
+"t-test":"Use for comparing means when a t-based approach is appropriate; paired tests handle paired observations and independent tests handle separate groups.",
+"chi-square test":"Often used for association between categorical variables or goodness-of-fit, subject to expected-count assumptions.",
+"ANOVA":"Tests whether there is evidence that at least one mean differs among multiple groups. Follow-up comparisons may be needed to locate differences.",
+"Linear Regression":"Predicts a numeric target as a linear combination of features. Least squares chooses coefficients that minimize squared residuals.",
+"Logistic Regression":"Models a probability through the logistic function. Despite its name, it is a classification model and provides an interpretable linear decision boundary in feature space.",
+"Random Forest":"An ensemble of decision trees trained on bootstrapped samples with randomized feature selection. It is strong as a baseline and usually needs limited preprocessing.",
+"XGBoost":"Gradient-boosted decision trees optimized for performance and regularization. It is powerful on structured/tabular data and supports many useful hyperparameters.",
+"K-Means":"Partitions observations into K clusters by iteratively assigning points to the nearest centroid and updating centroids. It works best when cluster geometry roughly matches its assumptions.",
+"PCA":"Principal Component Analysis creates orthogonal directions that capture decreasing amounts of variance. It can compress correlated numeric features but reduces interpretability.",
+"Feature engineering":"Good features expose useful signal in a form the model can learn. Examples include ratios, date parts, aggregates and domain-informed transformations.",
+"Data leakage":"Leakage occurs when information unavailable at prediction time enters training features or validation. It can create unrealistically strong offline performance.",
+"Cross-validation":"CV repeatedly trains and evaluates on different folds to estimate generalization and tune models while reducing dependence on one split.",
+"ROC-AUC":"Measures ranking quality across classification thresholds using true-positive and false-positive rates. It can be less informative than PR-AUC on highly imbalanced problems.",
+"PR-AUC":"Summarizes the precision-recall trade-off and is often more informative when the positive class is rare.",
+"SHAP":"SHAP assigns feature contributions based on Shapley-value ideas. It can explain individual predictions and summarize global feature effects, with caveats about interpretation.",
+"SMOTE":"Synthetic Minority Over-sampling Technique creates synthetic minority examples. Apply it only to training folds, never before the split, to avoid leakage.",
+"Neural Networks":"Layers transform inputs through weighted sums and nonlinear activations. Training adjusts weights to reduce a loss using gradients.",
+"Backpropagation":"Efficiently applies the chain rule to compute gradients of a loss with respect to network parameters.",
+"ARIMA":"A classical forecasting family combining autoregression, differencing and moving-average error terms. Validate using time order.",
+"TF-IDF":"Weights terms by frequency in a document while downweighting terms common across documents. It is a strong simple baseline for text classification.",
+"Transformers":"Use attention mechanisms to model relationships among tokens in parallel. They underpin modern NLP and many multimodal/LLM systems.",
+"RAG":"Retrieval-Augmented Generation retrieves relevant external context and supplies it to a generative model at inference time. It can improve grounding without changing model weights.",
+"Embeddings":"Dense vectors represent text or other objects so semantic similarity can be measured geometrically.",
+"Fine-tuning":"Fine-tuning updates model parameters on task-specific data. It differs from RAG, which retrieves context at runtime.",
+"LLM evaluation":"Evaluate task quality, factuality, safety, latency and cost with representative datasets and, where appropriate, human or model-assisted evaluation.",
+"Data drift":"The input data distribution changes over time. Drift monitoring can warn that the environment differs from training conditions.",
+"ETL":"Extract data, transform it, then load it into a destination. ELT loads raw data first and transforms within the destination platform."
+};
+
+const projects=[
+["Sales Data Analysis","Beginner","Pandas • SQL • Matplotlib","Clean transactional data, calculate revenue trends, segment products/customers and present recommendations.","Learn data cleaning, grouping, joins, EDA and business storytelling.","High"],
+["Netflix/Movies Data Analysis","Beginner","Pandas • Seaborn","Explore genres, release years, ratings and content trends; explain limitations in the dataset.","Learn categorical analysis and visualization.","Medium"],
+["E-commerce Customer Analysis","Beginner","SQL • Pandas • Power BI","Analyze orders, repeat customers, basket behavior and revenue cohorts.","Learn customer metrics and dashboard thinking.","High"],
+["Customer Churn Prediction","Intermediate","scikit-learn • Pandas • SHAP","Predict which customers may churn and identify actionable drivers.","Learn classification, imbalance, thresholding and explainability.","Very high"],
+["House Price Prediction","Intermediate","Pandas • scikit-learn","Build a regression model with cleaning, transformations and robust evaluation.","Learn regression, feature engineering and error analysis.","High"],
+["Customer Segmentation","Intermediate","Pandas • K-Means • PCA","Create meaningful customer groups and describe their business characteristics.","Learn unsupervised learning and segment interpretation.","High"],
+["Fraud Detection","Intermediate","scikit-learn • XGBoost","Build an imbalanced classification workflow with precision/recall-focused evaluation.","Learn leakage prevention, imbalance and threshold decisions.","Very high"],
+["Sentiment Analysis","Intermediate","TF-IDF • Logistic Regression","Classify text sentiment and inspect influential words and failure cases.","Learn NLP preprocessing and text modeling.","High"],
+["Recommendation System","Advanced","Python • similarity/ML • evaluation","Recommend products/content using interaction data and evaluate ranking quality.","Learn recommender framing, candidate generation and offline evaluation.","Very high"],
+["End-to-End ML Pipeline","Advanced","scikit-learn • Docker • MLflow","Train, validate, track experiments, package and serve a model.","Learn reproducibility and deployment.","Very high"],
+["Real-time ML API","Advanced","FastAPI • Docker","Expose a prediction endpoint with validation, logging and basic monitoring.","Learn inference services and API design.","Very high"],
+["Production ML + Monitoring","Advanced","Docker • MLflow • cloud","Deploy a model and monitor latency, data quality, drift and performance where labels arrive.","Learn production lifecycle thinking.","Very high"],
+["RAG-based Data/Knowledge Assistant","Advanced","Embeddings • vector DB • LLM • RAG","Index trusted documents, retrieve chunks, rerank when useful, generate grounded answers and evaluate retrieval/generation.","Learn modern GenAI architecture and evaluation.","Very high"]
+];
+
+const interviews={
+"Python Interview":[
+["Basic","What is the difference between a list and a tuple?","Lists are mutable; tuples are immutable. Choose based on whether the collection should change."],
+["Intermediate","Why use vectorization in NumPy?","It expresses array operations efficiently and concisely, often avoiding slow Python-level loops."],
+["Advanced","How would you make a data-processing script production-friendly?","Separate functions, validate inputs, log failures, test transformations, pin dependencies and make runs reproducible."]
+],
+"SQL Interview":[
+["Basic","WHERE vs HAVING?","WHERE filters rows before grouping; HAVING filters groups after aggregation."],
+["Intermediate","Why can a JOIN unexpectedly increase row count?","A one-to-many or many-to-many key match can multiply rows. Validate key uniqueness and expected cardinality."],
+["Advanced","How would you debug a slow query?","Inspect the execution plan, filter early where sensible, check joins and indexes, reduce unnecessary columns/work, and verify statistics."]
+],
+"Statistics Interview":[
+["Basic","What is a p-value?","It measures how surprising the observed result, or something more extreme, would be if the null model were true."],
+["Intermediate","What is a confidence interval?","A procedure that produces intervals with a stated long-run coverage level under its assumptions; it is not simply the probability that one fixed parameter lies inside the interval."],
+["Advanced","How do you choose a statistical test?","Start with the question and outcome type, identify independence/paired structure, inspect assumptions, choose an appropriate test or model, and report effect size and uncertainty."]
+],
+"Machine Learning Interview":[
+["Basic","What is overfitting?","The model learns training-specific noise or quirks and therefore performs worse on unseen data. Regularization, simpler models and validation can help."],
+["Intermediate","Why use cross-validation?","It gives multiple train/validation views, producing a more stable estimate and supporting hyperparameter selection."],
+["Advanced","How do you handle class imbalance?","Choose a metric aligned to the cost of errors, inspect thresholds, use stratified validation, consider class weights or resampling on training folds, and calibrate if probabilities matter."]
+],
+"Case Study Questions":[
+["Basic","A dashboard shows revenue down 15%. What do you do?","Verify the metric and time window, check data freshness, decompose revenue into volume × price/mix, segment by product/channel/region, then investigate likely drivers."],
+["Intermediate","A churn model has 95% accuracy but poor business results. Why?","Accuracy may hide a rare positive class. Inspect confusion matrix, precision/recall, PR-AUC, threshold and the cost of false negatives/positives."],
+["Advanced","An experiment has a statistically significant lift. What next?","Check effect size, confidence interval, practical significance, experiment quality, segment consistency and guardrail metrics before recommending rollout."]
+],
+"ML System Design":[
+["Basic","What components belong in a prediction service?","Input validation, preprocessing, model inference, output schema, logging/monitoring and a deployment mechanism."],
+["Intermediate","How do you prevent training-serving skew?","Reuse versioned preprocessing logic, validate feature schemas and monitor distributions; ideally package transformations with the model pipeline."],
+["Advanced","How would you design model monitoring?","Track service health, data quality, feature distributions, prediction distributions, drift and outcome-based performance when labels arrive; define alert thresholds and ownership."]
+],
+"Project Deep Dive":[
+["Basic","Explain your project in 30 seconds.","Problem → data → approach → result → business value. Name one important trade-off or limitation."],
+["Intermediate","Why did you choose that model?","Compare it with a baseline and explain the trade-off among accuracy, interpretability, latency, data type and maintenance."],
+["Advanced","What would you improve with another month?","Name the highest-impact bottleneck, propose an experiment, define success metrics and explain how you would validate the change."]
+],
+"Behavioral Questions":[
+["Basic","Tell me about a challenge.","Use a specific situation, your action, the measurable result and what you learned."],
+["Intermediate","Tell me about a disagreement.","Describe the technical/business disagreement objectively, how you gathered evidence, how you communicated and the outcome."],
+["Advanced","Tell me about a failure.","Own the issue, explain the root cause, impact, corrective action and the process change that prevents recurrence."]
+]
+};
+
+function esc(s){return s.replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
+const phaseWrap=document.getElementById("phases"), nav=document.getElementById("nav");
+let topicData=[];
+phases.forEach(([id,title,topics],pi)=>{
+ nav.innerHTML+=`<a href="#${id}">${title.replace(/^Phase \d+ — /,"")}</a>`;
+ let body=`<div class="content">`;
+ topics.forEach((t,ti)=>{
+  const key=`p${pi}_${ti}`;
+  topicData.push({key,title:t,phase:id});
+  const base=details[t]||generic(t);
+  body+=`<div class="topic" data-topic="${esc((t+" "+base).toLowerCase())}"><div><h4>${esc(t)} ${isImportant(t)?'<span class="tag">HIGH VALUE</span>':''}</h4><div class="muted">${base}</div>${miniExample(t)}</div><label class="check"><input type="checkbox" data-key="${key}" onchange="saveProgress()"> Done</label></div>`;
+ });
+ body+=`</div>`;
+ phaseWrap.innerHTML+=`<section class="phase" id="${id}"><h2>${title}</h2><p>${phaseSummary(title)}</p><details open><summary>Study topics (${topics.length})</summary>${body}</details></section>`;
+});
+function generic(t){return `Learn ${t} well enough to explain the idea, identify its assumptions/trade-offs, apply it to a small dataset, and discuss when it is or is not appropriate.`}
+function isImportant(t){return /Random Forest|XGBoost|Logistic Regression|Linear Regression|p-value|Cross-validation|Feature engineering|Data leakage|SQL|Pandas|RAG|Embeddings|Transformers|Precision|Recall|F1|Bayes|Window functions/i.test(t)}
+function miniExample(t){
+ if(/Regression|classification/i.test(t))return `<div class="note"><b>Interview tip:</b> Always connect model choice to target type, data shape, metric, interpretability and operational constraints.</div>`;
+ if(/chart|plot|visualization/i.test(t))return `<div class="note"><b>Remember:</b> A chart is successful when the intended comparison is immediately visible and accurately labeled.</div>`;
+ if(/scaling|normalization|standardization/i.test(t))return `<div class="note"><b>Common mistake:</b> Fit preprocessing only on training data, then transform validation/test data.</div>`;
+ return "";
+}
+function phaseSummary(t){return t.includes("Prerequisites")?"Build the minimum foundations needed to understand later topics.":t.includes("Machine Learning")?"Learn each method through intuition, assumptions, implementation, evaluation and trade-offs.":"Focus on practical competence: explain it, implement it, validate it and know its failure modes."}
+
+const readiness=["Python","SQL","Statistics","EDA","Machine Learning","Feature Engineering","Model Evaluation","Visualization","Projects","Git/GitHub","Deployment","MLOps","GenAI","Interview Preparation"];
+document.getElementById("readinessList").innerHTML=readiness.map((x,i)=>`<label class="check" style="display:inline-flex;margin:6px 12px 6px 0"><input type="checkbox" data-key="ready_${i}" onchange="saveProgress()"> ${x}</label>`).join("");
+
+document.getElementById("projectList").innerHTML=projects.map(p=>`<article class="card"><span class="tag">${p[1]}</span><h3>${p[0]}</h3><p>${p[3]}</p><p><b>Tech:</b> ${p[2]}<br><b>Learning:</b> ${p[4]}<br><b>Resume value:</b> ${p[5]}</p><div class="note"><b>Workflow:</b> Problem → Dataset → Cleaning → EDA → Features → Model → Evaluation → Deployment → Business Impact</div></article>`).join("");
+
+document.getElementById("interviewList").innerHTML=Object.entries(interviews).map(([cat,qs])=>`<details open><summary>${cat}</summary><div class="content">${qs.map(q=>`<div class="q"><span class="tag">${q[0]}</span><b>${q[1]}</b><p>${q[2]}</p><div class="note"><b>20–30 sec spoken answer:</b> ${q[2]}</div></div>`).join("")}</div></details>`).join("");
+
+function saveProgress(){
+ const state={};document.querySelectorAll('input[type=checkbox][data-key]').forEach(x=>state[x.dataset.key]=x.checked);
+ localStorage.setItem("dsRoadmapProgress",JSON.stringify(state));updateProgress();
+}
+function loadProgress(){
+ try{const s=JSON.parse(localStorage.getItem("dsRoadmapProgress")||"{}");document.querySelectorAll('input[type=checkbox][data-key]').forEach(x=>x.checked=!!s[x.dataset.key])}catch(e){}
+ updateProgress();
+}
+function updateProgress(){
+ const all=[...document.querySelectorAll('input[type=checkbox][data-key]')],done=all.filter(x=>x.checked).length,p=Math.round(done/all.length*100)||0;
+ document.getElementById("pct").textContent=p+"%";document.getElementById("done").textContent=done;document.getElementById("remain").textContent=all.length-done;document.getElementById("bar").style.width=p+"%";document.getElementById("sidePct").textContent=p+"%";document.getElementById("sideBar").style.width=p+"%";
+}
+function resetProgress(){if(confirm("Reset all saved progress?")){localStorage.removeItem("dsRoadmapProgress");document.querySelectorAll('input[type=checkbox]').forEach(x=>x.checked=false);updateProgress()}}
+function toggleTheme(){const root=document.documentElement;const dark=root.dataset.theme==="dark";root.dataset.theme=dark?"":"dark";localStorage.setItem("dsTheme",dark?"light":"dark")}
+function searchNotes(){
+ const q=document.getElementById("search").value.trim().toLowerCase();
+ document.querySelectorAll("[data-topic]").forEach(el=>el.classList.toggle("hidden",!!q&&!el.dataset.topic.includes(q)));
+ document.querySelectorAll(".phase").forEach(sec=>{if(!q)return sec.classList.remove("hidden");const visible=sec.querySelectorAll("[data-topic]:not(.hidden)").length;sec.classList.toggle("hidden",visible===0)});
+}
+if(localStorage.getItem("dsTheme")==="dark")document.documentElement.dataset.theme="dark";
+loadProgress();
+</script>
+</body></html>

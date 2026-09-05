@@ -36,6 +36,24 @@
     "estimatedReadingTime": "30 min read"
   },
   {
+    "id": "res-001c",
+    "title": "Data Scientist Roadmap & Study Dashboard 2026",
+    "slug": "data-scientist-roadmap",
+    "description": "A complete, practical 18-phase roadmap for Data Science — Python, SQL, Math, Statistics, Machine Learning, Deep Learning, GenAI, MLOps, formula sheet, and interview prep.",
+    "category": "Data Science",
+    "subcategory": "Career Paths",
+    "level": "Beginner",
+    "type": "ROADMAP",
+    "author": "Himanshu Pandey",
+    "contributor": "Himanshu Pandey",
+    "tags": ["Data Science", "Data Scientist", "Roadmap", "Statistics", "SQL", "Python"],
+    "date": "2026-09-05",
+    "featured": true,
+    "file": "/content/html/data-scientist-roadmap.html",
+    "externalLink": null,
+    "estimatedReadingTime": "25 min read"
+  },
+  {
     "id": "res-002",
     "title": "Transformers Architecture Explained: From QKV to Multi-Head Attention",
     "slug": "transformers-explained",
