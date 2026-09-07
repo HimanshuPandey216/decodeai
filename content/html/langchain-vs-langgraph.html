@@ -1,0 +1,2173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LangChain vs LangGraph — What's the Real Difference?</title>
+<meta name="description" content="An interactive visual guide to the real difference between LangChain and LangGraph — building blocks vs. control flow.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%94%80%3C/text%3E%3C/svg%3E">
+
+<!-- Fonts: Space Grotesk (display), Inter (body), JetBrains Mono (code) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!-- Prism.js for code syntax highlighting -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+
+<style>
+/* ============================================================
+   0. RESET + ROOT VARIABLES
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; }
+ul, ol { padding: 0; margin: 0; list-style: none; }
+h1, h2, h3, h4, p, figure { margin: 0; }
+button { font: inherit; cursor: pointer; }
+a { color: inherit; text-decoration: none; }
+img, svg { display: block; max-width: 100%; }
+
+:root{
+  --bg: #0b0f14;
+  --bg-elevated: #10161d;
+  --bg-elevated-2: #141b23;
+  --ink: #e7ecf1;
+  --ink-dim: #8a97a6;
+  --ink-faint: #5b6672;
+  --line: rgba(231,236,241,0.09);
+  --line-strong: rgba(231,236,241,0.16);
+
+  --lc: #34d399;         /* LangChain green */
+  --lc-dim: #1f8f68;
+  --lc-soft: rgba(52,211,153,0.12);
+  --lc-glow: rgba(52,211,153,0.35);
+
+  --lg: #60a5fa;         /* LangGraph blue */
+  --lg-dim: #3b7fd4;
+  --lg-soft: rgba(96,165,250,0.12);
+  --lg-glow: rgba(96,165,250,0.35);
+
+  --amber: #fbbf24;       /* control-flow / decision accent */
+  --amber-soft: rgba(251,191,36,0.12);
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --measure: 700px;
+  --wide: 1180px;
+}
+
+body{
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* subtle grid texture on the base background */
+body::before{
+  content:"";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    radial-gradient(circle at 15% 8%, rgba(52,211,153,0.07), transparent 40%),
+    radial-gradient(circle at 85% 18%, rgba(96,165,250,0.08), transparent 40%),
+    radial-gradient(circle at 50% 90%, rgba(96,165,250,0.05), transparent 45%);
+  pointer-events: none;
+}
+
+::selection{ background: var(--lg-soft); color: var(--ink); }
+
+*:focus-visible{
+  outline: 2px solid var(--lg);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce){
+  *, *::before, *::after{ animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+}
+
+/* ============================================================
+   1. LAYOUT PRIMITIVES
+   ============================================================ */
+.container{ max-width: var(--wide); margin: 0 auto; padding: 0 24px; }
+.prose{ max-width: var(--measure); }
+
+.section{ padding: 96px 0; position: relative; }
+.section--tight{ padding: 64px 0; }
+
+.section-spine{
+  display: flex; align-items: flex-start; gap: 18px;
+}
+.section-spine .bar{
+  width: 4px; flex: 0 0 4px; border-radius: 4px; margin-top: 6px;
+  height: 34px;
+  background: var(--ink-faint);
+}
+.section-spine.lc .bar{ background: var(--lc); box-shadow: 0 0 14px var(--lc-glow); }
+.section-spine.lg .bar{ background: var(--lg); box-shadow: 0 0 14px var(--lg-glow); }
+.section-spine.mix .bar{ background: linear-gradient(var(--lc), var(--lg)); }
+
+.section-title{
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.7rem, 3.2vw, 2.5rem);
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+.section-kicker{
+  display:block; font-size: 0.92rem; color: var(--ink-dim); margin-bottom: 6px;
+}
+.section-intro{
+  color: var(--ink-dim);
+  font-size: 1.05rem;
+  margin-top: 18px;
+  max-width: var(--measure);
+}
+.section-intro + .section-intro{ margin-top: 12px; }
+
+.pill{
+  display:inline-flex; align-items:center; gap:6px;
+  padding: 5px 14px; border-radius: 999px; font-size: 0.85rem; font-weight: 600;
+  border: 1px solid var(--line-strong);
+}
+.pill--lc{ color: var(--lc); background: var(--lc-soft); border-color: rgba(52,211,153,0.3); }
+.pill--lg{ color: var(--lg); background: var(--lg-soft); border-color: rgba(96,165,250,0.3); }
+.pill--amber{ color: var(--amber); background: var(--amber-soft); border-color: rgba(251,191,36,0.3); }
+
+.glass{
+  background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+}
+
+.btn{
+  display:inline-flex; align-items:center; gap:8px;
+  padding: 10px 20px; border-radius: 999px; border: 1px solid var(--line-strong);
+  background: var(--bg-elevated); color: var(--ink); font-weight: 600; font-size: 0.95rem;
+  transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+.btn:hover{ transform: translateY(-1px); border-color: var(--line-strong); }
+.btn--lc{ border-color: rgba(52,211,153,0.4); }
+.btn--lc:hover, .btn--lc.active{ background: var(--lc-soft); color: var(--lc); }
+.btn--lg{ border-color: rgba(96,165,250,0.4); }
+.btn--lg:hover, .btn--lg.active{ background: var(--lg-soft); color: var(--lg); }
+
+.toggle-group{ display:inline-flex; padding: 4px; border-radius: 999px; background: var(--bg-elevated); border: 1px solid var(--line); gap: 4px; }
+.toggle-group .btn{ border: none; background: transparent; }
+.toggle-group .btn.active.lc{ background: var(--lc-soft); color: var(--lc); }
+.toggle-group .btn.active.lg{ background: var(--lg-soft); color: var(--lg); }
+
+.reveal{ opacity: 0; transform: translateY(16px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.reveal.visible{ opacity: 1; transform: translateY(0); }
+.hidden{ display: none !important; }
+
+/* ============================================================
+   2. TOP PROGRESS BAR
+   ============================================================ */
+#progress-bar{
+  position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+  background: linear-gradient(90deg, var(--lc), var(--lg));
+  z-index: 1000; transition: width 0.1s linear;
+}
+
+/* ============================================================
+   3. NAVBAR
+   ============================================================ */
+.navbar{
+  position: sticky; top: 0; z-index: 900;
+  background: rgba(11,15,20,0.82);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.navbar-inner{
+  max-width: var(--wide); margin: 0 auto; padding: 0 24px;
+  display: flex; align-items: center; justify-content: space-between; height: 60px; gap: 20px;
+}
+.nav-brand{ display:flex; align-items:center; gap:8px; font-family: var(--font-display); font-weight: 700; font-size: 1rem; white-space: nowrap; }
+.nav-brand .dot-lc{ color: var(--lc); }
+.nav-brand .dot-lg{ color: var(--lg); }
+
+.nav-links{
+  display:flex; align-items:center; gap: 4px;
+  overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none;
+  flex: 1; justify-content: flex-end;
+}
+.nav-links::-webkit-scrollbar{ display:none; }
+.nav-links a{
+  padding: 8px 12px; border-radius: 8px; font-size: 0.86rem; color: var(--ink-dim);
+  white-space: nowrap; transition: color 0.15s ease, background 0.15s ease;
+}
+.nav-links a:hover{ color: var(--ink); background: var(--bg-elevated); }
+.nav-links a.active{ color: var(--ink); background: var(--bg-elevated-2); }
+
+.nav-toggle{
+  display:none; background: none; border: 1px solid var(--line-strong); border-radius: 8px;
+  width: 40px; height: 36px; align-items:center; justify-content:center; color: var(--ink); flex: 0 0 auto;
+}
+
+@media (max-width: 880px){
+  .nav-toggle{ display:flex; }
+  .nav-links{
+    position: absolute; top: 60px; left: 0; right: 0;
+    flex-direction: column; align-items: stretch; justify-content: flex-start;
+    background: var(--bg-elevated); border-bottom: 1px solid var(--line);
+    max-height: 0; overflow: hidden; padding: 0 16px; transition: max-height 0.3s ease, padding 0.3s ease;
+  }
+  .nav-links.open{ max-height: 70vh; padding: 10px 16px; overflow-y: auto; }
+  .nav-links a{ padding: 12px 8px; border-radius: 6px; border-bottom: 1px solid var(--line); }
+}
+
+/* ============================================================
+   4. BACK TO TOP
+   ============================================================ */
+#back-to-top{
+  position: fixed; bottom: 26px; right: 26px; z-index: 800;
+  width: 46px; height: 46px; border-radius: 50%;
+  background: var(--bg-elevated-2); border: 1px solid var(--line-strong); color: var(--ink);
+  display:flex; align-items:center; justify-content:center; font-size: 1.1rem;
+  opacity: 0; pointer-events: none; transform: translateY(10px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
+#back-to-top.show{ opacity: 1; pointer-events: auto; transform: translateY(0); }
+
+/* ============================================================
+   5. HERO
+   ============================================================ */
+.hero{
+  padding: 84px 0 90px;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--line);
+}
+.hero .container{ position: relative; z-index: 2; }
+.hero-eyebrow{ color: var(--ink-dim); font-size: 1rem; }
+.hero-title{
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.4rem, 6.5vw, 4.4rem);
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  margin-top: 14px;
+}
+.hero-title .t-lc{ color: var(--lc); }
+.hero-title .t-lg{ color: var(--lg); }
+.hero-title .t-vs{ color: var(--ink-faint); font-weight: 500; }
+
+.hero-sub{
+  font-size: clamp(1.05rem, 2vw, 1.35rem);
+  color: var(--ink-dim);
+  margin-top: 20px;
+  max-width: 640px;
+}
+
+.hero-hook{
+  margin-top: 28px;
+  max-width: 640px;
+  padding: 20px 22px;
+  border-left: 3px solid var(--line-strong);
+  font-size: 1.02rem;
+  color: var(--ink);
+}
+.hero-hook b.lc{ color: var(--lc); }
+.hero-hook b.lg{ color: var(--lg); }
+
+.hero-cards{
+  display: grid; grid-template-columns: 1fr 1fr; gap: 18px;
+  margin-top: 40px; max-width: 640px;
+}
+.hero-card{
+  padding: 22px; border-radius: var(--radius-md);
+  transition: transform 0.2s ease;
+}
+.hero-card:hover{ transform: translateY(-3px); }
+.hero-card--lc{ border: 1px solid rgba(52,211,153,0.35); background: linear-gradient(160deg, rgba(52,211,153,0.09), transparent); }
+.hero-card--lg{ border: 1px solid rgba(96,165,250,0.35); background: linear-gradient(160deg, rgba(96,165,250,0.09), transparent); }
+.hero-card .emoji{ font-size: 1.6rem; }
+.hero-card h3{ font-family: var(--font-display); font-size: 1.15rem; margin-top: 10px; }
+.hero-card--lc h3{ color: var(--lc); }
+.hero-card--lg h3{ color: var(--lg); }
+.hero-card p{ color: var(--ink-dim); font-size: 0.94rem; margin-top: 6px; }
+
+/* hero animated flow */
+.hero-flow{
+  margin-top: 56px;
+  display: flex; align-items: center; flex-wrap: wrap; gap: 0;
+}
+.hero-flow-step{
+  padding: 10px 16px; border-radius: 999px; border: 1px solid var(--line-strong);
+  background: var(--bg-elevated); font-size: 0.88rem; font-weight: 600; white-space: nowrap;
+}
+.hero-flow-step.lc{ border-color: rgba(52,211,153,0.4); color: var(--lc); }
+.hero-flow-step.lg{ border-color: rgba(96,165,250,0.4); color: var(--lg); }
+.hero-flow-arrow{
+  width: 34px; height: 2px; background: var(--line-strong); margin: 0 6px; position: relative; flex: 0 0 auto;
+}
+.hero-flow-arrow::after{
+  content: "›"; position: absolute; right: -8px; top: 50%; transform: translateY(-50%);
+  color: var(--ink-faint); font-size: 1.1rem; font-weight: 700;
+}
+.hero-flow-arrow.pulse{ animation: pulse-line 2.4s ease-in-out infinite; }
+.hero-flow-arrow:nth-child(2){ animation-delay: 0s; }
+.hero-flow-arrow:nth-child(4){ animation-delay: 0.3s; }
+.hero-flow-arrow:nth-child(6){ animation-delay: 0.6s; }
+@keyframes pulse-line{
+  0%, 100%{ background: var(--line-strong); }
+  50%{ background: var(--lg); }
+}
+
+.scroll-cue{ margin-top: 64px; color: var(--ink-faint); font-size: 0.85rem; display:flex; align-items:center; gap:8px; }
+.scroll-cue .arrow-down{ animation: bob 1.6s ease-in-out infinite; }
+@keyframes bob{ 0%,100%{ transform: translateY(0);} 50%{ transform: translateY(5px);} }
+
+@media (max-width: 640px){
+  .hero-cards{ grid-template-columns: 1fr; }
+  .hero-flow{ flex-direction: column; align-items: flex-start; gap: 10px; }
+  .hero-flow-arrow{ width: 2px; height: 24px; margin: 0 0 0 20px; }
+  .hero-flow-arrow::after{ content: "⌄"; right: -6px; top: auto; bottom: -14px; transform: none; }
+}
+
+/* ============================================================
+   6. HIGHLIGHT TOGGLE (Section: Big Question)
+   ============================================================ */
+.highlight-lists{
+  display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 28px;
+}
+.highlight-list{
+  padding: 22px; border-radius: var(--radius-md); border: 1px solid var(--line);
+  opacity: 0.45; transition: opacity 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+}
+.highlight-list h4{ font-family: var(--font-display); font-size: 1.05rem; margin-bottom: 12px; }
+.highlight-list li{ padding: 6px 0; color: var(--ink-dim); font-size: 0.94rem; border-bottom: 1px dashed var(--line); }
+.highlight-list li:last-child{ border-bottom: none; }
+.highlight-list.active{ opacity: 1; }
+.highlight-list.active.lc{ border-color: rgba(52,211,153,0.4); background: var(--lc-soft); }
+.highlight-list.active.lc h4{ color: var(--lc); }
+.highlight-list.active.lc li{ color: var(--ink); }
+.highlight-list.active.lg{ border-color: rgba(96,165,250,0.4); background: var(--lg-soft); }
+.highlight-list.active.lg h4{ color: var(--lg); }
+.highlight-list.active.lg li{ color: var(--ink); }
+
+.hint-text{ margin-top: 16px; color: var(--ink-faint); font-size: 0.88rem; }
+
+@media (max-width: 700px){ .highlight-lists{ grid-template-columns: 1fr; } }
+
+/* ============================================================
+   7. FLOW DIAGRAM SYSTEM (reused across many sections)
+   ============================================================ */
+.flow{ display:flex; flex-direction: column; align-items: center; gap: 0; }
+.flow-box{
+  padding: 12px 20px; border-radius: var(--radius-sm); border: 1px solid var(--line-strong);
+  background: var(--bg-elevated); font-weight: 600; font-size: 0.92rem; text-align:center; min-width: 160px;
+}
+.flow-box--lc{ border-color: rgba(52,211,153,0.45); color: var(--lc); box-shadow: 0 0 0 1px transparent, 0 6px 18px rgba(52,211,153,0.08); }
+.flow-box--lg{ border-color: rgba(96,165,250,0.45); color: var(--lg); box-shadow: 0 6px 18px rgba(96,165,250,0.08); }
+.flow-box--dim{ color: var(--ink-dim); }
+.flow-arrow-down{ color: var(--ink-faint); font-size: 1.3rem; line-height: 1; padding: 4px 0; }
+
+.decision-box{
+  padding: 12px 18px; border-radius: var(--radius-sm); border: 1px dashed var(--amber);
+  background: var(--amber-soft); color: var(--amber); font-weight: 600; font-size: 0.9rem; text-align:center;
+}
+
+.flow-branch{
+  display:flex; gap: 20px; margin-top: 4px; flex-wrap: wrap; justify-content: center; width: 100%;
+}
+.branch-col{ display:flex; flex-direction: column; align-items:center; gap: 0; flex: 1 1 160px; min-width: 150px; }
+.branch-label{
+  font-size: 0.78rem; font-weight: 700; letter-spacing: 0.02em; padding: 3px 10px; border-radius: 999px;
+  margin-bottom: 8px; background: var(--bg-elevated-2); color: var(--ink-dim); border: 1px solid var(--line);
+}
+.branch-label.yes{ color: var(--lc); border-color: rgba(52,211,153,0.35); }
+.branch-label.no{ color: var(--ink-faint); }
+
+.loop-indicator{
+  margin-top: 10px; padding: 6px 14px; border-radius: 999px; border: 1px dashed rgba(96,165,250,0.5);
+  color: var(--lg); font-size: 0.8rem; font-weight: 600; display:inline-flex; align-items:center; gap:6px;
+}
+.loop-indicator .spin{ display:inline-block; animation: spin 3s linear infinite; }
+@keyframes spin{ from{ transform: rotate(0);} to{ transform: rotate(360deg);} }
+
+.diagram-card{ padding: 26px; border-radius: var(--radius-lg); }
+.diagram-card h4{ font-family: var(--font-display); text-align:center; margin-bottom: 22px; font-size: 1.05rem; }
+.diagram-card h4.lc{ color: var(--lc); }
+.diagram-card h4.lg{ color: var(--lg); }
+
+/* ============================================================
+   8. TWO-COLUMN COMPARE GRID (generic)
+   ============================================================ */
+.two-col{ display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 32px; }
+@media (max-width: 820px){ .two-col{ grid-template-columns: 1fr; } }
+
+/* ============================================================
+   9. CONCEPT CARDS (LangChain / LangGraph deep dive)
+   ============================================================ */
+.concept-grid{ display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-top: 32px; }
+.concept-card{
+  border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--line);
+  background: var(--bg-elevated); transition: border-color 0.2s ease;
+}
+.concept-card.lc{ border-left: 3px solid var(--lc); }
+.concept-card.lg{ border-left: 3px solid var(--lg); }
+.concept-head{
+  padding: 18px 20px; display:flex; align-items:flex-start; gap: 14px; text-align:left; width:100%;
+  background: transparent; border: none; color: var(--ink);
+}
+.concept-icon{ font-size: 1.4rem; flex: 0 0 auto; }
+.concept-title{ font-family: var(--font-display); font-size: 1.02rem; font-weight: 600; }
+.concept-one-liner{ color: var(--ink-dim); font-size: 0.88rem; margin-top: 4px; }
+.concept-caret{ margin-left: auto; color: var(--ink-faint); transition: transform 0.25s ease; flex: 0 0 auto; }
+.concept-card.open .concept-caret{ transform: rotate(180deg); }
+.concept-body{
+  max-height: 0; overflow: hidden; transition: max-height 0.35s ease;
+  padding: 0 20px;
+}
+.concept-card.open .concept-body{ max-height: 600px; padding-bottom: 20px; }
+.concept-analogy{
+  font-size: 0.9rem; color: var(--ink); padding: 12px 14px; border-radius: var(--radius-sm);
+  background: rgba(255,255,255,0.03); border: 1px solid var(--line); margin-bottom: 14px;
+}
+.concept-analogy b{ color: var(--ink-dim); font-weight: 600; }
+
+/* ============================================================
+   10. CODE BLOCKS
+   ============================================================ */
+.code-block{ border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--line); background: #0d1117; }
+.code-block-header{
+  display:flex; align-items:center; justify-content: space-between; padding: 9px 14px;
+  background: var(--bg-elevated-2); border-bottom: 1px solid var(--line);
+}
+.code-lang{ font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-faint); }
+.copy-btn{
+  background: none; border: 1px solid var(--line-strong); color: var(--ink-dim); border-radius: 6px;
+  padding: 4px 10px; font-size: 0.75rem; transition: color 0.15s ease, border-color 0.15s ease;
+}
+.copy-btn:hover{ color: var(--ink); border-color: var(--line-strong); }
+.copy-btn.copied{ color: var(--lc); border-color: rgba(52,211,153,0.4); }
+.code-block pre{ margin: 0; padding: 16px 18px; overflow-x: auto; background: transparent !important; }
+.code-block code{ font-family: var(--font-mono) !important; font-size: 0.84rem !important; background: transparent !important; }
+.code-note{ font-size: 0.85rem; color: var(--ink-dim); margin-top: 10px; }
+.code-note li{ padding: 3px 0; }
+.code-note li::before{ content: "· "; color: var(--ink-faint); }
+
+/* ============================================================
+   11. COMPARISON TABLE
+   ============================================================ */
+.compare-table-wrap{ margin-top: 32px; overflow-x: auto; border-radius: var(--radius-md); border: 1px solid var(--line); }
+table.compare-table{ width: 100%; border-collapse: collapse; min-width: 640px; }
+.compare-table thead th{
+  text-align: left; padding: 14px 18px; font-family: var(--font-display); font-size: 0.92rem;
+  background: var(--bg-elevated-2); border-bottom: 1px solid var(--line-strong); position: sticky; top: 0;
+}
+.compare-table thead th.lc-h{ color: var(--lc); }
+.compare-table thead th.lg-h{ color: var(--lg); }
+.compare-table tbody td{ padding: 13px 18px; font-size: 0.9rem; border-bottom: 1px solid var(--line); color: var(--ink-dim); }
+.compare-table tbody td.feature-col{ color: var(--ink); font-weight: 600; }
+.compare-table tbody tr{ transition: background 0.15s ease; }
+.compare-table tbody tr:hover{ background: rgba(255,255,255,0.03); }
+.compare-table tbody tr:hover td.lc-td{ color: var(--lc); }
+.compare-table tbody tr:hover td.lg-td{ color: var(--lg); }
+.compare-table tbody tr:last-child td{ border-bottom: none; }
+
+/* ============================================================
+   12. QUIZ
+   ============================================================ */
+.quiz-card{ margin-top: 32px; padding: 30px; border-radius: var(--radius-lg); max-width: 620px; }
+.quiz-progress{ font-size: 0.82rem; color: var(--ink-faint); margin-bottom: 14px; }
+.quiz-question{ font-family: var(--font-display); font-size: 1.15rem; margin-bottom: 20px; }
+.quiz-options{ display: grid; gap: 10px; }
+.quiz-option{
+  text-align: left; padding: 13px 16px; border-radius: var(--radius-sm); border: 1px solid var(--line-strong);
+  background: var(--bg-elevated); color: var(--ink); font-size: 0.92rem; transition: border-color 0.15s ease, background 0.15s ease;
+}
+.quiz-option:hover:not(:disabled){ border-color: var(--lg); }
+.quiz-option:disabled{ cursor: default; }
+.quiz-option.correct{ border-color: var(--lc); background: var(--lc-soft); color: var(--lc); }
+.quiz-option.incorrect{ border-color: #f87171; background: rgba(248,113,113,0.1); color: #f87171; }
+.quiz-explain{ margin-top: 18px; padding: 14px 16px; border-radius: var(--radius-sm); background: rgba(255,255,255,0.03); border: 1px solid var(--line); font-size: 0.9rem; color: var(--ink-dim); }
+.quiz-footer{ margin-top: 20px; display:flex; justify-content: flex-end; }
+.quiz-result{ text-align:center; }
+.quiz-score{ font-family: var(--font-display); font-size: 2.4rem; margin: 10px 0; }
+.quiz-verdict{ color: var(--ink-dim); margin-bottom: 20px; }
+
+/* ============================================================
+   13. MYTH FLIP CARDS
+   ============================================================ */
+.myth-grid{ display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; margin-top: 32px; }
+.myth-card{ perspective: 1200px; height: 220px; }
+.myth-card-inner{
+  position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d;
+}
+.myth-card.flipped .myth-card-inner{ transform: rotateY(180deg); }
+.myth-front, .myth-back{
+  position: absolute; inset: 0; backface-visibility: hidden; border-radius: var(--radius-md);
+  padding: 22px; display:flex; flex-direction: column; justify-content: center; border: 1px solid var(--line);
+}
+.myth-front{ background: var(--bg-elevated); }
+.myth-front .myth-tag{ font-size: 0.75rem; color: var(--ink-faint); margin-bottom: 8px; }
+.myth-front p{ font-family: var(--font-display); font-size: 1.05rem; }
+.myth-front .tap-hint{ margin-top: auto; font-size: 0.78rem; color: var(--ink-faint); }
+.myth-back{ background: var(--lg-soft); border-color: rgba(96,165,250,0.35); transform: rotateY(180deg); }
+.myth-back p{ font-size: 0.88rem; color: var(--ink); }
+.myth-back .myth-tag{ font-size: 0.75rem; color: var(--lg); margin-bottom: 8px; font-weight: 700; }
+
+/* ============================================================
+   14. DECISION TREE (accordion)
+   ============================================================ */
+.decision-list{ margin-top: 32px; display:flex; flex-direction: column; gap: 10px; }
+.decision-item{ border: 1px solid var(--line); border-radius: var(--radius-md); overflow: hidden; background: var(--bg-elevated); }
+.decision-q{
+  width: 100%; display:flex; align-items:center; justify-content: space-between; gap: 12px;
+  padding: 16px 20px; background: transparent; border: none; color: var(--ink); font-size: 0.98rem; font-weight: 600; text-align: left;
+}
+.decision-caret{ color: var(--ink-faint); transition: transform 0.25s ease; }
+.decision-item.open .decision-caret{ transform: rotate(180deg); }
+.decision-a{ max-height: 0; overflow: hidden; transition: max-height 0.35s ease; padding: 0 20px; }
+.decision-item.open .decision-a{ max-height: 200px; padding-bottom: 18px; }
+.decision-a-inner{ display:flex; align-items:flex-start; gap: 12px; }
+.decision-reason{ color: var(--ink-dim); font-size: 0.9rem; }
+
+/* ============================================================
+   15. CHEAT SHEET
+   ============================================================ */
+.cheatsheet-grid{ display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 32px; }
+.cheatsheet-card{ padding: 30px; border-radius: var(--radius-lg); }
+.cheatsheet-card.lc{ border: 1px solid rgba(52,211,153,0.35); background: linear-gradient(160deg, rgba(52,211,153,0.08), transparent); }
+.cheatsheet-card.lg{ border: 1px solid rgba(96,165,250,0.35); background: linear-gradient(160deg, rgba(96,165,250,0.08), transparent); }
+.cheatsheet-card h3{ font-family: var(--font-display); font-size: 1.3rem; }
+.cheatsheet-card.lc h3{ color: var(--lc); }
+.cheatsheet-card.lg h3{ color: var(--lg); }
+.cheatsheet-think{ font-size: 0.85rem; color: var(--ink-faint); margin-top: 4px; margin-bottom: 20px; }
+.cheatsheet-card ul li{ padding: 6px 0; color: var(--ink-dim); font-size: 0.92rem; border-bottom: 1px dashed var(--line); }
+.cheatsheet-card ul li:last-child{ border-bottom: none; }
+@media (max-width: 700px){ .cheatsheet-grid{ grid-template-columns: 1fr; } }
+
+/* ============================================================
+   16. MEMORY TRICK
+   ============================================================ */
+.memory-trick{ text-align:center; padding: 90px 0; }
+.memory-quote{
+  font-family: var(--font-display); font-weight: 600;
+  font-size: clamp(1.4rem, 3.6vw, 2.3rem); line-height: 1.35; max-width: 880px; margin: 0 auto;
+  background: linear-gradient(90deg, var(--lc), var(--lg));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.memory-sub{ margin-top: 30px; font-size: 1.05rem; color: var(--ink-dim); max-width: 620px; margin-left:auto; margin-right:auto; font-style: italic; }
+
+/* ============================================================
+   17. ROADMAP
+   ============================================================ */
+.roadmap{ margin-top: 40px; position: relative; padding-left: 30px; }
+.roadmap::before{ content:""; position:absolute; left: 9px; top: 6px; bottom: 6px; width: 2px; background: linear-gradient(var(--lc), var(--lg)); }
+.roadmap-step{ position: relative; padding-bottom: 30px; }
+.roadmap-step:last-child{ padding-bottom: 0; }
+.roadmap-step::before{
+  content:""; position: absolute; left: -30px; top: 4px; width: 10px; height: 10px; border-radius: 50%;
+  background: var(--bg); border: 2px solid var(--ink-faint);
+}
+.roadmap-step.lc::before{ border-color: var(--lc); }
+.roadmap-step.lg::before{ border-color: var(--lg); }
+.roadmap-title{ font-family: var(--font-display); font-weight: 600; font-size: 1rem; }
+.roadmap-why{ color: var(--ink-dim); font-size: 0.9rem; margin-top: 4px; }
+
+/* ============================================================
+   18. COMPLEXITY SPECTRUM
+   ============================================================ */
+.spectrum-wrap{ margin-top: 40px; overflow-x: auto; }
+.spectrum{ min-width: 780px; position: relative; padding-top: 50px; padding-bottom: 10px; }
+.spectrum-track{ position: relative; height: 6px; border-radius: 6px; background: var(--bg-elevated-2); }
+.spectrum-bar{ position: absolute; top: 0; height: 6px; border-radius: 6px; }
+.spectrum-bar--lc{ left: 0; width: 46%; background: linear-gradient(90deg, var(--lc-dim), var(--lc)); }
+.spectrum-bar--lg{ right: 0; width: 58%; background: linear-gradient(90deg, var(--lg), var(--lg-dim)); opacity: 0.9; }
+.spectrum-points{ display:flex; justify-content: space-between; margin-top: 14px; }
+.spectrum-point{ flex: 1; text-align:center; position: relative; font-size: 0.78rem; color: var(--ink-dim); padding: 0 4px; }
+.spectrum-point::before{ content:""; position:absolute; top: -34px; left: 50%; transform: translateX(-50%); width: 2px; height: 20px; background: var(--line-strong); }
+.spectrum-legend{ display:flex; gap: 20px; margin-top: 20px; font-size: 0.85rem; }
+.spectrum-legend span{ display:flex; align-items:center; gap:6px; }
+.legend-dot{ width: 10px; height: 10px; border-radius: 50%; display:inline-block; }
+.legend-dot.lc{ background: var(--lc); }
+.legend-dot.lg{ background: var(--lg); }
+
+/* ============================================================
+   19. MISC UTILITY
+   ============================================================ */
+.callout{ margin-top: 28px; padding: 20px 24px; border-radius: var(--radius-md); border: 1px solid rgba(251,191,36,0.35); background: var(--amber-soft); }
+.callout p{ color: var(--ink); font-size: 0.95rem; }
+.callout .callout-tag{ color: var(--amber); font-weight: 700; font-size: 0.85rem; margin-bottom: 6px; display:block; }
+
+.key-message{
+  margin-top: 32px; padding: 24px 28px; border-radius: var(--radius-md);
+  border: 1px solid var(--line-strong); background: var(--bg-elevated);
+  font-family: var(--font-display); font-size: 1.1rem; text-align: center;
+}
+.key-message .lc{ color: var(--lc); }
+.key-message .lg{ color: var(--lg); }
+
+.requirements-list{ margin-top: 20px; display:grid; grid-template-columns: 1fr 1fr; gap: 8px 24px; }
+.requirements-list li{ color: var(--ink-dim); font-size: 0.92rem; padding: 5px 0; padding-left: 20px; position: relative; }
+.requirements-list li::before{ content:"✓"; position:absolute; left:0; color: var(--lg); }
+@media (max-width: 640px){ .requirements-list{ grid-template-columns: 1fr; } }
+
+footer{ padding: 50px 0; text-align:center; color: var(--ink-faint); font-size: 0.85rem; border-top: 1px solid var(--line); }
+footer a{ color: var(--ink-dim); text-decoration: underline; text-underline-offset: 3px; }
+
+@media (max-width: 900px){
+  .section{ padding: 70px 0; }
+  .cheatsheet-grid{ grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- Scroll progress indicator -->
+<div id="progress-bar"></div>
+
+<!-- ============================================================
+     NAVIGATION
+     ============================================================ -->
+<header class="navbar">
+  <div class="navbar-inner">
+    <a href="#hero" class="nav-brand"><span class="dot-lc">●</span><span class="dot-lg">●</span>&nbsp;LC vs LG</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">☰</button>
+    <nav class="nav-links" id="navLinks">
+      <a href="#hero" data-nav>Home</a>
+      <a href="#analogy" data-nav>Toolbox vs Control</a>
+      <a href="#what-is-langchain" data-nav>LangChain</a>
+      <a href="#what-is-langgraph" data-nav>LangGraph</a>
+      <a href="#one-picture" data-nav>Big Picture</a>
+      <a href="#comparison-table" data-nav>Compare</a>
+      <a href="#code-comparison" data-nav>Code</a>
+      <a href="#rag-example" data-nav>RAG</a>
+      <a href="#agent-evolution" data-nav>Agents</a>
+      <a href="#multi-agent" data-nav>Multi-Agent</a>
+      <a href="#decision-tree" data-nav>Decision Tree</a>
+      <a href="#misconceptions" data-nav>Myths</a>
+      <a href="#quiz" data-nav>Quiz</a>
+      <a href="#roadmap" data-nav>Roadmap</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ============================================================
+     1. HERO SECTION
+     ============================================================ -->
+<section class="hero" id="hero">
+  <div class="container">
+    <span class="hero-eyebrow">A visual guide for developers</span>
+    <h1 class="hero-title"><span class="t-lc">LangChain</span> <span class="t-vs">vs</span> <span class="t-lg">LangGraph</span></h1>
+    <p class="hero-sub">Two tools. One AI ecosystem. Completely different ways of thinking.</p>
+
+    <div class="hero-hook glass">
+      <b class="lc">LangChain</b> helps you build AI applications. <b class="lg">LangGraph</b> helps you orchestrate AI applications that need memory, state, decisions, loops and control.
+    </div>
+
+    <div class="hero-cards">
+      <div class="hero-card hero-card--lc glass">
+        <div class="emoji">🟢</div>
+        <h3>LangChain</h3>
+        <p>Build AI-powered applications</p>
+      </div>
+      <div class="hero-card hero-card--lg glass">
+        <div class="emoji">🔵</div>
+        <h3>LangGraph</h3>
+        <p>Build stateful, controllable AI workflows</p>
+      </div>
+    </div>
+
+    <div class="hero-flow" aria-hidden="false">
+      <div class="hero-flow-step">User</div>
+      <div class="hero-flow-arrow pulse"></div>
+      <div class="hero-flow-step">AI Application</div>
+      <div class="hero-flow-arrow pulse"></div>
+      <div class="hero-flow-step lc">LangChain</div>
+      <div class="hero-flow-arrow pulse"></div>
+      <div class="hero-flow-step lg">LangGraph</div>
+    </div>
+
+    <div class="scroll-cue"><span class="arrow-down">↓</span> keep scrolling — it gets interesting</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     2. THE BIG QUESTION
+     ============================================================ -->
+<section class="section" id="big-question">
+  <div class="container">
+    <div class="section-spine mix">
+      <span class="bar"></span>
+      <div>
+        <h2 class="section-title">So… are LangChain and LangGraph competitors?</h2>
+        <p class="section-intro"><strong style="color:var(--ink); font-size:1.3em;">No.</strong> They solve related but different problems, and in most real applications, they're used <em>together</em> — not instead of each other.</p>
+      </div>
+    </div>
+
+    <div class="prose section-intro">
+      Think of it this way: <strong style="color:var(--lc)">LangChain</strong> is the box of LEGO pieces. <strong style="color:var(--lg)">LangGraph</strong> is the instruction booklet and the control system that decides which piece goes where, in what order, and what happens if a piece doesn't fit.
+    </div>
+
+    <div style="margin-top:28px; display:flex; gap:12px; flex-wrap:wrap;">
+      <button class="btn btn--lc" id="btnShowLC">🟢 Click: What does LangChain give you?</button>
+      <button class="btn btn--lg" id="btnShowLG">🔵 Click: What does LangGraph control?</button>
+    </div>
+
+    <div class="highlight-lists">
+      <div class="highlight-list lc" id="listLC">
+        <h4>LangChain provides the pieces</h4>
+        <ul>
+          <li>Models (LLMs &amp; chat models)</li>
+          <li>Prompts</li>
+          <li>Tools</li>
+          <li>Retrievers</li>
+          <li>Embeddings</li>
+          <li>Agents</li>
+          <li>Structured outputs</li>
+          <li>Document processing</li>
+          <li>Integrations</li>
+        </ul>
+      </div>
+      <div class="highlight-list lg" id="listLG">
+        <h4>LangGraph decides the flow</h4>
+        <ul>
+          <li>What happens first</li>
+          <li>What happens next</li>
+          <li>Which node executes</li>
+          <li>When to branch</li>
+          <li>When to loop</li>
+          <li>What state is remembered</li>
+          <li>When a human should intervene</li>
+          <li>When the workflow should stop</li>
+        </ul>
+      </div>
+    </div>
+    <p class="hint-text">👆 Click a button above to see what each one is actually responsible for.</p>
+  </div>
+</section>
+
+<!-- ============================================================
+     3. BEFORE LANGCHAIN VS LANGGRAPH
+     ============================================================ -->
+<section class="section" id="before" style="background: var(--bg-elevated);">
+  <div class="container">
+    <div class="section-spine">
+      <span class="bar"></span>
+      <div>
+        <h2 class="section-title">Let's start with the actual problem</h2>
+        <p class="section-intro">Before comparing tools, it helps to see why anyone needed a "graph" in the first place.</p>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="diagram-card glass">
+        <h4>A simple AI app</h4>
+        <div class="flow">
+          <div class="flow-box flow-box--dim">User</div>
+          <div class="flow-arrow-down">↓</div>
+          <div class="flow-box flow-box--dim">Prompt</div>
+          <div class="flow-arrow-down">↓</div>
+          <div class="flow-box flow-box--dim">LLM</div>
+          <div class="flow-arrow-down">↓</div>
+          <div class="flow-box flow-box--dim">Answer</div>
+        </div>
+      </div>
+
+      <div class="diagram-card glass">
+        <h4>A more "real" AI app</h4>
+        <div class="flow">
+          <div class="flow-box flow-box--dim">User</div>
+          <div class="flow-arrow-down">↓</div>
+          <div class="flow-box flow-box--dim">LLM</div>
+          <div class="flow-arrow-down">↓</div>
+          <div class="flow-box flow-box--dim">Tool</div>
+          <div class="flow-arrow-down">↓</div>
+          <div class="flow-box flow-box--dim">Database</div>
+          <div class="flow-arrow-down">↓</div>
+          <div class="flow-box flow-box--dim">LLM</div>
+          <div class="flow-arrow-down">↓</div>
+          <div class="decision-box">Decision</div>
+          <div class="flow-arrow-down">↓</div>
+          <div class="flow-box flow-box--dim">Tool</div>
+          <div class="flow-arrow-down">↓</div>
+          <div class="flow-box flow-box--dim">Human approval</div>
+          <div class="flow-arrow-down">↓</div>
+          <div class="flow-box flow-box--dim">Final response</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="glass" style="margin-top:36px; padding:28px 30px;">
+      <p style="font-size:1.05rem; margin-bottom:10px;">Now ask yourself:</p>
+      <p class="section-intro" style="margin-top:6px;">"What happens when the AI needs to remember what happened 5 steps ago?"</p>
+      <p class="section-intro" style="margin-top:6px;">"What if it needs to retry?"</p>
+      <p class="section-intro" style="margin-top:6px;">"What if it needs to take a different path?"</p>
+      <p class="section-intro" style="margin-top:6px;">"What if a human needs to approve an action?"</p>
+      <p class="section-intro" style="margin-top:6px;">"What if the workflow loops?"</p>
+      <p style="margin-top:18px; font-weight:600; color:var(--lg);">That's exactly the gap LangGraph was built to fill.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     4. SIMPLE ANALOGY
+     ============================================================ -->
+<section class="section" id="analogy">
+  <div class="container">
+    <div class="section-spine mix">
+      <span class="bar"></span>
+      <div>
+        <h2 class="section-title">The simplest way to think about it</h2>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="glass" style="padding:30px;">
+        <div style="font-size:2rem;">🧰</div>
+        <h3 style="font-family:var(--font-display); color:var(--lc); margin-top:10px; font-size:1.3rem;">LangChain = A Toolbox</h3>
+        <p class="section-intro" style="margin-top:12px;">LangChain gives developers reusable components for building LLM applications:</p>
+        <ul style="margin-top:14px;">
+          <li style="padding:5px 0; color:var(--ink-dim); font-size:0.92rem;">💬 Chat models</li>
+          <li style="padding:5px 0; color:var(--ink-dim); font-size:0.92rem;">📝 Prompt templates</li>
+          <li style="padding:5px 0; color:var(--ink-dim); font-size:0.92rem;">📐 Output parsers</li>
+          <li style="padding:5px 0; color:var(--ink-dim); font-size:0.92rem;">🛠️ Tools</li>
+          <li style="padding:5px 0; color:var(--ink-dim); font-size:0.92rem;">📚 Retrievers</li>
+          <li style="padding:5px 0; color:var(--ink-dim); font-size:0.92rem;">🗄️ Vector stores</li>
+          <li style="padding:5px 0; color:var(--ink-dim); font-size:0.92rem;">🔢 Embeddings</li>
+          <li style="padding:5px 0; color:var(--ink-dim); font-size:0.92rem;">🤖 Agents</li>
+        </ul>
+      </div>
+
+      <div class="glass" style="padding:30px;">
+        <div style="font-size:2rem;">🎛️</div>
+        <h3 style="font-family:var(--font-display); color:var(--lg); margin-top:10px; font-size:1.3rem;">LangGraph = A Control Room</h3>
+        <p class="section-intro" style="margin-top:12px;">LangGraph lets you define how those components interact <em>over time</em> — what runs, in what order, and under what conditions.</p>
+        <div style="margin-top:20px; padding:16px 18px; border-radius:var(--radius-sm); background:var(--lg-soft); border:1px solid rgba(96,165,250,0.3);">
+          <p style="font-size:0.94rem; color:var(--ink);">"LangChain gives you the ingredients. LangGraph helps you design the kitchen workflow."</p>
+        </div>
+        <div style="margin-top:12px; padding:16px 18px; border-radius:var(--radius-sm); background:var(--lg-soft); border:1px solid rgba(96,165,250,0.3);">
+          <p style="font-size:0.94rem; color:var(--ink);">"LangChain gives you the players. LangGraph defines the game."</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     5. WHAT IS LANGCHAIN?
+     ============================================================ -->
+<section class="section" id="what-is-langchain" style="background: var(--bg-elevated);">
+  <div class="container">
+    <div class="section-spine lc">
+      <span class="bar"></span>
+      <div>
+        <h2 class="section-title">What exactly is LangChain?</h2>
+        <p class="section-intro">LangChain is a framework and ecosystem for developing applications powered by large language models. Click any concept below to see a plain-language definition, an analogy, and a tiny code example.</p>
+      </div>
+    </div>
+    <div class="concept-grid" id="lcConceptGrid"><!-- rendered by JS --></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     6. WHAT IS LANGGRAPH?
+     ============================================================ -->
+<section class="section" id="what-is-langgraph">
+  <div class="container">
+    <div class="section-spine lg">
+      <span class="bar"></span>
+      <div>
+        <h2 class="section-title">What exactly is LangGraph?</h2>
+        <p class="section-intro">LangGraph is a framework for building stateful, multi-step, controllable AI workflows and agents. Every concept below is about controlling <em>flow</em> — not adding new capabilities to the model itself.</p>
+      </div>
+    </div>
+    <div class="concept-grid" id="lgConceptGrid"><!-- rendered by JS --></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     7. THE DIFFERENCE IN ONE PICTURE
+     ============================================================ -->
+<section class="section" id="one-picture" style="background: var(--bg-elevated);">
+  <div class="container">
+    <div class="section-spine mix">
+      <span class="bar"></span>
+      <div>
+        <h2 class="section-title">The difference in one picture</h2>
+        <p class="section-intro">LangChain focuses on the components and abstractions used to build LLM applications. LangGraph focuses on orchestrating those components as a graph-based, stateful workflow.</p>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="diagram-card glass">
+        <h4 class="lc">LangChain — a straight line</h4>
+        <div class="flow">
+          <div class="flow-box flow-box--lc">User</div>
+          <div class="flow-arrow-down">↓</div>
+          <div class="flow-box flow-box--lc">Prompt</div>
+          <div class="flow-arrow-down">↓</div>
+          <div class="flow-box flow-box--lc">LLM</div>
+          <div class="flow-arrow-down">↓</div>
+          <div class="flow-box flow-box--lc">Tool</div>
+          <div class="flow-arrow-down">↓</div>
+          <div class="flow-box flow-box--lc">Response</div>
+        </div>
+      </div>
+
+      <div class="diagram-card glass">
+        <h4 class="lg">LangGraph — a graph with memory</h4>
+        <div id="langgraphSvgWrap"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     8. SIDE-BY-SIDE COMPARISON TABLE
+     ============================================================ -->
+<section class="section" id="comparison-table">
+  <div class="container">
+    <div class="section-spine mix">
+      <span class="bar"></span>
+      <div>
+        <h2 class="section-title">Feature-by-feature comparison</h2>
+        <p class="section-intro">Hover any row to see it highlighted. This is the cheat-sheet version of everything above.</p>
+      </div>
+    </div>
+
+    <div class="compare-table-wrap">
+      <table class="compare-table">
+        <thead>
+          <tr><th>Feature</th><th class="lc-h">🟢 LangChain</th><th class="lg-h">🔵 LangGraph</th></tr>
+        </thead>
+        <tbody id="compareTableBody"><!-- rendered by JS --></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     9. SAME PROBLEM — TWO APPROACHES
+     ============================================================ -->
+<section class="section" id="same-problem" style="background: var(--bg-elevated);">
+  <div class="container">
+    <div class="section-spine mix">
+      <span class="bar"></span>
+      <div>
+        <h2 class="section-title">Build the same AI app, two ways</h2>
+        <p class="section-intro"><strong>The problem:</strong> build a customer support AI that can answer questions, search company docs, check order status, and escalate difficult cases.</p>
+      </div>
+    </div>
+
+    <div class="toggle-group" style="margin-top:24px;">
+      <button class="btn lc active" id="tabLC">🟢 LangChain view</button>
+      <button class="btn lg" id="tabLG">🔵 LangGraph view</button>
+    </div>
+
+    <div class="diagram-card glass" style="margin-top:24px;" id="panelLC">
+      <h4 class="lc">A LangChain-oriented architecture</h4>
+      <div class="flow">
+        <div class="flow-box flow-box--lc">User</div>
+        <div class="flow-arrow-down">↓</div>
+        <div class="flow-box flow-box--lc">Agent</div>
+        <div class="flow-arrow-down">↓</div>
+        <div class="flow-box flow-box--dim" style="border-style:dashed;">Tools</div>
+        <div class="flow-branch" style="margin-top:14px;">
+          <div class="branch-col"><div class="flow-box flow-box--dim">Search Docs</div></div>
+          <div class="branch-col"><div class="flow-box flow-box--dim">Order API</div></div>
+          <div class="branch-col"><div class="flow-box flow-box--dim">Customer DB</div></div>
+        </div>
+        <div class="flow-arrow-down" style="margin-top:14px;">↓</div>
+        <div class="flow-box flow-box--lc">Response</div>
+      </div>
+    </div>
+
+    <div class="diagram-card glass hidden" style="margin-top:24px;" id="panelLG">
+      <h4 class="lg">A LangGraph architecture</h4>
+      <div class="flow">
+        <div class="flow-box flow-box--lg">START</div>
+        <div class="flow-arrow-down">↓</div>
+        <div class="decision-box">CLASSIFY</div>
+      </div>
+      <div class="flow-branch">
+        <div class="branch-col">
+          <span class="branch-label">FAQ</span>
+          <div class="flow-box flow-box--lg" style="margin-bottom:6px;">Search Docs</div>
+          <div class="flow-arrow-down">↓</div>
+          <div class="flow-box flow-box--lg">Response</div>
+        </div>
+        <div class="branch-col">
+          <span class="branch-label">ORDER</span>
+          <div class="flow-box flow-box--lg" style="margin-bottom:6px;">Order API</div>
+          <div class="flow-arrow-down">↓</div>
+          <div class="flow-box flow-box--lg">Response</div>
+        </div>
+        <div class="branch-col">
+          <span class="branch-label">COMPLEX</span>
+          <div class="flow-box flow-box--lg" style="margin-bottom:6px;">Human Review</div>
+          <div class="flow-arrow-down">↓</div>
+          <div class="flow-box flow-box--lg">Response</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     10. CODE COMPARISON
+     ============================================================ -->
+<section class="section" id="code-comparison">
+  <div class="container">
+    <div class="section-spine mix">
+      <span class="bar"></span>
+      <div>
+        <h2 class="section-title">The same idea, in code</h2>
+        <p class="section-intro">Short, realistic examples — not production code, just enough to see the shape of each framework.</p>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div>
+        <p class="pill pill--lc">🟢 LangChain</p>
+        <div class="code-block" style="margin-top:14px;">
+          <div class="code-block-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)">📋 Copy</button></div>
+          <pre><code class="language-python">from langchain_openai import ChatOpenAI
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.output_parsers import StrOutputParser
+
+model = ChatOpenAI(model="gpt-4o-mini")
+prompt = ChatPromptTemplate.from_template(
+    "Answer the customer question:\n{question}"
+)
+parser = StrOutputParser()
+
+# LCEL: chain components together with the pipe operator
+chain = prompt | model | parser
+
+response = chain.invoke({"question": "Where is my order?"})
+print(response)</code></pre>
+        </div>
+        <ul class="code-note">
+          <li>The prompt, model, and parser are independent, reusable components.</li>
+          <li>The <code style="font-family:var(--font-mono);">|</code> operator wires them into one pipeline (LCEL).</li>
+          <li><code style="font-family:var(--font-mono);">.invoke()</code> runs the whole pipeline once, start to finish.</li>
+          <li>There's no persistent state — call it again and it has no memory of the last call.</li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="pill pill--lg">🔵 LangGraph</p>
+        <div class="code-block" style="margin-top:14px;">
+          <div class="code-block-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)">📋 Copy</button></div>
+          <pre><code class="language-python">from typing import TypedDict
+from langgraph.graph import StateGraph, START, END
+
+class State(TypedDict):
+    question: str
+    answer: str
+    needs_retry: bool
+
+def agent_node(state: State) -> State:
+    state["answer"] = f"Draft answer for: {state['question']}"
+    state["needs_retry"] = "unsure" in state["answer"]
+    return state
+
+def check_node(state: State) -> State:
+    return state
+
+def route(state: State) -> str:
+    return "agent_node" if state["needs_retry"] else END
+
+graph = StateGraph(State)
+graph.add_node("agent_node", agent_node)
+graph.add_node("check_node", check_node)
+graph.add_edge(START, "agent_node")
+graph.add_edge("agent_node", "check_node")
+graph.add_conditional_edges("check_node", route)
+
+app = graph.compile()
+app.invoke({"question": "Where is my order?", "answer": "", "needs_retry": False})</code></pre>
+        </div>
+        <ul class="code-note">
+          <li><code style="font-family:var(--font-mono);">State</code> is the shared object every node reads and updates.</li>
+          <li>Each node (<code style="font-family:var(--font-mono);">agent_node</code>, <code style="font-family:var(--font-mono);">check_node</code>) is one discrete step.</li>
+          <li><code style="font-family:var(--font-mono);">add_conditional_edges</code> decides the next node <em>at runtime</em>, and can loop back to <code style="font-family:var(--font-mono);">agent_node</code>.</li>
+          <li>The graph is compiled once, then invoked — and can be checkpointed, paused, and resumed.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     11. RAG EXAMPLE
+     ============================================================ -->
+<section class="section" id="rag-example" style="background: var(--bg-elevated);">
+  <div class="container">
+    <div class="section-spine lc">
+      <span class="bar"></span>
+      <div>
+        <h2 class="section-title">Do I need LangGraph for RAG?</h2>
+        <p class="section-intro"><strong style="color:var(--ink); font-size:1.15em;">Usually, no.</strong></p>
+      </div>
+    </div>
+
+    <div class="diagram-card glass" style="margin-top:24px;">
+      <h4 class="lc">Standard RAG pipeline</h4>
+      <div class="flow">
+        <div class="flow-box flow-box--lc">Documents</div>
+        <div class="flow-arrow-down">↓</div>
+        <div class="flow-box flow-box--lc">Split</div>
+        <div class="flow-arrow-down">↓</div>
+        <div class="flow-box flow-box--lc">Embed</div>
+        <div class="flow-arrow-down">↓</div>
+        <div class="flow-box flow-box--lc">Vector Store</div>
+        <div class="flow-arrow-down">↓</div>
+        <div class="flow-box flow-box--lc">Retriever</div>
+        <div class="flow-arrow-down">↓</div>
+        <div class="flow-box flow-box--lc">LLM</div>
+        <div class="flow-arrow-down">↓</div>
+        <div class="flow-box flow-box--lc">Answer</div>
+      </div>
+    </div>
+    <p class="section-intro" style="margin-top:20px;">This is a straight pipeline — retrieve once, generate once. LangChain's retriever and chain abstractions handle this comfortably, with no branching or memory required.</p>
+
+    <p class="section-intro" style="margin-top:36px;"><strong style="color:var(--lg);">But here's when LangGraph earns its place:</strong> when the pipeline needs to judge its own retrieval and try again.</p>
+
+    <div class="diagram-card glass" style="margin-top:20px;">
+      <h4 class="lg">Self-correcting RAG (a real loop)</h4>
+      <div class="flow">
+        <div class="flow-box flow-box--lg">Question</div>
+        <div class="flow-arrow-down">↓</div>
+        <div class="flow-box flow-box--lg">Retrieve</div>
+        <div class="flow-arrow-down">↓</div>
+        <div class="flow-box flow-box--lg">Evaluate relevance</div>
+        <div class="flow-arrow-down">↓</div>
+        <div class="decision-box">Relevant?</div>
+      </div>
+      <div class="flow-branch">
+        <div class="branch-col">
+          <span class="branch-label yes">YES</span>
+          <div class="flow-box flow-box--lg">Generate</div>
+        </div>
+        <div class="branch-col">
+          <span class="branch-label no">NO</span>
+          <div class="flow-box flow-box--lg">Rewrite Query</div>
+          <div class="loop-indicator"><span class="spin">↻</span> loops back to Retrieve</div>
+        </div>
+      </div>
+    </div>
+    <p class="section-intro" style="margin-top:20px;">That "no → rewrite → retrieve again" loop is a cycle, with a decision in the middle. That's precisely the shape LangGraph was designed to express.</p>
+  </div>
+</section>
+
+<!-- ============================================================
+     12. AGENT EXAMPLE — LEVELS
+     ============================================================ -->
+<section class="section" id="agent-evolution">
+  <div class="container">
+    <div class="section-spine mix">
+      <span class="bar"></span>
+      <div>
+        <h2 class="section-title">The evolution of an "agent"</h2>
+        <p class="section-intro">As requirements get more sophisticated, the right tool shifts from LangChain toward LangGraph — not because one is "better," but because the problem itself changes shape.</p>
+      </div>
+    </div>
+
+    <div class="concept-grid" style="grid-template-columns: 1fr;" >
+      <div class="glass" style="padding:20px 24px; border-left:3px solid var(--lc); display:flex; align-items:center; gap:20px; flex-wrap:wrap;">
+        <span class="pill pill--lc" style="flex:0 0 auto;">Level 1</span>
+        <div style="flex:1; min-width:220px;"><strong>Simple LLM</strong><div style="color:var(--ink-dim); font-size:0.9rem; margin-top:2px;">User → LLM → Answer. The model just answers. No tools, no memory, no decisions.</div></div>
+      </div>
+      <div class="glass" style="padding:20px 24px; border-left:3px solid var(--lc); display:flex; align-items:center; gap:20px; flex-wrap:wrap;">
+        <span class="pill pill--lc" style="flex:0 0 auto;">Level 2</span>
+        <div style="flex:1; min-width:220px;"><strong>Tool Calling</strong><div style="color:var(--ink-dim); font-size:0.9rem; margin-top:2px;">User → LLM → Tool → LLM → Answer. The model can reach for one tool mid-answer.</div></div>
+      </div>
+      <div class="glass" style="padding:20px 24px; border-left:3px solid var(--lc); display:flex; align-items:center; gap:20px; flex-wrap:wrap;">
+        <span class="pill pill--lc" style="flex:0 0 auto;">Level 3</span>
+        <div style="flex:1; min-width:220px;"><strong>Agent</strong><div style="color:var(--ink-dim); font-size:0.9rem; margin-top:2px;">The LLM decides which tool to call, and in what order, instead of following a fixed script.</div></div>
+      </div>
+      <div class="glass" style="padding:20px 24px; border-left:3px solid var(--lg); display:flex; align-items:center; gap:20px; flex-wrap:wrap;">
+        <span class="pill pill--lg" style="flex:0 0 auto;">Level 4</span>
+        <div style="flex:1; min-width:220px;"><strong>Stateful Agent</strong><div style="color:var(--ink-dim); font-size:0.9rem; margin-top:2px;">The agent remembers previous actions and results, so step 5 can depend on what happened at step 2.</div></div>
+      </div>
+      <div class="glass" style="padding:22px 24px; border-left:3px solid var(--lg);">
+        <span class="pill pill--lg">Level 5</span>
+        <div style="margin-top:14px;"><strong>Complex Agent Workflow</strong></div>
+        <div class="flow" style="margin-top:16px;">
+          <div class="flow-box flow-box--lg">Agent</div><div class="flow-arrow-down">↓</div>
+          <div class="flow-box flow-box--lg">Research</div><div class="flow-arrow-down">↓</div>
+          <div class="flow-box flow-box--lg">Evaluate</div><div class="flow-arrow-down">↓</div>
+          <div class="decision-box">Search again?</div><div class="flow-arrow-down">↓</div>
+          <div class="flow-box flow-box--lg">Human Approval</div><div class="flow-arrow-down">↓</div>
+          <div class="flow-box flow-box--lg">Execute</div><div class="flow-arrow-down">↓</div>
+          <div class="flow-box flow-box--lg">Verify</div><div class="flow-arrow-down">↓</div>
+          <div class="flow-box flow-box--lg">Finish</div>
+        </div>
+        <div class="loop-indicator" style="margin-top:14px;"><span class="spin">↻</span> "Search again?" can loop back to Research</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     13. MULTI-AGENT SYSTEM
+     ============================================================ -->
+<section class="section" id="multi-agent" style="background: var(--bg-elevated);">
+  <div class="container">
+    <div class="section-spine lg">
+      <span class="bar"></span>
+      <div>
+        <h2 class="section-title">Modeling a multi-agent system</h2>
+        <p class="section-intro">LangGraph is a natural fit once you have more than one "agent" that need to collaborate on a task.</p>
+      </div>
+    </div>
+
+    <div class="diagram-card glass" style="margin-top:24px;">
+      <div class="flow">
+        <div class="flow-box flow-box--lg">SUPERVISOR</div>
+        <div class="flow-arrow-down">↓</div>
+      </div>
+      <div class="flow-branch">
+        <div class="branch-col"><div class="flow-box flow-box--lg">RESEARCHER</div></div>
+        <div class="branch-col"><div class="flow-box flow-box--lg">CODER</div></div>
+        <div class="branch-col"><div class="flow-box flow-box--lg">REVIEWER</div></div>
+      </div>
+      <div class="flow" style="margin-top:14px;">
+        <div class="flow-arrow-down">↓</div>
+        <div class="flow-box flow-box--lg">OUTPUT</div>
+      </div>
+    </div>
+
+    <p class="section-intro" style="margin-top:24px;">The supervisor node decides which specialist agent runs next, based on the current state — a classic conditional-edge pattern. Each specialist can be as simple or complex as needed.</p>
+
+    <div class="key-message glass">
+      <span class="lc">LangChain</span> and <span class="lg">LangGraph</span> are not necessarily alternatives.<br>LangChain components can live <em>inside</em> LangGraph workflows.
+    </div>
+    <p class="section-intro" style="margin-top:14px;">In practice: the RESEARCHER node might use a LangChain retriever, the CODER node might use a LangChain tool-calling agent, and LangGraph is simply the supervisor wiring them together with state and control flow.</p>
+  </div>
+</section>
+
+<!-- ============================================================
+     14. WHEN TO USE WHICH? (decision tree)
+     ============================================================ -->
+<section class="section" id="decision-tree">
+  <div class="container">
+    <div class="section-spine mix">
+      <span class="bar"></span>
+      <div>
+        <h2 class="section-title">When should you use which?</h2>
+        <p class="section-intro">Click each question below to reveal the answer and the reasoning.</p>
+      </div>
+    </div>
+    <div class="decision-list" id="decisionList"><!-- rendered by JS --></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     15. DON'T USE LANGGRAPH FOR EVERYTHING
+     ============================================================ -->
+<section class="section" id="dont-overuse" style="background: var(--bg-elevated);">
+  <div class="container">
+    <div class="section-spine lc">
+      <span class="bar"></span>
+      <div>
+        <h2 class="section-title">Please don't use LangGraph for everything 😄</h2>
+      </div>
+    </div>
+
+    <p class="section-intro" style="margin-top:16px;">If your application is simply:</p>
+    <div class="flow" style="margin-top:14px;">
+      <div class="flow-box flow-box--dim">User</div><div class="flow-arrow-down">↓</div>
+      <div class="flow-box flow-box--dim">Prompt</div><div class="flow-arrow-down">↓</div>
+      <div class="flow-box flow-box--dim">LLM</div><div class="flow-arrow-down">↓</div>
+      <div class="flow-box flow-box--dim">Answer</div>
+    </div>
+    <p class="section-intro" style="margin-top:16px;">…you probably don't need a graph.</p>
+
+    <p class="section-intro" style="margin-top:24px;">If your application is:</p>
+    <div class="flow" style="margin-top:14px;">
+      <div class="flow-box flow-box--dim">User</div><div class="flow-arrow-down">↓</div>
+      <div class="flow-box flow-box--dim">Retrieve</div><div class="flow-arrow-down">↓</div>
+      <div class="flow-box flow-box--dim">Generate</div>
+    </div>
+    <p class="section-intro" style="margin-top:16px;">…you probably don't need a complex graph either.</p>
+
+    <div class="callout">
+      <span class="callout-tag">🚨 But if you have…</span>
+      <p>State to track, branching paths, retry loops, persistence across sessions, human intervention, or multiple agents talking to each other — <strong>that's</strong> when LangGraph starts making a lot more sense.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     16. ARCHITECTURE DEEP DIVE
+     ============================================================ -->
+<section class="section" id="architecture">
+  <div class="container">
+    <div class="section-spine mix">
+      <span class="bar"></span>
+      <div>
+        <h2 class="section-title">Architecture deep dive</h2>
+        <p class="section-intro">For the intermediate/advanced reader: LangGraph is <em>not</em> simply "LangChain with a graph-shaped UI on top." The execution model underneath is genuinely different.</p>
+      </div>
+    </div>
+
+    <div class="diagram-card glass" style="margin-top:24px;">
+      <div class="flow">
+        <div class="flow-box flow-box--dim">Application</div>
+      </div>
+      <div class="flow-branch">
+        <div class="branch-col">
+          <span class="branch-label" style="color:var(--lc); border-color:rgba(52,211,153,0.35);">LangChain components</span>
+          <ul style="margin-top:8px;">
+            <li style="padding:4px 0; color:var(--ink-dim); font-size:0.88rem;">Models</li>
+            <li style="padding:4px 0; color:var(--ink-dim); font-size:0.88rem;">Tools</li>
+            <li style="padding:4px 0; color:var(--ink-dim); font-size:0.88rem;">Retrievers</li>
+            <li style="padding:4px 0; color:var(--ink-dim); font-size:0.88rem;">Prompts</li>
+            <li style="padding:4px 0; color:var(--ink-dim); font-size:0.88rem;">Agents</li>
+          </ul>
+        </div>
+        <div class="branch-col">
+          <span class="branch-label" style="color:var(--lg); border-color:rgba(96,165,250,0.35);">LangGraph orchestration</span>
+          <ul style="margin-top:8px;">
+            <li style="padding:4px 0; color:var(--ink-dim); font-size:0.88rem;">State</li>
+            <li style="padding:4px 0; color:var(--ink-dim); font-size:0.88rem;">Nodes</li>
+            <li style="padding:4px 0; color:var(--ink-dim); font-size:0.88rem;">Edges</li>
+            <li style="padding:4px 0; color:var(--ink-dim); font-size:0.88rem;">Conditions</li>
+            <li style="padding:4px 0; color:var(--ink-dim); font-size:0.88rem;">Persistence</li>
+            <li style="padding:4px 0; color:var(--ink-dim); font-size:0.88rem;">Execution flow</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <p class="section-intro" style="margin-top:28px;">LangChain's composition model (LCEL) is fundamentally a pipeline: data flows through a sequence of components once, from top to bottom, when you call <code style="font-family:var(--font-mono);">.invoke()</code>. It's excellent for composition, but it wasn't designed around cycles, mid-run pauses, or resuming days later.</p>
+    <p class="section-intro" style="margin-top:12px;">LangGraph's execution model is a persistent, resumable state machine: it explicitly tracks a state object, checkpoints it after every node, supports cycles (returning to an earlier node), and can pause indefinitely for a human — then resume from that exact point. That's a different engine underneath, not just a different diagram on top of the same one.</p>
+  </div>
+</section>
+
+<!-- ============================================================
+     17. COMMON MISCONCEPTIONS
+     ============================================================ -->
+<section class="section" id="misconceptions" style="background: var(--bg-elevated);">
+  <div class="container">
+    <div class="section-spine mix">
+      <span class="bar"></span>
+      <div>
+        <h2 class="section-title">Common misconceptions</h2>
+        <p class="section-intro">Tap a card to flip it and see the truth.</p>
+      </div>
+    </div>
+    <div class="myth-grid" id="mythGrid"><!-- rendered by JS --></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     18. INTERACTIVE QUIZ
+     ============================================================ -->
+<section class="section" id="quiz">
+  <div class="container">
+    <div class="section-spine mix">
+      <span class="bar"></span>
+      <div>
+        <h2 class="section-title">Test yourself</h2>
+        <p class="section-intro">Seven questions. Immediate feedback. No signup required.</p>
+      </div>
+    </div>
+    <div class="quiz-card glass" id="quizCard"><!-- rendered by JS --></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     19. REAL-WORLD SCENARIO
+     ============================================================ -->
+<section class="section" id="real-world" style="background: var(--bg-elevated);">
+  <div class="container">
+    <div class="section-spine mix">
+      <span class="bar"></span>
+      <div>
+        <h2 class="section-title">Let's design a production support agent</h2>
+        <p class="section-intro">Requirements:</p>
+      </div>
+    </div>
+
+    <ul class="requirements-list">
+      <li>Understand user question</li>
+      <li>Search knowledge base</li>
+      <li>Check order status</li>
+      <li>Detect sentiment</li>
+      <li>Escalate angry customers</li>
+      <li>Retry failed APIs</li>
+      <li>Ask a human for approval</li>
+      <li>Remember conversation history</li>
+      <li>Log every action</li>
+    </ul>
+
+    <div class="diagram-card glass" style="margin-top:32px;">
+      <h4 class="lc">Naive architecture</h4>
+      <div class="flow">
+        <div class="flow-box flow-box--lc">User</div><div class="flow-arrow-down">↓</div>
+        <div class="flow-box flow-box--lc">LLM</div><div class="flow-arrow-down">↓</div>
+        <div class="flow-box flow-box--lc">Tools</div><div class="flow-arrow-down">↓</div>
+        <div class="flow-box flow-box--lc">Response</div>
+      </div>
+      <p style="text-align:center; color:var(--ink-faint); font-size:0.85rem; margin-top:14px;">Works for a demo. Breaks down the moment sentiment, retries, or escalation matter.</p>
+    </div>
+
+    <div class="diagram-card glass" style="margin-top:24px;">
+      <h4 class="lg">Production architecture</h4>
+      <div class="flow">
+        <div class="flow-box flow-box--lg">START</div><div class="flow-arrow-down">↓</div>
+        <div class="decision-box">CLASSIFY</div><div class="flow-arrow-down">↓</div>
+        <div class="flow-box flow-box--lg">RETRIEVE CONTEXT</div><div class="flow-arrow-down">↓</div>
+        <div class="decision-box">DECISION</div>
+      </div>
+      <div class="flow-branch">
+        <div class="branch-col"><span class="branch-label">FAQ</span></div>
+        <div class="branch-col"><span class="branch-label">ORDER</span></div>
+        <div class="branch-col"><span class="branch-label">REFUND</span></div>
+        <div class="branch-col"><span class="branch-label">ESCALATION</span></div>
+      </div>
+      <div class="flow" style="margin-top:14px;">
+        <div class="flow-arrow-down">↓</div>
+        <div class="flow-box flow-box--lg">HUMAN REVIEW</div><div class="flow-arrow-down">↓</div>
+        <div class="flow-box flow-box--lg">EXECUTE</div><div class="flow-arrow-down">↓</div>
+        <div class="flow-box flow-box--lg">VERIFY</div><div class="flow-arrow-down">↓</div>
+        <div class="flow-box flow-box--lg">END</div>
+      </div>
+    </div>
+
+    <p class="section-intro" style="margin-top:24px;">Why a graph fits here: conversation memory needs <em>state</em>, retries need <em>loops</em>, intent-based routing needs <em>branching</em>, and escalation needs a <em>human-in-the-loop</em> checkpoint. None of that is a single straight line — it's a graph, whether you draw it that way or not. LangGraph just makes the graph explicit and manageable.</p>
+  </div>
+</section>
+
+<!-- ============================================================
+     20. PERFORMANCE / COMPLEXITY THINKING
+     ============================================================ -->
+<section class="section" id="complexity">
+  <div class="container">
+    <div class="section-spine mix">
+      <span class="bar"></span>
+      <div>
+        <h2 class="section-title">Wrong question vs. right question</h2>
+        <p class="section-intro">The question isn't <em>"which framework is better?"</em> It's <strong style="color:var(--ink);">"what complexity does my application actually require?"</strong></p>
+      </div>
+    </div>
+
+    <div class="spectrum-wrap">
+      <div class="spectrum">
+        <div class="spectrum-track">
+          <div class="spectrum-bar spectrum-bar--lc"></div>
+          <div class="spectrum-bar spectrum-bar--lg"></div>
+        </div>
+        <div class="spectrum-points">
+          <div class="spectrum-point">Prompt→LLM</div>
+          <div class="spectrum-point">RAG</div>
+          <div class="spectrum-point">Tool Calling</div>
+          <div class="spectrum-point">Agent</div>
+          <div class="spectrum-point">Stateful Agent</div>
+          <div class="spectrum-point">Branching</div>
+          <div class="spectrum-point">Loops</div>
+          <div class="spectrum-point">Human-in-loop</div>
+          <div class="spectrum-point">Multi-agent</div>
+          <div class="spectrum-point">Long-running</div>
+        </div>
+      </div>
+      <div class="spectrum-legend">
+        <span><i class="legend-dot lc"></i> Comfortable LangChain territory</span>
+        <span><i class="legend-dot lg"></i> Comfortable LangGraph territory</span>
+      </div>
+    </div>
+    <p class="section-intro" style="margin-top:24px;">Notice the overlap in the middle — around "Agent" and "Tool Calling," either can work. That overlap is exactly where most real judgment calls happen.</p>
+  </div>
+</section>
+
+<!-- ============================================================
+     21. FINAL CHEAT SHEET
+     ============================================================ -->
+<section class="section" id="cheat-sheet" style="background: var(--bg-elevated);">
+  <div class="container">
+    <div class="section-spine mix">
+      <span class="bar"></span>
+      <div><h2 class="section-title">The cheat sheet</h2></div>
+    </div>
+
+    <div class="cheatsheet-grid">
+      <div class="cheatsheet-card lc glass">
+        <h3>🟢 LangChain</h3>
+        <p class="cheatsheet-think">Think: "building blocks"</p>
+        <p style="color:var(--ink-dim); font-size:0.88rem; margin-bottom:10px;">Best for:</p>
+        <ul>
+          <li>LLM apps</li>
+          <li>RAG</li>
+          <li>Prompts</li>
+          <li>Tools</li>
+          <li>Retrieval</li>
+          <li>Model integrations</li>
+          <li>Simple agents</li>
+        </ul>
+      </div>
+      <div class="cheatsheet-card lg glass">
+        <h3>🔵 LangGraph</h3>
+        <p class="cheatsheet-think">Think: "control flow + state"</p>
+        <p style="color:var(--ink-dim); font-size:0.88rem; margin-bottom:10px;">Best for:</p>
+        <ul>
+          <li>Stateful agents</li>
+          <li>Complex workflows</li>
+          <li>Loops</li>
+          <li>Branching</li>
+          <li>Retries</li>
+          <li>Persistence</li>
+          <li>Human-in-the-loop</li>
+          <li>Multi-agent systems</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     22. ONE-LINE MEMORY TRICK
+     ============================================================ -->
+<section class="memory-trick">
+  <div class="container">
+    <p class="memory-quote">"LangChain gives your AI the tools. LangGraph decides how your AI uses them over time."</p>
+    <p class="memory-sub">"If your AI application is a recipe, LangChain gives you the ingredients — and LangGraph controls the cooking process."</p>
+  </div>
+</section>
+
+<!-- ============================================================
+     23. LEARNING ROADMAP
+     ============================================================ -->
+<section class="section" id="roadmap">
+  <div class="container">
+    <div class="section-spine mix">
+      <span class="bar"></span>
+      <div>
+        <h2 class="section-title">What should you learn first?</h2>
+        <p class="section-intro">A rough order that avoids skipping foundations you'll need later.</p>
+      </div>
+    </div>
+    <div class="roadmap" id="roadmapList"><!-- rendered by JS --></div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <p>Decode AI Community Resource • Authored by Himanshu Pandey • Interactive guide for LangChain vs LangGraph.</p>
+  </div>
+</footer>
+
+<button id="back-to-top" aria-label="Back to top">↑</button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+
+<script>
+/* ============================================================
+   DATA: LangChain concepts
+   ============================================================ */
+const langchainConcepts = [
+  { icon:'🧠', title:'Models', one:'The LLMs and chat models that actually generate text, reasoning, and answers.',
+    analogy:'The model is the chef in the kitchen — it does the actual "cooking" (thinking) once you hand it ingredients (input).',
+    code:`from langchain_openai import ChatOpenAI
+
+model = ChatOpenAI(model="gpt-4o-mini")
+response = model.invoke("Explain LangChain in one line")
+print(response.content)` },
+  { icon:'📝', title:'Prompts', one:'Reusable templates that structure what you ask the model, with fill-in-the-blank variables.',
+    analogy:'Like a form letter template — the wording stays the same, only the customer’s details change.',
+    code:`from langchain_core.prompts import ChatPromptTemplate
+
+prompt = ChatPromptTemplate.from_template(
+    "Summarize this in {style} tone:\n{text}"
+)
+messages = prompt.invoke({"style": "friendly", "text": "..."})` },
+  { icon:'🛠️', title:'Tools', one:'Functions or APIs the model can call to do things it can’t do on its own — like math, search, or lookups.',
+    analogy:'The model is a smart consultant; tools are the phone lines it can dial to get real data instead of guessing.',
+    code:`from langchain_core.tools import tool
+
+@tool
+def get_order_status(order_id: str) -> str:
+    """Look up an order's shipping status."""
+    return f"Order {order_id} is out for delivery."` },
+  { icon:'📚', title:'Retrievers', one:'Components that fetch the most relevant pieces of information from a larger knowledge source.',
+    analogy:'A librarian who, given your question, pulls the three most relevant books off the shelf instead of the whole library.',
+    code:`retriever = vector_store.as_retriever(search_kwargs={"k": 3})
+docs = retriever.invoke("refund policy")` },
+  { icon:'🔢', title:'Embeddings', one:'Numeric representations of text that capture meaning, so similar ideas end up close together.',
+    analogy:'Turning every sentence into GPS coordinates — sentences with similar meaning land near each other on the map.',
+    code:`from langchain_openai import OpenAIEmbeddings
+
+embeddings = OpenAIEmbeddings()
+vector = embeddings.embed_query("How do refunds work?")` },
+  { icon:'🗄️', title:'Vector Stores', one:'Databases built to store embeddings and search them by similarity instead of exact keywords.',
+    analogy:'A warehouse organized by "how similar things feel" rather than alphabetical order.',
+    code:`from langchain_community.vectorstores import FAISS
+
+store = FAISS.from_texts(texts, embeddings)
+store.similarity_search("refund policy", k=3)` },
+  { icon:'📐', title:'Structured Output', one:'Forcing the model’s response into a predictable shape, like JSON, instead of free-form text.',
+    analogy:'Instead of asking someone to "describe the invoice," you hand them a form with labeled boxes to fill in.',
+    code:`from pydantic import BaseModel
+
+class Order(BaseModel):
+    id: str
+    status: str
+
+structured_model = model.with_structured_output(Order)
+order = structured_model.invoke("Order #123 shipped yesterday")` },
+  { icon:'🤖', title:'Agents', one:'A model that decides, on its own, which tool to use (if any) and in what order.',
+    analogy:'Less like a recipe and more like handing an assistant a toolbox and a task, letting them pick the tool.',
+    code:`from langchain.agents import create_react_agent
+
+agent = create_react_agent(model, tools=[get_order_status])
+agent.invoke({"messages": [("user", "Where is order 123?")]})` }
+];
+
+/* ============================================================
+   DATA: LangGraph concepts
+   ============================================================ */
+const langgraphConcepts = [
+  { icon:'💾', title:'State', one:'The shared memory that travels through every step of the workflow and can be read or updated by any node.',
+    analogy:'A shared clipboard passed around a meeting — everyone can read what’s written and add notes before passing it on.',
+    code:`from typing import TypedDict
+
+class State(TypedDict):
+    question: str
+    answer: str
+    retries: int` },
+  { icon:'⚙️', title:'Nodes', one:'Individual functions or steps in the workflow — each one does one job and returns updated state.',
+    analogy:'Stations on an assembly line: each station performs one task before passing the product to the next.',
+    code:`def classify(state: State) -> State:
+    state["intent"] = detect_intent(state["question"])
+    return state` },
+  { icon:'➡️', title:'Edges', one:'The fixed connections that say "after this node finishes, go to that node next."',
+    analogy:'A hallway between two rooms — it always leads the same place, every time you walk it.',
+    code:`graph.add_edge("classify", "retrieve")` },
+  { icon:'🔀', title:'Conditional Edges', one:'Connections that pick the next node dynamically, based on the current state.',
+    analogy:'A fork in the hallway with a sign that reads the situation and points you left or right.',
+    code:`graph.add_conditional_edges(
+    "check_relevance",
+    lambda s: "generate" if s["relevant"] else "rewrite_query"
+)` },
+  { icon:'📌', title:'Checkpoints', one:'Saved snapshots of the state at a point in time, so a workflow can pause and resume exactly.',
+    analogy:'A video game save point — turn off the console and pick up from that exact spot later.',
+    code:`from langgraph.checkpoint.memory import MemorySaver
+
+app = graph.compile(checkpointer=MemorySaver())` },
+  { icon:'🗃️', title:'Persistence', one:'Keeping state alive across multiple separate interactions, not just within one run.',
+    analogy:'A support ticket that remembers your whole history, even if you close the chat and return tomorrow.',
+    code:`config = {"configurable": {"thread_id": "user-42"}}
+app.invoke({"question": "..."}, config)` },
+  { icon:'🧑\u200d⚖️', title:'Human-in-the-loop', one:'The workflow pauses and waits for a real person to approve, edit, or reject a step.',
+    analogy:'An intern drafts the email, but it sits in the outbox until a manager clicks send.',
+    code:`from langgraph.types import interrupt
+
+def human_review(state: State) -> State:
+    approved = interrupt({"draft": state["draft"]})
+    state["approved"] = approved
+    return state` },
+  { icon:'🔁', title:'Loops', one:'The ability for the workflow to return to an earlier node and try again, instead of only moving forward.',
+    analogy:'An editor who keeps sending a draft back for revisions until it’s finally good enough to publish.',
+    code:`graph.add_conditional_edges(
+    "check", lambda s: "retry_node" if s["needs_retry"] else END
+)` },
+  { icon:'⏸️', title:'Interruptions', one:'Deliberately stopping execution mid-workflow and resuming later — often paired with human review.',
+    analogy:'Pausing a movie and pressing play again exactly where you left off, instead of rewatching from the start.',
+    code:`app.invoke(input, config, interrupt_before=["send_email"])` }
+];
+
+/* ============================================================
+   DATA: Comparison table rows
+   ============================================================ */
+const compareRows = [
+  ['Main purpose', 'Building LLM applications', 'Orchestrating stateful workflows'],
+  ['Core abstraction', 'Components / chains / agents', 'Graph'],
+  ['State management', 'Available through various abstractions', 'First-class concept'],
+  ['Branching', 'Limited / simple depending on abstraction', 'Native'],
+  ['Loops', 'Possible but not the central abstraction', 'Native'],
+  ['Human-in-the-loop', 'Supported through integrations / patterns', 'Strong workflow capability'],
+  ['Persistence', 'Available', 'First-class workflow concept'],
+  ['Checkpointing', 'Not the main abstraction', 'Core capability'],
+  ['Complex agents', 'Possible', 'Excellent fit'],
+  ['Multi-agent workflows', 'Possible', 'Excellent fit'],
+  ['Simple RAG', 'Excellent', 'Often unnecessary'],
+  ['Complex agent workflows', 'Good', 'Excellent'],
+  ['Learning curve', 'Lower', 'Higher']
+];
+
+/* ============================================================
+   DATA: Myths
+   ============================================================ */
+const myths = [
+  { myth:'"LangGraph replaces LangChain."', truth:'It usually sits on top of it. LangGraph orchestrates the flow, while LangChain components (models, tools, retrievers) often do the actual work inside each node.' },
+  { myth:'"LangChain is only for chains."', truth:'The name is a bit historical. Modern LangChain covers models, prompts, tools, retrievers, embeddings, structured output, and agents — chains are just one part.' },
+  { myth:'"Every AI agent needs LangGraph."', truth:'Plenty of agents are simple enough — a single tool-calling loop, a basic RAG pipeline — that plain LangChain handles them fine.' },
+  { myth:'"LangGraph is only for multi-agent systems."', truth:'Multi-agent orchestration is one use case, but LangGraph is just as useful for a single agent that needs memory, retries, or human approval.' },
+  { myth:'"They cannot be used together."', truth:'In practice they’re often used together: LangChain provides the building blocks, LangGraph wires them into a stateful graph.' }
+];
+
+/* ============================================================
+   DATA: Quiz
+   ============================================================ */
+const quizData = [
+  { q:'You need a basic chatbot that answers questions from a handful of PDFs using RAG. What should you start with?',
+    options:['LangChain','LangGraph','Neither — prompt the model directly','Both in equal measure'], correct:0,
+    explain:'Standard retrieve-then-generate RAG is a straight pipeline. LangChain’s retriever and chain abstractions are enough on their own — no state machine required.' },
+  { q:'Your agent needs to retry a step several times until a validation check passes. Which is the more natural fit?',
+    options:['LangChain','LangGraph'], correct:1,
+    explain:'Retry loops are conditional edges pointing back to an earlier node — exactly what LangGraph’s graph model was built for.' },
+  { q:'You need a human to approve an email before the AI sends it. Which architecture fits better?',
+    options:['LangChain','LangGraph'], correct:1,
+    explain:'Pausing execution for a person to review and approve needs interrupts and checkpoints — first-class LangGraph features.' },
+  { q:'What is a "node" in LangGraph?',
+    options:['A row in a vector database','A single function or operation in the workflow','A type of prompt template','A REST API endpoint'], correct:1,
+    explain:'A node is one step of work in the graph — it receives the state, does something, and returns an updated state.' },
+  { q:'Which best describes "state" in LangGraph?',
+    options:['A single prompt template','Shared information carried through the workflow across every step','A CSS animation keyframe','The model’s temperature setting'], correct:1,
+    explain:'State is the shared object every node can read from and write to as execution moves through the graph.' },
+  { q:'True or false: LangChain and LangGraph are mutually exclusive — you must pick one.',
+    options:['True','False'], correct:1,
+    explain:'False. They’re frequently used together — LangChain components often do the work inside individual LangGraph nodes.' },
+  { q:'Which project is primarily focused on graph-based orchestration, state, and control flow?',
+    options:['LangChain','LangGraph'], correct:1,
+    explain:'That’s LangGraph’s whole reason for existing — orchestrating steps, state, and decisions over time.' }
+];
+
+/* ============================================================
+   DATA: Decision tree
+   ============================================================ */
+const decisionData = [
+  { q:'Simple chatbot?', a:'LangChain', reason:'A single prompt-in, answer-out chatbot rarely needs a state machine — LangChain’s basic chain abstractions are enough.' },
+  { q:'RAG application?', a:'LangChain', reason:'Standard retrieve-then-generate RAG is a straight pipeline. Only reach for LangGraph if you need self-correction loops.' },
+  { q:'Tool-using agent?', a:'LangChain', reason:'A single agent picking from a handful of tools works well with LangChain’s built-in agent abstractions.' },
+  { q:'Agent with retries and branching?', a:'LangGraph', reason:'"If this fails, try that instead" logic is a graph with conditional edges — LangGraph’s specialty.' },
+  { q:'Stateful agent?', a:'LangGraph', reason:'Remembering information across many steps is exactly what LangGraph’s State object is built for.' },
+  { q:'Human approval?', a:'LangGraph', reason:'Pausing a workflow for a person to approve an action needs interrupts and checkpoints — core LangGraph features.' },
+  { q:'Multi-agent system?', a:'LangGraph', reason:'Coordinating several agents is naturally modeled as a graph of nodes and edges.' },
+  { q:'Long-running workflow?', a:'LangGraph', reason:'Workflows spanning minutes, hours or days need persistence and checkpointing so they can pause and resume.' },
+  { q:'Complex orchestration?', a:'LangGraph', reason:'Once you have many interacting steps and possible paths, you need an explicit graph to keep it manageable.' }
+];
+
+/* ============================================================
+   DATA: Roadmap
+   ============================================================ */
+const roadmapData = [
+  { t:'Python', w:'The base language nearly every tool in this space is built and used in.', side:'lc' },
+  { t:'LLM Fundamentals', w:'Understand what a large language model actually does before wrapping it in frameworks.', side:'lc' },
+  { t:'Prompt Engineering', w:'Learn to communicate with a model clearly before automating that communication.', side:'lc' },
+  { t:'LangChain Basics', w:'Get comfortable with models, prompts, and chaining components together.', side:'lc' },
+  { t:'RAG', w:'Learn to ground answers in real documents instead of the model’s memory alone.', side:'lc' },
+  { t:'Tool Calling', w:'Give the model the ability to act, not just answer.', side:'lc' },
+  { t:'Agents', w:'Let the model choose which tool to use, and when.', side:'lc' },
+  { t:'LangGraph', w:'Learn to describe multi-step logic explicitly as a graph.', side:'lg' },
+  { t:'Stateful Agents', w:'Add memory so the workflow can build on what happened earlier.', side:'lg' },
+  { t:'Human-in-the-loop', w:'Add checkpoints where a person reviews or approves before continuing.', side:'lg' },
+  { t:'Multi-Agent Systems', w:'Coordinate several specialized agents working together.', side:'lg' },
+  { t:'Production AI Systems', w:'Add logging, retries, monitoring, and reliability for real users.', side:'lg' }
+];
+
+/* ============================================================
+   UTILITIES
+   ============================================================ */
+function escapeHtml(str){
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function copyCode(btn){
+  const codeEl = btn.closest('.code-block').querySelector('code');
+  const text = codeEl.innerText;
+  const done = () => {
+    const original = btn.textContent;
+    btn.textContent = '✓ Copied';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = original; btn.classList.remove('copied'); }, 1500);
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(done).catch(done);
+  } else {
+    const ta = document.createElement('textarea');
+    ta.value = text; document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); } catch(e){}
+    document.body.removeChild(ta);
+    done();
+  }
+}
+
+/* ============================================================
+   RENDER: Concept grids (LangChain / LangGraph)
+   ============================================================ */
+function renderConceptGrid(containerId, data, colorClass){
+  const el = document.getElementById(containerId);
+  el.innerHTML = data.map((c, i) => `
+    <div class="concept-card ${colorClass}" data-idx="${i}">
+      <button class="concept-head" onclick="this.closest('.concept-card').classList.toggle('open')">
+        <span class="concept-icon">${c.icon}</span>
+        <span>
+          <span class="concept-title">${c.title}</span>
+          <span class="concept-one-liner">${c.one}</span>
+        </span>
+        <span class="concept-caret">⌄</span>
+      </button>
+      <div class="concept-body">
+        <div class="concept-analogy"><b>Analogy:</b> ${c.analogy}</div>
+        <div class="code-block">
+          <div class="code-block-header"><span class="code-lang">python</span><button class="copy-btn" onclick="event.stopPropagation(); copyCode(this)">📋 Copy</button></div>
+          <pre><code class="language-python">${escapeHtml(c.code)}</code></pre>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+/* ============================================================
+   RENDER: Comparison table
+   ============================================================ */
+function renderCompareTable(){
+  const tbody = document.getElementById('compareTableBody');
+  tbody.innerHTML = compareRows.map(r => `
+    <tr>
+      <td class="feature-col">${r[0]}</td>
+      <td class="lc-td">${r[1]}</td>
+      <td class="lg-td">${r[2]}</td>
+    </tr>
+  `).join('');
+}
+
+/* ============================================================
+   RENDER: Myth flip cards
+   ============================================================ */
+function renderMyths(){
+  const el = document.getElementById('mythGrid');
+  el.innerHTML = myths.map((m, i) => `
+    <div class="myth-card" onclick="this.classList.toggle('flipped')">
+      <div class="myth-card-inner">
+        <div class="myth-front">
+          <span class="myth-tag">Myth #${i+1}</span>
+          <p>${m.myth}</p>
+          <span class="tap-hint">👆 tap to reveal</span>
+        </div>
+        <div class="myth-back">
+          <span class="myth-tag">Reality</span>
+          <p>${m.truth}</p>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+/* ============================================================
+   RENDER: Decision tree accordion
+   ============================================================ */
+function renderDecisionTree(){
+  const el = document.getElementById('decisionList');
+  el.innerHTML = decisionData.map((d, i) => `
+    <div class="decision-item" id="decision-${i}">
+      <button class="decision-q" onclick="document.getElementById('decision-${i}').classList.toggle('open')">
+        <span>${d.q}</span>
+        <span class="decision-caret">⌄</span>
+      </button>
+      <div class="decision-a">
+        <div class="decision-a-inner">
+          <span class="pill pill--${d.a === 'LangChain' ? 'lc' : 'lg'}">${d.a === 'LangChain' ? '🟢' : '🔵'} ${d.a}</span>
+        </div>
+        <p class="decision-reason" style="margin-top:10px;">${d.reason}</p>
+      </div>
+    </div>
+  `).join('');
+}
+
+/* ============================================================
+   RENDER: Roadmap
+   ============================================================ */
+function renderRoadmap(){
+  const el = document.getElementById('roadmapList');
+  el.innerHTML = roadmapData.map(step => `
+    <div class="roadmap-step ${step.side}">
+      <div class="roadmap-title">${step.t}</div>
+      <div class="roadmap-why">${step.w}</div>
+    </div>
+  `).join('');
+}
+
+/* ============================================================
+   RENDER: LangGraph flagship SVG diagram (Section 7)
+   ============================================================ */
+function renderLangGraphSvg(){
+  const svg = `
+  <svg viewBox="-90 0 430 560" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto; max-width:420px; display:block; margin:0 auto;">
+    <defs>
+      <marker id="arrowhead" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+        <path d="M0,0 L6,3 L0,6 z" fill="#60a5fa"/>
+      </marker>
+    </defs>
+    <style>
+      .lg-node{ fill:#141b23; stroke:#60a5fa; stroke-width:1.5; }
+      .lg-text{ fill:#e7ecf1; font-family: 'JetBrains Mono', monospace; font-size:13px; text-anchor:middle; }
+      .lg-diamond{ fill:#141b23; stroke:#fbbf24; stroke-width:1.5; }
+      .lg-label{ fill:#8a97a6; font-family: 'Inter', sans-serif; font-size:11px; text-anchor:middle; }
+      .lg-edge{ stroke:#3b5169; stroke-width:1.5; fill:none; marker-end:url(#arrowhead); }
+      .lg-loop{ stroke:#60a5fa; stroke-width:1.5; fill:none; stroke-dasharray:6 4; marker-end:url(#arrowhead); animation: dash 1.6s linear infinite; }
+      @keyframes dash{ to{ stroke-dashoffset:-20; } }
+    </style>
+
+    <!-- START -->
+    <rect class="lg-node" x="120" y="10" width="100" height="40" rx="8"/>
+    <text class="lg-text" x="170" y="35">START</text>
+    <path class="lg-edge" d="M170,50 L170,80"/>
+
+    <!-- AGENT -->
+    <rect class="lg-node" x="120" y="82" width="100" height="40" rx="8"/>
+    <text class="lg-text" x="170" y="107">AGENT</text>
+    <path class="lg-edge" d="M170,122 L170,150"/>
+
+    <!-- NEED TOOL? diamond -->
+    <polygon class="lg-diamond" points="170,148 258,192 170,236 82,192"/>
+    <text class="lg-text" x="170" y="188" style="font-size:11px;">NEED</text>
+    <text class="lg-text" x="170" y="202" style="font-size:11px;">TOOL?</text>
+
+    <!-- branches -->
+    <path class="lg-edge" d="M100,208 L65,268"/>
+    <text class="lg-label" x="75" y="240">YES</text>
+    <path class="lg-edge" d="M240,208 L275,268"/>
+    <text class="lg-label" x="268" y="240">NO</text>
+
+    <!-- TOOL -->
+    <rect class="lg-node" x="10" y="270" width="110" height="40" rx="8"/>
+    <text class="lg-text" x="65" y="295">TOOL</text>
+    <path class="lg-edge" d="M65,310 L65,348"/>
+
+    <!-- END -->
+    <rect class="lg-node" x="220" y="270" width="110" height="40" rx="8" style="stroke:#8a97a6;"/>
+    <text class="lg-text" x="275" y="295">END</text>
+
+    <!-- CHECK -->
+    <rect class="lg-node" x="10" y="350" width="110" height="40" rx="8"/>
+    <text class="lg-text" x="65" y="375">CHECK</text>
+
+    <!-- RETRY / DONE -->
+    <path class="lg-edge" d="M40,390 L20,428"/>
+    <text class="lg-label" x="10" y="415">RETRY</text>
+    <path class="lg-edge" d="M90,390 L110,428"/>
+    <text class="lg-label" x="122" y="415">DONE</text>
+
+    <rect class="lg-node" x="70" y="430" width="100" height="40" rx="8" style="stroke:#8a97a6;"/>
+    <text class="lg-text" x="120" y="455">DONE</text>
+
+    <!-- retry loop back to AGENT -->
+    <path class="lg-loop" d="M10,435 C -70,340 -70,140 118,100"/>
+    <text class="lg-label" x="-45" y="230" style="font-size:10px;">↻ retry</text>
+  </svg>`;
+  document.getElementById('langgraphSvgWrap').innerHTML = svg;
+}
+
+/* ============================================================
+   INTERACTIONS: Big Question highlight toggle
+   ============================================================ */
+function initHighlightToggle(){
+  const btnLC = document.getElementById('btnShowLC');
+  const btnLG = document.getElementById('btnShowLG');
+  const listLC = document.getElementById('listLC');
+  const listLG = document.getElementById('listLG');
+  btnLC.addEventListener('click', () => {
+    listLC.classList.add('active'); listLG.classList.remove('active');
+  });
+  btnLG.addEventListener('click', () => {
+    listLG.classList.add('active'); listLC.classList.remove('active');
+  });
+}
+
+/* ============================================================
+   INTERACTIONS: Same-problem toggle (Section 9)
+   ============================================================ */
+function initProblemToggle(){
+  const tabLC = document.getElementById('tabLC');
+  const tabLG = document.getElementById('tabLG');
+  const panelLC = document.getElementById('panelLC');
+  const panelLG = document.getElementById('panelLG');
+  tabLC.addEventListener('click', () => {
+    tabLC.classList.add('active'); tabLG.classList.remove('active');
+    panelLC.classList.remove('hidden'); panelLC.classList.add('visible');
+    panelLG.classList.add('hidden');
+  });
+  tabLG.addEventListener('click', () => {
+    tabLG.classList.add('active'); tabLC.classList.remove('active');
+    panelLG.classList.remove('hidden'); panelLG.classList.add('visible');
+    panelLC.classList.add('hidden');
+  });
+}
+
+/* ============================================================
+   QUIZ LOGIC
+   ============================================================ */
+let quizIndex = 0;
+let quizScore = 0;
+let quizAnswered = false;
+
+function renderQuizQuestion(){
+  const card = document.getElementById('quizCard');
+  if (quizIndex >= quizData.length){
+    renderQuizResult();
+    return;
+  }
+  const item = quizData[quizIndex];
+  quizAnswered = false;
+  card.innerHTML = `
+    <div class="quiz-progress">Question ${quizIndex + 1} of ${quizData.length} &nbsp;•&nbsp; Score: ${quizScore}</div>
+    <div class="quiz-question">${item.q}</div>
+    <div class="quiz-options" id="quizOptions">
+      ${item.options.map((opt, i) => `<button class="quiz-option" data-i="${i}" onclick="selectQuizOption(${i})">${opt}</button>`).join('')}
+    </div>
+    <div id="quizExplainWrap"></div>
+    <div class="quiz-footer" id="quizFooter"></div>
+  `;
+}
+
+function selectQuizOption(i){
+  if (quizAnswered) return;
+  quizAnswered = true;
+  const item = quizData[quizIndex];
+  const buttons = document.querySelectorAll('#quizOptions .quiz-option');
+  buttons.forEach(b => b.disabled = true);
+  const chosen = buttons[i];
+  const correctBtn = buttons[item.correct];
+  if (i === item.correct){
+    chosen.classList.add('correct');
+    quizScore++;
+  } else {
+    chosen.classList.add('incorrect');
+    correctBtn.classList.add('correct');
+  }
+  document.getElementById('quizExplainWrap').innerHTML = `<div class="quiz-explain">${item.explain}</div>`;
+  const isLast = quizIndex === quizData.length - 1;
+  document.getElementById('quizFooter').innerHTML =
+    `<button class="btn btn--lg" onclick="quizNext()">${isLast ? 'See my score →' : 'Next question →'}</button>`;
+}
+
+function quizNext(){
+  quizIndex++;
+  renderQuizQuestion();
+}
+
+function renderQuizResult(){
+  const card = document.getElementById('quizCard');
+  const total = quizData.length;
+  let verdict;
+  if (quizScore === total) verdict = 'LangGraph-orchestrator-level understanding. Nicely done.';
+  else if (quizScore >= total - 2) verdict = 'Solid grasp of the real difference between the two.';
+  else if (quizScore >= total / 2) verdict = 'Good start — skim the sections above once more.';
+  else verdict = 'Worth another pass through the sections above, then retry.';
+  card.innerHTML = `
+    <div class="quiz-result">
+      <p style="color:var(--ink-dim);">You scored</p>
+      <div class="quiz-score">${quizScore} / ${total}</div>
+      <p class="quiz-verdict">${verdict}</p>
+      <button class="btn btn--lg" onclick="restartQuiz()">↺ Retake the quiz</button>
+    </div>
+  `;
+}
+
+function restartQuiz(){
+  quizIndex = 0; quizScore = 0;
+  renderQuizQuestion();
+}
+
+/* ============================================================
+   NAVBAR: mobile toggle, active-link highlighting
+   ============================================================ */
+function initNav(){
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => navLinks.classList.remove('open'));
+  });
+
+  const sections = Array.from(document.querySelectorAll('section[id]'));
+  const navAnchors = Array.from(document.querySelectorAll('.nav-links a'));
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting){
+        const id = entry.target.id;
+        navAnchors.forEach(a => {
+          a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  sections.forEach(s => io.observe(s));
+}
+
+/* ============================================================
+   SCROLL: progress bar + back-to-top + reveal animations
+   ============================================================ */
+function initScrollEffects(){
+  const bar = document.getElementById('progress-bar');
+  const backBtn = document.getElementById('back-to-top');
+  let ticking = false;
+  function onScroll(){
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    bar.style.width = pct + '%';
+    backBtn.classList.toggle('show', scrollTop > 700);
+    ticking = false;
+  }
+  window.addEventListener('scroll', () => {
+    if (!ticking){ requestAnimationFrame(onScroll); ticking = true; }
+  });
+  onScroll();
+
+  backBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+  const revealTargets = document.querySelectorAll('.glass, .diagram-card, .concept-card, .myth-card, .quiz-card');
+  revealTargets.forEach(el => el.classList.add('reveal'));
+  const revealIO = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting){
+        entry.target.classList.add('visible');
+        revealIO.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  revealTargets.forEach(el => revealIO.observe(el));
+}
+
+/* ============================================================
+   INIT
+   ============================================================ */
+document.addEventListener('DOMContentLoaded', () => {
+  renderConceptGrid('lcConceptGrid', langchainConcepts, 'lc');
+  renderConceptGrid('lgConceptGrid', langgraphConcepts, 'lg');
+  renderCompareTable();
+  renderMyths();
+  renderDecisionTree();
+  renderRoadmap();
+  renderLangGraphSvg();
+  renderQuizQuestion();
+
+  initHighlightToggle();
+  initProblemToggle();
+  initNav();
+  initScrollEffects();
+
+  if (window.Prism) { Prism.highlightAll(); }
+});
+</script>
+</body>
+</html>

@@ -1,5 +1,23 @@
 [
   {
+    "id": "res-000",
+    "title": "LangChain vs LangGraph — What's the Real Difference?",
+    "slug": "langchain-vs-langgraph",
+    "description": "An interactive visual guide to the real difference between LangChain and LangGraph — building blocks vs. control flow.",
+    "category": "AI Concepts",
+    "subcategory": "AI Frameworks",
+    "level": "Intermediate",
+    "type": "NOTES",
+    "author": "Himanshu Pandey",
+    "contributor": "Himanshu Pandey",
+    "tags": ["LangChain", "LangGraph", "LLMs", "Agents", "AI Concepts"],
+    "date": "2026-09-07",
+    "featured": true,
+    "file": "/content/html/langchain-vs-langgraph.html",
+    "externalLink": null,
+    "estimatedReadingTime": "15 min read"
+  },
+  {
     "id": "res-001",
     "title": "AI Engineer Roadmap 2026 — From Python to Production AI Systems",
     "slug": "ai-engineer-roadmap",

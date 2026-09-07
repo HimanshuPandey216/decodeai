@@ -3,92 +3,82 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Concepts & Notes Hub — Decode AI</title>
-  <meta name="description" content="Explore simplified HTML notes, math derivations, and core AI concept guides. Upload your AI notes and study material. Authored by Himanshu Pandey.">
+  <title>AI Concepts — Decode AI</title>
+  <meta name="description" content="AI Concept Notes and technical guides. Authored by Himanshu Pandey.">
   
   <link rel="icon" href="assets/favicon.png" type="image/png">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/responsive.css">
   <style>
-    .concept-filters {
+    .concept-notes-list {
       display: flex;
-      gap: 0.75rem;
-      flex-wrap: wrap;
-      margin: 1.5rem 0 2rem 0;
+      flex-direction: column;
+      gap: 1.25rem;
+      margin: 2rem 0 3rem 0;
     }
 
-    .concept-filter-btn {
-      padding: 0.6rem 1.25rem;
-      border-radius: var(--radius-full);
-      font-size: 0.875rem;
-      font-weight: 600;
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      color: var(--text-secondary);
-      cursor: pointer;
-      transition: all var(--transition-fast);
-    }
-
-    .concept-filter-btn:hover,
-    .concept-filter-btn.active {
-      background: var(--accent-cyan);
-      color: #070B12;
-      border-color: var(--accent-cyan);
-      box-shadow: var(--shadow-glow);
-    }
-
-    .concept-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 1.75rem;
-      margin-bottom: 3.5rem;
-    }
-
-    .concept-card {
+    .concept-note-item {
       background: var(--bg-card);
       border: 1px solid var(--border-color);
       border-radius: var(--radius-lg);
-      padding: 1.75rem;
+      padding: 1.5rem 1.75rem;
       display: flex;
-      flex-direction: column;
+      align-items: center;
       justify-content: space-between;
+      gap: 1.5rem;
       transition: all var(--transition-normal);
+      cursor: pointer;
     }
 
-    .concept-card:hover {
-      transform: translateY(-4px);
+    .concept-note-item:hover {
+      transform: translateY(-2px);
       border-color: var(--accent-cyan);
-      box-shadow: var(--shadow-md);
+      box-shadow: var(--shadow-glow);
       background: var(--bg-card-hover);
     }
 
-    .concept-card-icon {
-      font-size: 2.2rem;
-      margin-bottom: 0.75rem;
+    .concept-note-item.active-note {
+      border: 2px solid var(--accent-cyan);
+      background: rgba(0, 240, 255, 0.04);
     }
 
-    .concept-card-title {
+    .concept-note-number {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--accent-cyan);
+      background: rgba(0, 240, 255, 0.1);
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .concept-note-content {
+      flex: 1;
+    }
+
+    .concept-note-title {
       font-size: 1.2rem;
       font-weight: 700;
       color: var(--text-primary);
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.35rem;
     }
 
-    .concept-card-desc {
+    .concept-note-desc {
       font-size: 0.9rem;
       color: var(--text-secondary);
       line-height: 1.5;
-      margin-bottom: 1.25rem;
     }
 
-    .upload-guide-box {
-      background: linear-gradient(135deg, rgba(0, 240, 255, 0.05), rgba(59, 130, 246, 0.05));
-      border: 1px dashed var(--accent-cyan);
-      border-radius: var(--radius-lg);
-      padding: 2.5rem;
-      margin-top: 3rem;
-      text-align: center;
+    .concept-note-actions {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+      flex-shrink: 0;
     }
   </style>
 </head>
@@ -134,74 +124,33 @@
     </div>
   </header>
 
-  <!-- Hero Section -->
+  <!-- AI Concepts Notes List Section -->
   <main class="section">
     <div class="container">
-      <div class="section-header" style="text-align: left; margin-bottom: 1rem;">
-        <div class="section-badge">💡 Knowledge Repository</div>
-        <h1>AI Concepts &amp; HTML Notes Hub</h1>
-        <p>Interactive HTML study guides, mathematical breakdowns, and core AI principles. Upload your HTML notes directly into <code>/content/html/</code> to expand the library!</p>
+      <div class="section-header" style="text-align: left; margin-bottom: 1.5rem;">
+        <div class="section-badge">💡 AI Concepts &amp; Notes</div>
+        <h1>AI Concepts</h1>
+        <p>Curated AI Concept Notes &amp; technical guides. Authored by <strong>Himanshu Pandey</strong>.</p>
       </div>
 
-      <!-- Filters & Search -->
-      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
-        <div id="concept-filters" class="concept-filters">
-          <button class="concept-filter-btn active" onclick="filterConcepts('all')">All Concepts</button>
-          <button class="concept-filter-btn" onclick="filterConcepts('Deep Learning')">Deep Learning</button>
-          <button class="concept-filter-btn" onclick="filterConcepts('LLMs & GenAI')">LLMs &amp; GenAI</button>
-          <button class="concept-filter-btn" onclick="filterConcepts('Mathematics')">Mathematics</button>
-          <button class="concept-filter-btn" onclick="filterConcepts('Career Paths')">Career Paths</button>
-        </div>
-
-        <div class="search-box" style="width: 260px;">
-          <input type="text" id="concept-search-input" placeholder="Filter AI concepts..." oninput="searchConcepts()">
-        </div>
+      <!-- Numbered Notes List -->
+      <div id="ai-notes-list" class="concept-notes-list">
+        <!-- Rendered dynamically via JavaScript from data/ai-concepts.json -->
       </div>
 
-      <!-- Concepts Grid -->
-      <div id="concepts-grid" class="concept-grid">
-        <!-- Dynamically rendered via JavaScript from data/ai-concepts.json -->
-      </div>
-
-      <!-- Embedded Interactive Note Viewer Modal -->
-      <div id="note-viewer-container" style="display: none; margin-top: 2rem; scroll-margin-top: 6rem;">
-        <div style="display: flex; justify-content: space-between; align-items: center; background: var(--bg-surface); border: 1px solid var(--border-color); padding: 1rem 1.5rem; border-radius: var(--radius-lg) var(--radius-lg) 0 0; border-bottom: none;">
+      <!-- Embedded Interactive Note Viewer -->
+      <div id="note-viewer-section" style="margin-top: 2rem; scroll-margin-top: 6rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; background: var(--bg-surface); border: 1px solid var(--border-color); padding: 1.25rem 1.75rem; border-radius: var(--radius-lg) var(--radius-lg) 0 0; border-bottom: none; flex-wrap: wrap; gap: 1rem;">
           <div>
             <span style="font-size: 0.8rem; font-weight: 700; color: var(--accent-cyan); text-transform: uppercase;">Viewing Concept Note</span>
-            <h2 id="viewer-title" style="font-size: 1.3rem; margin: 0;">Transformer Architecture</h2>
+            <h2 id="viewer-title" style="font-size: 1.3rem; margin: 0.2rem 0 0 0;">LangChain vs LangGraph — What's the Real Difference?</h2>
           </div>
-          <div style="display: flex; gap: 0.75rem;">
-            <a id="viewer-external-link" href="#" target="_blank" class="btn btn-secondary btn-sm">Open in New Tab ↗</a>
-            <button onclick="closeViewer()" class="btn btn-ghost btn-sm">Close Viewer ✕</button>
+          <div>
+            <a id="viewer-external-link" href="content/html/langchain-vs-langgraph.html" target="_blank" class="btn btn-primary btn-sm">Fullscreen Mode ↗</a>
           </div>
         </div>
         <div style="border-radius: 0 0 var(--radius-lg) var(--radius-lg); overflow: hidden; border: 1px solid var(--border-color); background: var(--bg-surface);">
-          <iframe id="viewer-iframe" src="" style="width: 100%; height: 850px; border: none;" title="AI Concept Note Viewer"></iframe>
-        </div>
-      </div>
-
-      <!-- Upload Guide Box -->
-      <div class="upload-guide-box">
-        <h3 style="font-size: 1.4rem; margin-bottom: 0.75rem; color: var(--accent-cyan);">📤 How to Upload Your AI HTML Notes</h3>
-        <p style="font-size: 0.95rem; color: var(--text-secondary); max-width: 680px; margin: 0 auto 1.5rem auto;">
-          Got your own HTML study notes, cheat sheets, or AI guides? Uploading them to Decode AI is simple:
-        </p>
-
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; text-align: left; max-width: 850px; margin: 0 auto;">
-          <div style="background: var(--bg-card); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
-            <div style="font-weight: 700; color: var(--accent-cyan); margin-bottom: 0.25rem;">Step 1</div>
-            <div style="font-size: 0.9rem;">Place your <code>.html</code> note file inside <code>content/html/</code> in your repo.</div>
-          </div>
-
-          <div style="background: var(--bg-card); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
-            <div style="font-weight: 700; color: var(--accent-cyan); margin-bottom: 0.25rem;">Step 2</div>
-            <div style="font-size: 0.9rem;">Add a 5-line JSON entry inside <code>data/ai-concepts.json</code> with your note title &amp; file link.</div>
-          </div>
-
-          <div style="background: var(--bg-card); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
-            <div style="font-weight: 700; color: var(--accent-cyan); margin-bottom: 0.25rem;">Step 3</div>
-            <div style="font-size: 0.9rem;">Push to GitHub! Vercel will auto-deploy your new AI concept note instantly.</div>
-          </div>
+          <iframe id="viewer-iframe" src="content/html/langchain-vs-langgraph.html" style="width: 100%; height: 900px; border: none;" title="AI Concept Note Viewer"></iframe>
         </div>
       </div>
 
@@ -229,94 +178,65 @@
   <script src="js/app.js"></script>
   <script>
     let conceptsData = [];
-    let currentCategory = 'all';
 
     async function loadAIConcepts() {
       try {
         const res = await fetch('data/ai-concepts.json');
         if (!res.ok) return;
         conceptsData = await res.json();
-        renderConcepts();
+        
+        const urlParams = new URLSearchParams(window.location.search);
+        const requestedId = urlParams.get('id') || urlParams.get('slug') || '1';
+
+        renderNotesList(requestedId);
+        selectNote(requestedId, false);
       } catch (e) {
         console.error('Failed to load AI concepts dataset:', e);
       }
     }
 
-    function renderConcepts() {
-      const grid = document.getElementById('concepts-grid');
-      const searchQuery = (document.getElementById('concept-search-input')?.value || '').toLowerCase().trim();
+    function renderNotesList(activeId) {
+      const listContainer = document.getElementById('ai-notes-list');
+      if (!listContainer) return;
 
-      if (!grid) return;
+      listContainer.innerHTML = conceptsData.map((item, index) => {
+        const isActive = item.id === activeId || item.slug === activeId || String(index + 1) === activeId;
+        const num = item.number || (index + 1);
 
-      const filtered = conceptsData.filter(item => {
-        const matchCat = currentCategory === 'all' || item.category === currentCategory;
-        const matchSearch = !searchQuery || 
-          item.title.toLowerCase().includes(searchQuery) || 
-          item.description.toLowerCase().includes(searchQuery) ||
-          (item.tags && item.tags.some(t => t.toLowerCase().includes(searchQuery)));
-        return matchCat && matchSearch;
-      });
-
-      if (filtered.length === 0) {
-        grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 3rem; color: var(--text-muted);">No AI concepts found matching your criteria.</div>`;
-        return;
-      }
-
-      grid.innerHTML = filtered.map(item => `
-        <div class="concept-card">
-          <div>
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
-              <span class="concept-card-icon">${item.icon || '🧠'}</span>
-              <span class="badge badge-book">${escapeHtml(item.category || 'AI Concept')}</span>
+        return `
+          <div class="concept-note-item ${isActive ? 'active-note' : ''}" onclick="selectNote('${item.id}', true)">
+            <div class="concept-note-number">#${num}</div>
+            <div class="concept-note-content">
+              <h3 class="concept-note-title">${num}. ${escapeHtml(item.title)}</h3>
+              <p class="concept-note-desc">${escapeHtml(item.description)}</p>
             </div>
-            <h3 class="concept-card-title">${escapeHtml(item.title)}</h3>
-            <p class="concept-card-desc">${escapeHtml(item.description)}</p>
-            
-            <div style="display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 1rem;">
-              ${(item.tags || []).map(t => `<span style="font-size: 0.75rem; background: var(--bg-surface); padding: 0.2rem 0.6rem; border-radius: 4px; border: 1px solid var(--border-color); color: var(--text-dim);">${escapeHtml(t)}</span>`).join('')}
+            <div class="concept-note-actions">
+              <button class="btn ${isActive ? 'btn-primary' : 'btn-secondary'} btn-sm">
+                ${isActive ? '● Active Note' : 'Read Note →'}
+              </button>
             </div>
           </div>
-
-          <div style="border-top: 1px solid var(--border-color); padding-top: 0.85rem; margin-top: 0.5rem; display: flex; justify-content: space-between; align-items: center;">
-            <span style="font-size: 0.8rem; color: var(--text-muted);">${item.readingTime || 'Note'}</span>
-            <button onclick="openNoteViewer('${item.file}', '${escapeHtml(item.title)}')" class="btn btn-secondary btn-sm">
-              Read Notes →
-            </button>
-          </div>
-        </div>
-      `).join('');
+        `;
+      }).join('');
     }
 
-    function filterConcepts(cat) {
-      currentCategory = cat;
-      document.querySelectorAll('.concept-filter-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.textContent.includes(cat) || (cat === 'all' && btn.textContent.includes('All')));
-      });
-      renderConcepts();
-    }
+    function selectNote(id, scrollToViewer) {
+      const found = conceptsData.find((item, idx) => item.id === id || item.slug === id || String(idx + 1) === id) || conceptsData[0];
+      if (!found) return;
 
-    function searchConcepts() {
-      renderConcepts();
-    }
+      renderNotesList(found.id);
 
-    function openNoteViewer(filePath, title) {
-      const container = document.getElementById('note-viewer-container');
       const titleEl = document.getElementById('viewer-title');
       const iframeEl = document.getElementById('viewer-iframe');
       const linkEl = document.getElementById('viewer-external-link');
 
-      if (container && iframeEl) {
-        titleEl.textContent = title;
-        iframeEl.src = filePath;
-        linkEl.href = filePath;
-        container.style.display = 'block';
-        container.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
+      if (titleEl) titleEl.textContent = found.title;
+      if (iframeEl) iframeEl.src = found.file;
+      if (linkEl) linkEl.href = found.file;
 
-    function closeViewer() {
-      const container = document.getElementById('note-viewer-container');
-      if (container) container.style.display = 'none';
+      if (scrollToViewer) {
+        document.getElementById('note-viewer-section')?.scrollIntoView({ behavior: 'smooth' });
+      }
     }
 
     function escapeHtml(str) {
