@@ -12,5 +12,19 @@
     "date": "2026-09-07",
     "readingTime": "15 min read",
     "tags": ["LangChain", "LangGraph", "LLMs", "Agents"]
+  },
+  {
+    "id": "2",
+    "number": 2,
+    "title": "Random Forest — Complete Machine Learning Notes",
+    "slug": "random-forest-notes",
+    "description": "An interactive, from-scratch guide to Random Forest: decision trees, bootstrap sampling, voting, hyperparameters, evaluation, and interview prep.",
+    "category": "Machine Learning",
+    "file": "content/html/random-forest-notes.html",
+    "author": "Himanshu Pandey",
+    "icon": "🌲",
+    "date": "2026-09-09",
+    "readingTime": "20 min read",
+    "tags": ["Random Forest", "Machine Learning", "Decision Trees", "Ensemble"]
   }
 ]

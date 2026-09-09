@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Random Forest — Complete Machine Learning Notes</title>
+<meta name="description" content="An interactive, from-scratch guide to Random Forest: decision trees, bootstrap sampling, voting, hyperparameters, evaluation, and interview prep.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8C%B2%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.min.js"></script>
+<style>
+/* ============================================================
+   RANDOM FOREST — COMPLETE ML NOTES
+   Design system: a forest-grounded dark theme.
+   ============================================================ */
+
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+::selection{background:rgba(95,192,138,0.35);color:#fff;}
+
+:root{
+  --bg:#0a0f0c;
+  --bg-raised:#0e1512;
+  --surface:rgba(234,241,236,0.045);
+  --surface-2:rgba(234,241,236,0.075);
+  --border:rgba(234,241,236,0.12);
+  --border-soft:rgba(234,241,236,0.06);
+  --text:#eaf1ec;
+  --text-dim:#9fb3a6;
+  --text-faint:#62766b;
+
+  --canopy:#5fc08a;
+  --canopy-deep:#2f7d59;
+  --canopy-soft:rgba(95,192,138,0.13);
+  --sky:#5aa7c9;
+  --sky-deep:#2f6a86;
+  --sky-soft:rgba(90,167,201,0.13);
+  --bark:#e3b34e;
+  --bark-deep:#ad7f28;
+  --bark-soft:rgba(227,179,78,0.13);
+  --berry:#d9678a;
+  --berry-soft:rgba(217,103,138,0.13);
+  --dusk:#a98fd1;
+  --dusk-soft:rgba(169,143,209,0.13);
+  --rust:#e2664b;
+  --rust-soft:rgba(226,102,75,0.13);
+
+  --grad-canopy:linear-gradient(120deg,var(--canopy),var(--sky));
+  --grad-warm:linear-gradient(120deg,var(--bark),var(--berry));
+
+  --r-organic:20px;
+  --r-tech:8px;
+  --r-tile:12px;
+  --shadow:0 24px 60px rgba(0,0,0,0.45);
+
+  --font-display:'Fraunces',Georgia,serif;
+  --font-body:'IBM Plex Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --font-mono:'IBM Plex Mono',ui-monospace,'SF Mono',Menlo,monospace;
+}
+
+body{
+  margin:0;
+  background:var(--bg);
+  background-image:
+    radial-gradient(ellipse 900px 550px at 10% -10%,rgba(95,192,138,0.10),transparent 60%),
+    radial-gradient(ellipse 800px 550px at 95% 10%,rgba(90,167,201,0.08),transparent 60%),
+    radial-gradient(ellipse 700px 500px at 50% 100%,rgba(227,179,78,0.05),transparent 60%);
+  background-attachment:fixed;
+  color:var(--text);
+  font-family:var(--font-body);
+  font-size:16px;
+  line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+h1,h2,h3,h4{font-family:var(--font-display);font-weight:600;margin:0 0 0.5em;line-height:1.15;color:var(--text);}
+h1{font-size:clamp(2.5rem,6vw,4.4rem);letter-spacing:-0.01em;}
+h2{font-size:clamp(1.7rem,3.4vw,2.4rem);letter-spacing:-0.005em;}
+h3{font-size:clamp(1.15rem,2vw,1.4rem);}
+h4{font-size:1.02rem;font-family:var(--font-body);font-weight:600;color:var(--text);}
+p{margin:0 0 1.1em;color:var(--text-dim);}
+a{color:var(--canopy);text-decoration-color:rgba(95,192,138,0.4);}
+.prose{max-width:64ch;}
+.prose p,.prose li{color:var(--text-dim);font-size:1.03rem;}
+ul.prose,ol.prose{padding-left:1.3em;}
+strong{color:var(--text);font-weight:600;}
+small.foot{color:var(--text-faint);font-size:0.85rem;}
+code:not(pre code){
+  font-family:var(--font-mono);
+  background:var(--bark-soft);
+  color:var(--bark);
+  padding:0.12em 0.42em;
+  border-radius:5px;
+  font-size:0.88em;
+}
+::-webkit-scrollbar{width:10px;height:10px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:6px;}
+::-webkit-scrollbar-thumb:hover{background:var(--canopy-deep);}
+
+/* ---------------- layout shell ---------------- */
+.progress-bar{position:fixed;top:0;left:0;height:3px;width:0%;background:var(--grad-canopy);z-index:200;transition:width 0.08s linear;}
+
+.sidenav{
+  position:fixed;top:0;left:0;bottom:0;width:288px;
+  background:rgba(9,13,11,0.85);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  border-right:1px solid var(--border-soft);
+  padding:26px 18px 20px;overflow-y:auto;z-index:120;
+  transition:transform 0.35s ease;
+}
+.sidenav-brand{display:flex;align-items:center;gap:10px;padding:2px 8px 20px;border-bottom:1px solid var(--border-soft);margin-bottom:14px;}
+.sidenav-brand .mark{font-size:1.4rem;}
+.sidenav-brand .name{font-family:var(--font-display);font-size:1.05rem;font-weight:600;color:var(--text);}
+.sidenav-search{position:relative;margin-bottom:10px;padding:0 6px;}
+.sidenav-search input{
+  width:100%;background:var(--surface);border:1px solid var(--border);color:var(--text);
+  padding:9px 12px;border-radius:9px;font-family:var(--font-body);font-size:0.86rem;outline:none;
+}
+.sidenav-search input:focus{border-color:var(--canopy);}
+.sidenav-search input::placeholder{color:var(--text-faint);}
+
+.trail{position:relative;padding-left:6px;margin-top:6px;}
+.trail::before{
+  content:'';position:absolute;left:19px;top:6px;bottom:6px;width:2px;
+  background:linear-gradient(var(--canopy-deep),var(--sky-deep));opacity:0.45;
+}
+.trail-item{list-style:none;position:relative;}
+.trail-link{
+  display:flex;align-items:center;gap:11px;padding:7px 10px 7px 4px;margin:1px 0;
+  border-radius:9px;color:var(--text-dim);text-decoration:none;font-size:0.87rem;
+  transition:color .15s ease,background .15s ease;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.trail-link .dot{
+  flex:none;width:11px;height:11px;border-radius:50%;background:var(--bg-raised);
+  border:2px solid var(--text-faint);position:relative;z-index:2;transition:.15s ease;
+}
+.trail-link:hover{background:var(--surface);color:var(--text);}
+.trail-link.active{background:var(--canopy-soft);color:var(--canopy);}
+.trail-link.active .dot{border-color:var(--canopy);background:var(--canopy);box-shadow:0 0 0 3px var(--canopy-soft);}
+.trail-item.hide{display:none;}
+
+.nav-toggle{
+  position:fixed;top:16px;left:16px;z-index:150;width:44px;height:44px;border-radius:12px;
+  background:rgba(9,13,11,0.85);backdrop-filter:blur(10px);border:1px solid var(--border);
+  color:var(--text);font-size:1.2rem;display:none;align-items:center;justify-content:center;cursor:pointer;
+}
+.nav-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:110;display:none;}
+
+main{margin-left:288px;position:relative;z-index:1;}
+
+.back-to-top{
+  position:fixed;bottom:26px;right:26px;width:50px;height:50px;border-radius:50%;
+  background:var(--grad-canopy);color:#04140d;border:none;font-size:1.25rem;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transform:translateY(8px);
+  transition:opacity .25s ease,transform .25s ease;z-index:90;box-shadow:0 10px 30px rgba(0,0,0,0.4);
+}
+.back-to-top.show{opacity:1;pointer-events:auto;transform:translateY(0);}
+
+.section{max-width:1120px;margin:0 auto;padding:96px 40px;scroll-margin-top:40px;position:relative;}
+.section+.section{border-top:1px solid var(--border-soft);}
+.section-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+.section-head{margin-bottom:38px;}
+
+.gradient-text{background:var(--grad-canopy);-webkit-background-clip:text;background-clip:text;color:transparent;}
+
+/* tags / badges */
+.tag{display:inline-flex;align-items:center;gap:7px;padding:6px 14px 6px 10px;border-radius:999px;font-size:0.83rem;font-weight:500;font-family:var(--font-body);}
+.tag-concept{background:var(--canopy-soft);color:var(--canopy);}
+.tag-viz{background:var(--sky-soft);color:var(--sky);}
+.tag-code{background:var(--bark-soft);color:var(--bark);}
+.tag-warning{background:var(--rust-soft);color:var(--rust);}
+.tag-tip{background:var(--dusk-soft);color:var(--dusk);}
+.tag-interview{background:var(--berry-soft);color:var(--berry);}
+.tag-neutral{background:var(--surface);border:1px solid var(--border);color:var(--text-dim);}
+
+/* cards */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-organic);padding:26px;}
+.card-tech{border-radius:var(--r-tech);}
+.card-tile{border-radius:var(--r-tile);}
+.clickable{cursor:pointer;transition:border-color .18s ease,background .18s ease,transform .18s ease;}
+.clickable:hover{border-color:rgba(95,192,138,0.4);background:var(--surface-2);}
+
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+.split{display:grid;grid-template-columns:1.1fr 0.9fr;gap:44px;align-items:center;}
+@media (max-width:860px){.grid-2,.grid-3,.grid-4,.split{grid-template-columns:1fr;}}
+
+/* buttons */
+.btn{
+  display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:11px;
+  border:1px solid var(--border);background:var(--surface);color:var(--text);
+  font-family:var(--font-body);font-size:0.92rem;font-weight:500;cursor:pointer;
+  transition:border-color .15s ease,background .15s ease;
+}
+.btn:hover{border-color:var(--canopy);background:var(--surface-2);}
+.btn-primary{background:var(--grad-canopy);color:#052016;border:none;font-weight:600;}
+.btn-primary:hover{filter:brightness(1.08);}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0;}
+.btn.is-active{border-color:var(--sky);color:var(--sky);background:var(--sky-soft);}
+
+/* code blocks */
+.code-block{position:relative;background:#0c100d;border:1px solid var(--border);border-radius:var(--r-tech);margin:22px 0;overflow:hidden;}
+.code-block-head{display:flex;justify-content:space-between;align-items:center;padding:9px 16px;background:rgba(255,255,255,0.025);border-bottom:1px solid var(--border-soft);}
+.code-block-head .fname{font-family:var(--font-mono);font-size:0.78rem;color:var(--text-dim);}
+.copy-btn{background:transparent;border:1px solid var(--border);color:var(--text-dim);padding:4px 11px;border-radius:6px;font-size:0.74rem;cursor:pointer;transition:.15s;}
+.copy-btn:hover{border-color:var(--bark);color:var(--bark);}
+
+.code-block pre{margin:0;padding:20px 22px;overflow-x:auto;}
+.code-block code{font-family:var(--font-mono);font-size:0.84rem;line-height:1.65;color:#c8d3cc;white-space:pre;}
+.tok-kw{color:#e893b0;}.tok-str{color:#9fd88c;}.tok-com{color:#5e7267;font-style:italic;}.tok-num{color:var(--bark);}.tok-fn{color:var(--sky);}
+
+/* tables */
+.tbl-wrap{overflow-x:auto;margin:22px 0;border:1px solid var(--border);border-radius:var(--r-tech);}
+table{width:100%;border-collapse:collapse;font-size:0.94rem;}
+th,td{padding:13px 18px;text-align:left;border-bottom:1px solid var(--border-soft);white-space:nowrap;}
+th{color:var(--canopy);font-weight:600;background:rgba(255,255,255,0.02);font-size:0.85rem;}
+tr:last-child td{border-bottom:none;}
+td{color:var(--text-dim);}
+
+/* hero */
+.hero{max-width:1120px;margin:0 auto;padding:120px 40px 90px;text-align:center;position:relative;}
+.hero .badge-row{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:26px;}
+.hero h1{margin-bottom:14px;}
+.hero .subtitle{font-family:var(--font-display);font-style:italic;font-size:clamp(1.1rem,2.2vw,1.5rem);color:var(--text-dim);margin-bottom:26px;}
+.hero .lede{max-width:62ch;margin:0 auto 10px;color:var(--text-dim);font-size:1.08rem;}
+
+/* forest flow */
+.forest-flow{display:flex;align-items:center;justify-content:center;gap:28px;margin:44px 0 8px;flex-wrap:wrap;}
+.tree-chip{
+  display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--border-soft);
+  border-radius:9px;padding:6px 14px;font-size:0.82rem;color:var(--text-dim);
+}
+.final-box{
+  background:var(--grad-canopy);color:#052016;padding:20px 30px;border-radius:var(--r-organic);
+  font-family:var(--font-display);font-weight:600;font-size:1.15rem;text-align:center;
+}
+
+@media (max-width:980px){
+  .sidenav{transform:translateX(-100%);}
+  .sidenav.open{transform:translateX(0);}
+  .nav-toggle{display:flex;}
+  main{margin-left:0;}
+  .nav-overlay.show{display:block;}
+  .section{padding:70px 22px;}
+  .hero{padding:100px 22px 60px;}
+}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="nav-overlay" id="navOverlay"></div>
+<button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">☰</button>
+
+<nav class="sidenav" id="sidenav">
+  <div class="sidenav-brand"><span class="mark">🌲</span><span class="name">Random Forest</span></div>
+  <div class="sidenav-search">
+    <input type="text" id="navSearch" placeholder="Search sections…" autocomplete="off">
+  </div>
+  <ul class="trail" id="trailList"></ul>
+</nav>
+
+<button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
+
+<main>
+<section class="hero" id="hero">
+  <div class="badge-row">
+    <span class="tag tag-neutral">Supervised learning</span>
+    <span class="tag tag-neutral">Ensemble learning</span>
+    <span class="tag tag-neutral">Classification + regression</span>
+  </div>
+  <h1>Random <span class="gradient-text">Forest</span></h1>
+  <p class="subtitle">Many trees. One strong model. Authored by Himanshu Pandey.</p>
+  <p class="lede">Random Forest is an ensemble learning algorithm that combines predictions from many decision trees to build something more robust and accurate than any single tree alone. This guide covers decision trees, bootstrap sampling, voting, Python implementation, and interview preparation.</p>
+
+  <div class="forest-flow">
+    <div class="tree-chip">🌲 Tree 1</div>
+    <div class="tree-chip">🌲 Tree 2</div>
+    <div class="tree-chip">🌲 Tree 3</div>
+    <div style="font-size:1.6rem;color:var(--text-faint);">→</div>
+    <div class="final-box">🎯 Final Prediction</div>
+  </div>
+</section>
+
+<section class="section" id="problem">
+  <div class="section-eyebrow"><span class="tag tag-concept">🧠 Concept</span></div>
+  <div class="section-head"><h2>Why not just use <span class="gradient-text">one tree?</span></h2></div>
+  <div class="prose">
+    <p>A single decision tree turns data into a chain of yes/no questions ending in a prediction. However, an unrestricted single decision tree overfits easily by memorizing noise in the training data.</p>
+    <p>Random Forest solves this by training multiple diverse decision trees on different data subsets (bootstrapping) and random feature subsets, then combining their results.</p>
+  </div>
+</section>
+
+<section class="section" id="classification">
+  <div class="section-eyebrow"><span class="tag tag-code">💻 Python Code</span></div>
+  <div class="section-head"><h2>Random Forest <span class="gradient-text">Classification</span></h2></div>
+  
+  <div class="code-block">
+    <div class="code-block-head"><span class="fname">rf_classifier.py</span><button class="copy-btn">Copy</button></div>
+    <pre><code class="lang-python">import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+
+# Load dataset
+df = pd.read_csv("dataset.csv")
+
+X = df.drop(columns=["target"])
+y = df["target"]
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42, stratify=y
+)
+
+# Instantiate and fit Random Forest Classifier
+clf = RandomForestClassifier(
+    n_estimators=200,
+    max_depth=10,
+    min_samples_leaf=2,
+    random_state=42,
+    n_jobs=-1
+)
+clf.fit(X_train, y_train)
+
+# Evaluate
+y_pred = clf.predict(X_test)
+print("Accuracy:", accuracy_score(y_test, y_pred))
+print(classification_report(y_test, y_pred))
+</code></pre>
+  </div>
+</section>
+
+<section class="section" id="cheatsheet">
+  <div class="section-eyebrow"><span class="tag tag-tip">💡 Summary</span></div>
+  <div class="section-head"><h2>Quick Revision <span class="gradient-text">Cheat Sheet</span></h2></div>
+  <div class="card" style="background:var(--surface-2);">
+    <p style="font-family:var(--font-display);font-size:1.3rem;color:var(--text);text-align:center;margin-bottom:26px;">
+      Random Forest = <span class="gradient-text">Bagging + Random Feature Selection + Multiple Trees + Majority Voting / Averaging</span>
+    </p>
+  </div>
+</section>
+</main>
+
+<footer>Decode AI Community Resource • Authored by Himanshu Pandey</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var progressBar = document.getElementById('progressBar');
+  function updateProgress(){
+    var h = document.documentElement;
+    var scrollTop = window.scrollY || document.body.scrollTop;
+    var scrollHeight = (h.scrollHeight || document.body.scrollHeight) - h.clientHeight;
+    var pct = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+    if (progressBar) progressBar.style.width = pct + '%';
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true });
+});
+</script>
+</body>
+</html>

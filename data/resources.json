@@ -18,6 +18,24 @@
     "estimatedReadingTime": "15 min read"
   },
   {
+    "id": "res-000b",
+    "title": "Random Forest — Complete Machine Learning Notes",
+    "slug": "random-forest-notes",
+    "description": "An interactive, from-scratch guide to Random Forest: decision trees, bootstrap sampling, voting, hyperparameters, evaluation, and interview prep.",
+    "category": "AI Concepts",
+    "subcategory": "Machine Learning",
+    "level": "Beginner to Intermediate",
+    "type": "NOTES",
+    "author": "Himanshu Pandey",
+    "contributor": "Himanshu Pandey",
+    "tags": ["Random Forest", "Machine Learning", "Decision Trees", "Ensemble", "AI Concepts"],
+    "date": "2026-09-09",
+    "featured": true,
+    "file": "/content/html/random-forest-notes.html",
+    "externalLink": null,
+    "estimatedReadingTime": "20 min read"
+  },
+  {
     "id": "res-001",
     "title": "AI Engineer Roadmap 2026 — From Python to Production AI Systems",
     "slug": "ai-engineer-roadmap",
