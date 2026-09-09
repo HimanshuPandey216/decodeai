@@ -14,6 +14,8 @@
 /* ============================================================
    RANDOM FOREST — COMPLETE ML NOTES
    Design system: a forest-grounded dark theme.
+   Palette is literal — canopy green, dawn sky, bark gold,
+   forest berry — rather than a generic dark/neon scheme.
    ============================================================ */
 
 *,*::before,*::after{box-sizing:border-box;}
@@ -164,10 +166,12 @@ main{margin-left:288px;position:relative;z-index:1;}
 .section+.section{border-top:1px solid var(--border-soft);}
 .section-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:16px;}
 .section-head{margin-bottom:38px;}
+.section-num{font-family:var(--font-mono);color:var(--text-faint);font-size:0.85rem;}
 
 .gradient-text{background:var(--grad-canopy);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.gradient-text-warm{background:var(--grad-warm);-webkit-background-clip:text;background-clip:text;color:transparent;}
 
-/* tags / badges */
+/* ---------------- tags / badges (sentence case, not eyebrow chrome) ---------------- */
 .tag{display:inline-flex;align-items:center;gap:7px;padding:6px 14px 6px 10px;border-radius:999px;font-size:0.83rem;font-weight:500;font-family:var(--font-body);}
 .tag-concept{background:var(--canopy-soft);color:var(--canopy);}
 .tag-viz{background:var(--sky-soft);color:var(--sky);}
@@ -177,12 +181,13 @@ main{margin-left:288px;position:relative;z-index:1;}
 .tag-interview{background:var(--berry-soft);color:var(--berry);}
 .tag-neutral{background:var(--surface);border:1px solid var(--border);color:var(--text-dim);}
 
-/* cards */
+/* ---------------- cards: radius/style varies with content type ---------------- */
 .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-organic);padding:26px;}
 .card-tech{border-radius:var(--r-tech);}
 .card-tile{border-radius:var(--r-tile);}
 .clickable{cursor:pointer;transition:border-color .18s ease,background .18s ease,transform .18s ease;}
 .clickable:hover{border-color:rgba(95,192,138,0.4);background:var(--surface-2);}
+.clickable:active{transform:scale(0.99);}
 
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
 .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
@@ -190,31 +195,32 @@ main{margin-left:288px;position:relative;z-index:1;}
 .split{display:grid;grid-template-columns:1.1fr 0.9fr;gap:44px;align-items:center;}
 @media (max-width:860px){.grid-2,.grid-3,.grid-4,.split{grid-template-columns:1fr;}}
 
-/* buttons */
+/* ---------------- buttons ---------------- */
 .btn{
   display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:11px;
   border:1px solid var(--border);background:var(--surface);color:var(--text);
   font-family:var(--font-body);font-size:0.92rem;font-weight:500;cursor:pointer;
-  transition:border-color .15s ease,background .15s ease;
+  transition:border-color .15s ease,background .15s ease,transform .1s ease;
 }
 .btn:hover{border-color:var(--canopy);background:var(--surface-2);}
+.btn:active{transform:scale(0.98);}
 .btn-primary{background:var(--grad-canopy);color:#052016;border:none;font-weight:600;}
 .btn-primary:hover{filter:brightness(1.08);}
 .btn-row{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0;}
 .btn.is-active{border-color:var(--sky);color:var(--sky);background:var(--sky-soft);}
 
-/* code blocks */
+/* ---------------- code blocks ---------------- */
 .code-block{position:relative;background:#0c100d;border:1px solid var(--border);border-radius:var(--r-tech);margin:22px 0;overflow:hidden;}
 .code-block-head{display:flex;justify-content:space-between;align-items:center;padding:9px 16px;background:rgba(255,255,255,0.025);border-bottom:1px solid var(--border-soft);}
 .code-block-head .fname{font-family:var(--font-mono);font-size:0.78rem;color:var(--text-dim);}
-.copy-btn{background:transparent;border:1px solid var(--border);color:var(--text-dim);padding:4px 11px;border-radius:6px;font-size:0.74rem;cursor:pointer;transition:.15s;}
+.copy-btn{background:transparent;border:1px solid var(--border);color:var(--text-dim);padding:4px 11px;border-radius:6px;font-size:0.74rem;cursor:pointer;font-family:var(--font-body);transition:.15s;}
 .copy-btn:hover{border-color:var(--bark);color:var(--bark);}
-
+.copy-btn.copied{border-color:var(--canopy);color:var(--canopy);}
 .code-block pre{margin:0;padding:20px 22px;overflow-x:auto;}
 .code-block code{font-family:var(--font-mono);font-size:0.84rem;line-height:1.65;color:#c8d3cc;white-space:pre;}
-.tok-kw{color:#e893b0;}.tok-str{color:#9fd88c;}.tok-com{color:#5e7267;font-style:italic;}.tok-num{color:var(--bark);}.tok-fn{color:var(--sky);}
+.tok-kw{color:#e893b0;}.tok-str{color:#9fd88c;}.tok-com{color:#5e7267;font-style:italic;}.tok-num{color:var(--bark);}.tok-fn{color:var(--sky);}.tok-cls{color:var(--dusk);}
 
-/* tables */
+/* ---------------- tables ---------------- */
 .tbl-wrap{overflow-x:auto;margin:22px 0;border:1px solid var(--border);border-radius:var(--r-tech);}
 table{width:100%;border-collapse:collapse;font-size:0.94rem;}
 th,td{padding:13px 18px;text-align:left;border-bottom:1px solid var(--border-soft);white-space:nowrap;}
@@ -222,24 +228,261 @@ th{color:var(--canopy);font-weight:600;background:rgba(255,255,255,0.02);font-si
 tr:last-child td{border-bottom:none;}
 td{color:var(--text-dim);}
 
-/* hero */
+/* ---------------- tooltip (functional, hover+focus) ---------------- */
+.tt{position:relative;border-bottom:1px dashed var(--text-faint);cursor:help;}
+.tt::after{
+  content:attr(data-tip);position:absolute;bottom:135%;left:50%;transform:translateX(-50%);
+  background:#141a17;color:var(--text);padding:9px 13px;border-radius:9px;font-size:0.78rem;
+  width:230px;white-space:normal;line-height:1.45;opacity:0;pointer-events:none;transition:opacity .15s ease;
+  border:1px solid var(--border);z-index:20;box-shadow:0 8px 24px rgba(0,0,0,0.4);
+}
+.tt:hover::after,.tt:focus::after{opacity:1;}
+
+/* ---------------- flow diagrams ---------------- */
+.flow{display:flex;flex-direction:column;align-items:center;gap:0;margin:30px 0;}
+.flow-step{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--r-tile);
+  padding:14px 24px;font-weight:500;text-align:center;min-width:220px;
+}
+.flow-step.accent{border-color:var(--canopy);background:var(--canopy-soft);color:var(--canopy);}
+.flow-arrow{color:var(--text-faint);font-size:1.3rem;line-height:1;padding:6px 0;}
+.flow-arrow-anim{animation:arrowpulse 1.8s ease-in-out infinite;}
+@keyframes arrowpulse{0%,100%{opacity:0.4;transform:translateY(0);}50%{opacity:1;transform:translateY(3px);}}
+.flow-branch{display:flex;gap:28px;justify-content:center;flex-wrap:wrap;}
+.flow-row{display:flex;align-items:center;gap:14px;justify-content:center;flex-wrap:wrap;}
+.flow-row .flow-arrow{padding:0;transform:rotate(-90deg);}
+@media (max-width:700px){.flow-row .flow-arrow{transform:none;}}
+
+/* ---------------- CSS org-chart tree (decision tree / growth) ---------------- */
+.tree-viz{margin:34px 0;overflow-x:auto;}
+.tree-viz ul{padding-top:26px;position:relative;display:flex;justify-content:center;padding-left:0;padding-right:0;}
+.tree-viz li{list-style:none;position:relative;padding:26px 12px 0;text-align:center;}
+.tree-viz li::before,.tree-viz li::after{content:'';position:absolute;top:0;border-top:2px solid var(--border);width:50%;height:26px;}
+.tree-viz li::before{right:50%;}
+.tree-viz li::after{left:50%;border-left:2px solid var(--border);}
+.tree-viz li:only-child::after,.tree-viz li:only-child::before{display:none;}
+.tree-viz li:only-child{padding-top:0;}
+.tree-viz li:first-child::before,.tree-viz li:last-child::after{border:0 none;}
+.tree-viz li:last-child::before{border-right:2px solid var(--border);border-radius:0 8px 0 0;}
+.tree-viz li:first-child::after{border-radius:8px 0 0 0;}
+.tree-viz ul ul::before{content:'';position:absolute;top:-26px;left:50%;border-left:2px solid var(--border);width:0;height:26px;}
+.tnode{
+  display:inline-block;border:1px solid var(--border);border-radius:11px;background:var(--surface);
+  padding:10px 16px;font-size:0.86rem;font-weight:500;min-width:104px;
+}
+.tnode.root{border-color:var(--canopy);color:var(--canopy);background:var(--canopy-soft);}
+.tnode.leaf{border-color:var(--bark);color:var(--bark);background:var(--bark-soft);border-style:dashed;}
+.tnode.clickable:hover{border-color:var(--sky);background:var(--sky-soft);color:var(--sky);cursor:pointer;}
+.tnode.selected{border-color:var(--sky);background:var(--sky-soft);color:var(--sky);}
+.tree-explain{
+  margin-top:18px;padding:16px 20px;border-radius:var(--r-tile);background:var(--surface);
+  border:1px solid var(--border);border-left:3px solid var(--sky);color:var(--text-dim);font-size:0.94rem;min-height:26px;
+}
+
+/* ---------------- hero forest flow ---------------- */
+.forest-flow{display:flex;align-items:center;justify-content:center;gap:28px;margin:44px 0 8px;flex-wrap:wrap;}
+.tree-stack{display:flex;flex-direction:column;gap:8px;}
+.tree-chip{
+  display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--border-soft);
+  border-radius:9px;padding:6px 14px;font-size:0.82rem;color:var(--text-dim);
+  animation:sway 3.4s ease-in-out infinite;transform-origin:bottom center;
+}
+.tree-chip:nth-child(2n){animation-delay:.4s;}
+.tree-chip:nth-child(3n){animation-delay:.8s;}
+@keyframes sway{0%,100%{transform:rotate(-1.5deg);}50%{transform:rotate(1.5deg);}}
+.flow-glyph{font-size:1.6rem;color:var(--text-faint);}
+.final-box{
+  background:var(--grad-canopy);color:#052016;padding:20px 30px;border-radius:var(--r-organic);
+  font-family:var(--font-display);font-weight:600;font-size:1.15rem;text-align:center;
+  box-shadow:0 0 50px rgba(95,192,138,0.25);animation:glow 3s ease-in-out infinite;
+}
+@keyframes glow{0%,100%{box-shadow:0 0 40px rgba(95,192,138,0.18);}50%{box-shadow:0 0 60px rgba(95,192,138,0.32);}}
+
+/* ---------------- hero ---------------- */
 .hero{max-width:1120px;margin:0 auto;padding:120px 40px 90px;text-align:center;position:relative;}
 .hero .badge-row{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:26px;}
 .hero h1{margin-bottom:14px;}
 .hero .subtitle{font-family:var(--font-display);font-style:italic;font-size:clamp(1.1rem,2.2vw,1.5rem);color:var(--text-dim);margin-bottom:26px;}
 .hero .lede{max-width:62ch;margin:0 auto 10px;color:var(--text-dim);font-size:1.08rem;}
+.scroll-cue{margin-top:60px;color:var(--text-faint);font-size:0.85rem;display:flex;flex-direction:column;align-items:center;gap:6px;}
+.scroll-cue .chev{animation:bob 1.8s ease-in-out infinite;}
+@keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(6px);}}
 
-/* forest flow */
-.forest-flow{display:flex;align-items:center;justify-content:center;gap:28px;margin:44px 0 8px;flex-wrap:wrap;}
-.tree-chip{
-  display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--border-soft);
-  border-radius:9px;padding:6px 14px;font-size:0.82rem;color:var(--text-dim);
-}
-.final-box{
-  background:var(--grad-canopy);color:#052016;padding:20px 30px;border-radius:var(--r-organic);
-  font-family:var(--font-display);font-weight:600;font-size:1.15rem;text-align:center;
-}
+/* ---------------- warning / tip / info panels ---------------- */
+.panel{border-radius:var(--r-tile);padding:20px 24px;border:1px solid;margin:22px 0;}
+.panel-warning{background:var(--rust-soft);border-color:rgba(226,102,75,0.4);}
+.panel-warning h4{color:var(--rust);}
+.panel-tip{background:var(--dusk-soft);border-color:rgba(169,143,209,0.4);}
+.panel-tip h4{color:var(--dusk);}
+.panel-info{background:var(--sky-soft);border-color:rgba(90,167,201,0.4);}
+.panel-info h4{color:var(--sky);}
+.panel p{color:var(--text);opacity:0.85;margin-bottom:0;}
 
+/* ---------------- checks/crosses list ---------------- */
+.check-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;}
+.check-list li{display:flex;gap:10px;align-items:flex-start;color:var(--text-dim);}
+.check-list .ico{flex:none;width:22px;text-align:center;}
+.check-list.good .ico{color:var(--canopy);}
+.check-list.bad .ico{color:var(--rust);}
+
+/* ---------------- accordion ---------------- */
+.accordion-item{border-bottom:1px solid var(--border-soft);}
+.accordion-item:first-child{border-top:1px solid var(--border-soft);}
+.accordion-head{
+  display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 4px;
+  cursor:pointer;font-family:var(--font-body);font-weight:600;color:var(--text);
+}
+.accordion-head .q-num{color:var(--text-faint);font-family:var(--font-mono);font-weight:400;font-size:0.85rem;margin-right:10px;}
+.accordion-chevron{color:var(--text-faint);transition:transform .2s ease;flex:none;}
+.accordion-item.open .accordion-chevron{transform:rotate(180deg);color:var(--canopy);}
+.accordion-body{max-height:0;overflow:hidden;transition:max-height .28s ease;}
+.accordion-item.open .accordion-body{max-height:1100px;}
+.accordion-body-inner{padding:0 4px 20px;color:var(--text-dim);}
+
+/* ---------------- bootstrap sample chips ---------------- */
+.chip-row{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0;}
+.chip{
+  width:38px;height:38px;border-radius:9px;display:flex;align-items:center;justify-content:center;
+  background:var(--surface);border:1px solid var(--border);font-family:var(--font-mono);font-size:0.88rem;color:var(--text-dim);
+}
+.sample-col{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-tile);padding:16px 18px;}
+.sample-col h4{margin-bottom:10px;color:var(--sky);}
+.oob-note{margin-top:14px;font-size:0.9rem;color:var(--text-faint);}
+.oob-note strong{color:var(--bark);}
+
+/* ---------------- sliders ---------------- */
+.slider-row{margin:22px 0;}
+.slider-row label{display:flex;justify-content:space-between;font-weight:500;color:var(--text);margin-bottom:8px;font-size:0.95rem;}
+.slider-row label .val{font-family:var(--font-mono);color:var(--sky);}
+input[type=range]{
+  -webkit-appearance:none;width:100%;height:6px;border-radius:4px;background:var(--surface-2);outline:none;border:1px solid var(--border-soft);
+}
+input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--canopy);cursor:pointer;
+  box-shadow:0 0 0 4px rgba(95,192,138,0.18);
+}
+input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--canopy);cursor:pointer;border:none;box-shadow:0 0 0 4px rgba(95,192,138,0.18);}
+.meter{margin:14px 0;}
+.meter-label{display:flex;justify-content:space-between;font-size:0.85rem;color:var(--text-dim);margin-bottom:5px;}
+.meter-track{height:8px;border-radius:4px;background:var(--surface-2);overflow:hidden;}
+.meter-fill{height:100%;border-radius:4px;transition:width .25s ease;}
+.meter-fill.complexity{background:var(--sky);}
+.meter-fill.time{background:var(--bark);}
+.meter-fill.variance{background:var(--rust);}
+.meter-fill.bias{background:var(--dusk);}
+.conceptual-note{font-size:0.82rem;color:var(--text-faint);margin-top:16px;font-style:italic;}
+
+/* ---------------- gini calculator ---------------- */
+.gini-box{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:start;margin-top:20px;}
+@media (max-width:860px){.gini-box{grid-template-columns:1fr;}}
+.gini-bar{display:flex;height:34px;border-radius:8px;overflow:hidden;border:1px solid var(--border);margin-top:14px;}
+.gini-a{background:var(--canopy);}
+.gini-b{background:var(--sky);}
+.gini-result{
+  text-align:center;padding:22px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-organic);
+}
+.gini-value{font-family:var(--font-display);font-size:3rem;font-weight:600;}
+.gini-formula{font-family:var(--font-mono);font-size:0.88rem;color:var(--text-dim);margin-top:10px;}
+
+/* ---------------- voting / averaging demo ---------------- */
+.forest-run{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-organic);padding:28px;margin:24px 0;}
+.tree-result-grid{display:flex;flex-wrap:wrap;gap:12px;margin:20px 0;min-height:50px;}
+.tree-result{
+  display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 16px;border-radius:11px;
+  background:var(--surface-2);border:1px solid var(--border);opacity:0;transform:translateY(10px) scale(0.95);
+  transition:opacity .3s ease,transform .3s ease;font-size:0.85rem;
+}
+.tree-result.show{opacity:1;transform:translateY(0) scale(1);}
+.tree-result .pred{font-weight:700;font-size:1.05rem;}
+.tree-result.yes .pred,.tree-result.pos .pred{color:var(--canopy);}
+.tree-result.no .pred,.tree-result.neg .pred{color:var(--rust);}
+.vote-tally{display:flex;gap:22px;margin-top:18px;flex-wrap:wrap;}
+.tally-pill{display:flex;align-items:center;gap:9px;font-size:0.92rem;color:var(--text-dim);}
+.tally-pill .n{font-family:var(--font-mono);font-weight:600;color:var(--text);}
+.final-pred{
+  margin-top:18px;padding:16px 22px;border-radius:var(--r-tile);font-weight:600;font-size:1.15rem;
+  text-align:center;opacity:0;transition:opacity .4s ease;
+}
+.final-pred.show{opacity:1;}
+.final-pred.yes{background:var(--canopy-soft);color:var(--canopy);}
+.final-pred.no{background:var(--rust-soft);color:var(--rust);}
+.reg-value{font-family:var(--font-mono);font-size:1.4rem;font-weight:600;color:var(--sky);}
+
+/* ---------------- feature checklist ---------------- */
+.feat-node{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-tile);padding:16px 20px;}
+.feat-node h4{margin-bottom:10px;font-size:0.9rem;color:var(--text-faint);}
+.feat-row{display:flex;justify-content:space-between;padding:5px 0;font-size:0.92rem;}
+.feat-row .yes{color:var(--canopy);}
+.feat-row .no{color:var(--rust);opacity:0.6;}
+
+/* ---------------- quiz ---------------- */
+.quiz-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-organic);padding:26px 28px;margin-bottom:18px;}
+.quiz-q{font-weight:600;margin-bottom:16px;font-size:1.02rem;color:var(--text);}
+.quiz-opts{display:flex;flex-direction:column;gap:9px;}
+.quiz-opt{
+  text-align:left;padding:12px 16px;border-radius:10px;border:1px solid var(--border);background:var(--bg-raised);
+  color:var(--text-dim);cursor:pointer;font-family:var(--font-body);font-size:0.94rem;transition:.15s;
+}
+.quiz-opt:hover:not(:disabled){border-color:var(--sky);color:var(--text);}
+.quiz-opt:disabled{cursor:default;}
+.quiz-opt.correct{border-color:var(--canopy);background:var(--canopy-soft);color:var(--canopy);}
+.quiz-opt.incorrect{border-color:var(--rust);background:var(--rust-soft);color:var(--rust);}
+.quiz-explain{margin-top:14px;padding:12px 16px;background:var(--bg-raised);border-radius:9px;font-size:0.88rem;color:var(--text-dim);border-left:3px solid var(--canopy);display:none;}
+.quiz-explain.show{display:block;}
+.quiz-score-bar{
+  position:sticky;top:14px;display:flex;justify-content:space-between;align-items:center;
+  background:var(--surface-2);border:1px solid var(--border);border-radius:12px;padding:14px 20px;margin-bottom:22px;
+}
+.quiz-score-bar .score{font-family:var(--font-mono);font-size:1.1rem;color:var(--canopy);}
+
+/* ---------------- mistakes list ---------------- */
+.mistake-item{display:flex;gap:16px;padding:20px 4px;border-bottom:1px solid var(--border-soft);}
+.mistake-item:first-child{border-top:1px solid var(--border-soft);}
+.mistake-item .m-ico{flex:none;font-size:1.3rem;color:var(--rust);line-height:1.4;}
+.mistake-item h4{margin-bottom:5px;}
+.mistake-item p{margin-bottom:0;}
+
+/* ---------------- stat tiles (evaluation dashboard) ---------------- */
+.stat-tile{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-tile);padding:18px 20px;text-align:center;}
+.stat-tile .n{font-family:var(--font-display);font-size:1.9rem;font-weight:600;color:var(--sky);}
+.stat-tile .l{font-size:0.82rem;color:var(--text-faint);margin-top:4px;}
+.confusion{display:grid;grid-template-columns:auto repeat(2,1fr);gap:2px;max-width:420px;margin:20px auto 0;font-size:0.88rem;}
+.confusion .hd{color:var(--text-faint);padding:8px;text-align:center;}
+.confusion .cell{background:var(--surface);border:1px solid var(--border-soft);padding:16px 8px;text-align:center;border-radius:6px;}
+.confusion .cell.tp,.confusion .cell.tn{border-color:rgba(95,192,138,0.35);}
+.confusion .cell.fp,.confusion .cell.fn{border-color:rgba(226,102,75,0.35);}
+.confusion .cell b{display:block;font-size:1.3rem;font-family:var(--font-mono);}
+
+/* ---------------- charts ---------------- */
+.chart-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-organic);padding:24px;margin:22px 0;}
+.chart-wrap canvas{max-height:340px;}
+.chart-caption{margin-top:14px;font-size:0.9rem;color:var(--text-faint);text-align:center;}
+
+/* ---------------- definition breakdown ---------------- */
+.def-quote{
+  font-family:var(--font-display);font-style:italic;font-size:1.3rem;line-height:1.5;
+  color:var(--text);border-left:3px solid var(--canopy);padding-left:22px;margin:26px 0;
+}
+.def-parts{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:26px;}
+@media (max-width:860px){.def-parts{grid-template-columns:1fr 1fr;}}
+.def-part{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--r-tile);padding:18px;cursor:pointer;
+  transition:.18s;
+}
+.def-part:hover{border-color:var(--canopy);}
+.def-part .num{font-family:var(--font-mono);color:var(--text-faint);font-size:0.8rem;}
+.def-part h4{margin:6px 0;}
+.def-part .detail{max-height:0;overflow:hidden;transition:max-height .25s ease;font-size:0.88rem;color:var(--text-dim);}
+.def-part.open .detail{max-height:200px;margin-top:8px;}
+
+/* ---------------- final section ---------------- */
+.final-banner{text-align:center;padding:70px 20px;}
+.final-forest{font-size:2.4rem;letter-spacing:6px;margin:20px 0;}
+.final-quote{font-family:var(--font-display);font-style:italic;font-size:clamp(1.2rem,2.6vw,1.7rem);max-width:50ch;margin:30px auto 0;line-height:1.5;}
+
+footer{text-align:center;padding:50px 40px 90px;color:var(--text-faint);font-size:0.85rem;}
+
+/* ---------------- responsive ---------------- */
 @media (max-width:980px){
   .sidenav{transform:translateX(-100%);}
   .sidenav.open{transform:translateX(0);}
@@ -248,6 +491,14 @@ td{color:var(--text-dim);}
   .nav-overlay.show{display:block;}
   .section{padding:70px 22px;}
   .hero{padding:100px 22px 60px;}
+}
+@media (max-width:600px){
+  .def-parts{grid-template-columns:1fr;}
+  .final-forest{font-size:1.5rem;letter-spacing:3px;}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:0.001ms !important;animation-iteration-count:1 !important;transition-duration:0.001ms !important;}
+  html{scroll-behavior:auto;}
 }
 </style>
 </head>
@@ -274,90 +525,1557 @@ td{color:var(--text-dim);}
     <span class="tag tag-neutral">Classification + regression</span>
   </div>
   <h1>Random <span class="gradient-text">Forest</span></h1>
-  <p class="subtitle">Many trees. One strong model. Authored by Himanshu Pandey.</p>
-  <p class="lede">Random Forest is an ensemble learning algorithm that combines predictions from many decision trees to build something more robust and accurate than any single tree alone. This guide covers decision trees, bootstrap sampling, voting, Python implementation, and interview preparation.</p>
+  <p class="subtitle">Many trees. One strong model.</p>
+  <p class="lede">Random Forest is an ensemble learning algorithm that combines predictions from many decision trees to build something more robust and accurate than any single tree alone. This page is the complete course: why one tree isn't enough, how randomness fixes that, how to train and tune it in Python, and how to talk about it in an interview.</p>
 
   <div class="forest-flow">
-    <div class="tree-chip">🌲 Tree 1</div>
-    <div class="tree-chip">🌲 Tree 2</div>
-    <div class="tree-chip">🌲 Tree 3</div>
-    <div style="font-size:1.6rem;color:var(--text-faint);">→</div>
+    <div class="tree-stack">
+      <div class="tree-chip">🌲 Tree 1</div>
+      <div class="tree-chip">🌲 Tree 2</div>
+      <div class="tree-chip">🌲 Tree 3</div>
+      <div class="tree-chip">🌲 Tree 4</div>
+      <div class="tree-chip">🌲 Tree 5</div>
+      <div class="tree-chip">🌲 Tree 6</div>
+    </div>
+    <div class="flow-glyph">→</div>
     <div class="final-box">🎯 Final Prediction</div>
   </div>
+
+  <div class="scroll-cue"><span>Start with the problem a single tree runs into</span><span class="chev">↓</span></div>
 </section>
 
 <section class="section" id="problem">
   <div class="section-eyebrow"><span class="tag tag-concept">🧠 Concept</span></div>
   <div class="section-head"><h2>Why not just use <span class="gradient-text">one tree?</span></h2></div>
   <div class="prose">
-    <p>A single decision tree turns data into a chain of yes/no questions ending in a prediction. However, an unrestricted single decision tree overfits easily by memorizing noise in the training data.</p>
-    <p>Random Forest solves this by training multiple diverse decision trees on different data subsets (bootstrapping) and random feature subsets, then combining their results.</p>
+    <p>Before Random Forest makes sense, decision trees need to. A decision tree turns data into a chain of yes/no questions that ends in a prediction:</p>
+  </div>
+  <div class="flow" style="margin:26px 0 40px;">
+    <div class="flow-step">Dataset</div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-step accent">Decision tree</div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-step">Prediction</div>
+  </div>
+
+  <h3>A tree you can read in one glance</h3>
+  <p class="prose">Take a classic toy question: <strong>should I play cricket today?</strong> Click any box in the tree below to see what role it plays.</p>
+
+  <div class="tree-viz" id="cricketTree">
+    <ul>
+      <li>
+        <div class="tnode root clickable" data-explain="This is the <strong>root node</strong> — the very first question the tree asks, because Weather turned out to be the most useful <strong>feature</strong> for splitting this data.">☀️ Sunny?</div>
+        <ul>
+          <li>
+            <div class="tnode clickable" data-explain="This is a <strong>decision node</strong>, reached along the 'Sunny = Yes' branch. It tests a second feature, Humidity, against a threshold (High vs Normal).">
+              <div style="font-size:0.7rem;color:var(--text-faint);margin-bottom:3px;">if Sunny → Yes</div>💧 Humidity?
+            </div>
+            <ul>
+              <li><div class="tnode leaf clickable" data-explain="A <strong>leaf node</strong> — the tree stops asking questions and gives its <strong>prediction</strong>: don't play. Every path through a tree ends at a leaf."><div style="font-size:0.7rem;color:var(--text-faint);margin-bottom:3px;">Humidity → High</div>🚫 No</div></li>
+              <li><div class="tnode leaf clickable" data-explain="Another <strong>leaf</strong>. Same Humidity feature, different threshold outcome, different prediction: play."><div style="font-size:0.7rem;color:var(--text-faint);margin-bottom:3px;">Humidity → Normal</div>✅ Yes</div></li>
+            </ul>
+          </li>
+          <li><div class="tnode leaf clickable" data-explain="A <strong>leaf</strong> reached straight from the root. When it isn't sunny, this <strong>branch</strong> needed no further questions — the prediction is already Yes."><div style="font-size:0.7rem;color:var(--text-faint);margin-bottom:3px;">if Sunny → No</div>✅ Yes</div></li>
+        </ul>
+      </li>
+    </ul>
+    <div class="tree-explain" id="cricketExplain">Click any node above — root, decision, or leaf — to see what it's doing.</div>
+  </div>
+
+  <h3 style="margin-top:44px;">Where trees get into trouble</h3>
+  <div class="prose">
+    <p>Decision trees are powerful and easy to read — but left unrestricted, they'll keep splitting until every leaf is perfectly pure, effectively <strong>memorizing</strong> the training data rather than learning the general pattern in it.</p>
+  </div>
+  <div class="flow" style="margin:26px 0;">
+    <div class="flow-step">Training data</div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-step accent">Very complex, unrestricted tree</div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-row">
+      <div class="flow-step">Training accuracy: excellent</div>
+      <div class="flow-step">Test accuracy: poor</div>
+    </div>
+  </div>
+  <p class="prose">That gap between training and test performance is <strong>overfitting</strong> — high <strong>variance</strong>, in the language you'll see again later. Try the three fits below on the same underlying data.</p>
+
+  <div class="chart-wrap">
+    <div class="btn-row" style="margin-top:0;">
+      <button class="btn fit-btn" data-fit="under">Underfitting</button>
+      <button class="btn fit-btn is-active" data-fit="good">Good fit</button>
+      <button class="btn fit-btn" data-fit="over">Overfitting</button>
+    </div>
+    <canvas id="overfitChart" height="260"></canvas>
+    <p class="chart-caption" id="overfitCaption">A balanced model follows the trend without chasing every bit of noise. Illustrative example — training / test accuracy: <strong>94% / 91%</strong>.</p>
   </div>
 </section>
 
+<section class="section" id="diversity">
+  <div class="section-eyebrow"><span class="tag tag-concept">🧠 Concept</span></div>
+  <div class="section-head"><h2>One tree has <span class="gradient-text">one opinion</span></h2></div>
+  <div class="prose">
+    <p>Here's the catch: small changes in the training data can grow a surprisingly different tree. Three almost-identical datasets can produce three different trees, each fully confident in its own answer.</p>
+  </div>
+  <div class="grid-3" style="margin:26px 0;">
+    <div class="card card-tile" style="text-align:center;"><div style="font-size:1.6rem;">📋 → 🌳</div><p style="margin:10px 0 0;color:var(--text-dim);">Dataset A → Tree A</p></div>
+    <div class="card card-tile" style="text-align:center;"><div style="font-size:1.6rem;">📋 → 🌲</div><p style="margin:10px 0 0;color:var(--text-dim);">Dataset B → Tree B</p></div>
+    <div class="card card-tile" style="text-align:center;"><div style="font-size:1.6rem;">📋 → 🌴</div><p style="margin:10px 0 0;color:var(--text-dim);">Dataset C → Tree C</p></div>
+  </div>
+  <p style="font-family:var(--font-display);font-style:italic;font-size:1.25rem;color:var(--text);text-align:center;max-width:36ch;margin:40px auto;">"What if, instead of trusting one tree, we asked many different trees and combined their opinions?"</p>
+
+  <div class="forest-run" id="diversityReveal">
+    <div class="tree-result-grid" id="teaserTrees"></div>
+    <div id="teaserTallyWrap"></div>
+    <div class="final-pred" id="teaserFinal"></div>
+    <div id="teaserBigReveal" style="text-align:center;margin-top:8px;"></div>
+  </div>
+</section>
+
+<section class="section" id="definition">
+  <div class="section-eyebrow"><span class="tag tag-concept">🧠 Concept</span></div>
+  <div class="section-head"><h2>So what <span class="gradient-text">is</span> Random Forest?</h2></div>
+  <p class="def-quote">"Random Forest is an ensemble learning algorithm that builds multiple decision trees using randomized samples of the training data and randomized subsets of features, then combines their predictions."</p>
+  <p class="prose">Click each piece of that definition to unpack it.</p>
+  <div class="def-parts">
+    <div class="def-part clickable"><div class="num">01</div><h4>Multiple trees</h4><div class="detail">Not one tree, but a whole forest — often hundreds — each grown independently of the others.</div></div>
+    <div class="def-part clickable"><div class="num">02</div><h4>Random data samples</h4><div class="detail">Every tree trains on its own bootstrap sample: rows drawn with replacement from the original data.</div></div>
+    <div class="def-part clickable"><div class="num">03</div><h4>Random feature selection</h4><div class="detail">At each split, only a random subset of columns is even considered — not all of them.</div></div>
+    <div class="def-part clickable"><div class="num">04</div><h4>Combine predictions</h4><div class="detail">Classification takes a majority vote; regression averages every tree's number.</div></div>
+  </div>
+</section>
+
+<section class="section" id="bootstrap">
+  <div class="section-eyebrow"><span class="tag tag-viz">📊 Visualization</span></div>
+  <div class="section-head"><h2>Random data: <span class="gradient-text">bootstrap sampling</span></h2></div>
+  <div class="prose">
+    <p>The first source of randomness lives in the data each tree sees. Random Forest uses <strong>bagging</strong> — bootstrap aggregating — so every tree trains on a bootstrap sample: rows drawn <span class="tt" data-tip="Once a row is picked, it goes back in the pool and can be picked again. That's what 'with replacement' means.">with replacement</span> from the original dataset, until the sample is the same size as the original.</p>
+    <p>Take an eight-row toy dataset: <code>A B C D E F G H</code>. A bootstrap sample might come out as <code>A C C F G G H A</code> — some rows repeat, others (B, D, E here) don't show up at all. Every tree gets a different sample, which is the first ingredient in making the forest's trees disagree with each other in useful ways.</p>
+  </div>
+
+  <div class="card" style="margin-top:28px;">
+    <h4 style="margin-bottom:6px;">Try it — generate bootstrap samples</h4>
+    <p style="color:var(--text-faint);font-size:0.88rem;margin-bottom:10px;">Original dataset, 10 rows:</p>
+    <div class="chip-row" id="originalRows"></div>
+    <div class="btn-row"><button class="btn btn-primary" id="generateBootstrap">Generate new samples</button></div>
+    <div class="grid-3" id="bootstrapSamples"></div>
+    <p class="conceptual-note" style="margin-top:16px;">On average, about 63% of the original rows end up in a given bootstrap sample — the rest, roughly 37%, are left out and become that tree's <strong>out-of-bag</strong> rows. More on that later.</p>
+  </div>
+</section>
+
+<section class="section" id="features">
+  <div class="section-eyebrow"><span class="tag tag-viz">📊 Visualization</span></div>
+  <div class="section-head"><h2>Random features: <span class="gradient-text">feature subsampling</span></h2></div>
+  <div class="prose">
+    <p>The second source of randomness happens inside every tree, at every single split. Instead of scanning every available column, each split only looks at a random subset of features. Suppose the columns are:</p>
+  </div>
+  <p class="prose" style="font-family:var(--font-mono);font-size:0.88rem;color:var(--text-dim);background:var(--surface);padding:12px 16px;border-radius:9px;border:1px solid var(--border);max-width:none;">Age · Income · Education · Experience · City · Credit Score · Balance · Loan Amount</p>
+  <p class="prose">At one node, the tree might only be allowed to consider three of those eight columns. At the very next split — in that same tree — a different random three are on the table.</p>
+
+  <div class="split" style="margin-top:26px;align-items:stretch;">
+    <div class="feat-node" id="featNodeA"><h4>Node A — candidates on the table</h4></div>
+    <div class="feat-node" id="featNodeB"><h4>Node B — candidates on the table</h4></div>
+  </div>
+  <div class="btn-row"><button class="btn" id="shuffleFeatures">Reshuffle the candidates</button></div>
+  <p class="prose" style="margin-top:10px;"><strong>Why it matters:</strong> if every tree could always see every feature, most would split on the single strongest predictor first and grow into near-copies of each other. Forcing a random subset at each split decorrelates the trees — which is exactly what makes averaging them powerful.</p>
+</section>
+
+<section class="section" id="workflow">
+  <div class="section-eyebrow"><span class="tag tag-concept">🧠 Concept</span></div>
+  <div class="section-head"><h2>The complete <span class="gradient-text">workflow</span></h2></div>
+  <p class="prose">Here's how every piece so far fits together, start to finish.</p>
+  <div class="flow">
+    <div class="flow-step accent">Original dataset</div>
+    <div class="flow-arrow flow-arrow-anim">↓</div>
+    <div class="flow-step">Bootstrap sample — one per tree</div>
+    <div class="flow-arrow flow-arrow-anim">↓</div>
+    <div class="flow-branch">
+      <div class="flow-step">Tree 1<br><small style="color:var(--text-faint);">random feature subset → best split → grow</small></div>
+      <div class="flow-step">Tree 2<br><small style="color:var(--text-faint);">random feature subset → best split → grow</small></div>
+      <div class="flow-step">Tree N<br><small style="color:var(--text-faint);">random feature subset → best split → grow</small></div>
+    </div>
+    <div class="flow-arrow flow-arrow-anim">↓</div>
+    <div class="flow-step">Every tree produces its own prediction</div>
+    <div class="flow-arrow flow-arrow-anim">↓</div>
+    <div class="flow-step accent">Voting (classification) · Averaging (regression)</div>
+    <div class="flow-arrow flow-arrow-anim">↓</div>
+    <div class="final-box" style="font-size:1rem;padding:14px 26px;">Final prediction</div>
+  </div>
+</section>
 <section class="section" id="classification">
-  <div class="section-eyebrow"><span class="tag tag-code">💻 Python Code</span></div>
-  <div class="section-head"><h2>Random Forest <span class="gradient-text">Classification</span></h2></div>
-  
+  <div class="section-eyebrow"><span class="tag tag-viz">📊 Visualization</span></div>
+  <div class="section-head"><h2>Classification: <span class="gradient-text">majority voting</span></h2></div>
+  <p class="prose">Every tree in the forest casts one vote. Whichever class collects the most votes wins. Run the forest below — each click is a fresh simulation.</p>
+
+  <div class="forest-run">
+    <div class="btn-row" style="margin-top:0;"><button class="btn btn-primary" id="runForestBtn">▶ Run the forest</button></div>
+    <div class="tree-result-grid" id="clfTreeResults"></div>
+    <div class="vote-tally" id="clfTally"></div>
+    <div class="final-pred" id="clfFinal"></div>
+  </div>
+  <p class="prose" style="margin-top:20px;">Worked example: predicting <em>“will this customer buy?”</em> — seven trees vote, five say <strong>yes</strong> and two say <strong>no</strong>, so the forest predicts <strong>yes</strong>. That's majority voting, in one sentence.</p>
+</section>
+
+<section class="section" id="regression">
+  <div class="section-eyebrow"><span class="tag tag-viz">📊 Visualization</span></div>
+  <div class="section-head"><h2>Regression: <span class="gradient-text">averaging</span></h2></div>
+  <p class="prose">For a numeric target there's no vote to take — the forest's prediction is simply the average of every tree's number.</p>
+
+  <div class="forest-run">
+    <div class="btn-row" style="margin-top:0;"><button class="btn btn-primary" id="runRegBtn">▶ Run the forest</button></div>
+    <div class="tree-result-grid" id="regTreeResults"></div>
+    <div class="final-pred show" id="regFinal" style="background:var(--sky-soft);color:var(--sky);"></div>
+  </div>
+  <p class="prose" style="margin-top:20px;">Worked example: predicting a house price, five trees say ₹48L, ₹52L, ₹50L, ₹55L, ₹49L. Averaged, the forest predicts <strong>₹50.8L</strong>.</p>
+
+  <div class="tbl-wrap" style="margin-top:34px;">
+    <table>
+      <thead><tr><th></th><th>Classification</th><th>Regression</th></tr></thead>
+      <tbody>
+        <tr><td>Output</td><td>A class label</td><td>A continuous value</td></tr>
+        <tr><td>Combination rule</td><td>Majority voting</td><td>Averaging</td></tr>
+        <tr><td>Example</td><td>Spam / not spam</td><td>House price</td></tr>
+        <tr><td>Scikit-learn class</td><td><code>RandomForestClassifier</code></td><td><code>RandomForestRegressor</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="section" id="scaling">
+  <div class="section-eyebrow"><span class="tag tag-concept">🧠 Concept</span></div>
+  <div class="section-head"><h2>Do you need <span class="gradient-text">feature scaling</span>?</h2></div>
+  <p style="font-family:var(--font-display);font-style:italic;font-size:1.4rem;color:var(--text);">Usually, no.</p>
+  <div class="prose">
+    <p>Random Forest is tree-based, and a tree splits on conditions like <code>Age &lt; 30</code> or <code>Income &lt; 50000</code>. A split only cares about <strong>ordering</strong> — which rows fall above or below a threshold — not the raw magnitude or units behind it. Monotonic scaling (Standard, MinMax, Robust, or plain normalization) preserves that ordering, so it typically doesn't change which splits a tree finds or how good they are. That's not the same as saying scaling is mathematically incapable of mattering — just that for threshold-based partitioning, it usually doesn't.</p>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Age</th><th>Salary (raw)</th><th>Salary (min-max scaled)</th></tr></thead>
+      <tbody>
+        <tr><td>20</td><td>30,000</td><td>0.00</td></tr>
+        <tr><td>25</td><td>50,000</td><td>0.22</td></tr>
+        <tr><td>30</td><td>70,000</td><td>0.44</td></tr>
+        <tr><td>35</td><td>90,000</td><td>0.67</td></tr>
+        <tr><td>40</td><td>120,000</td><td>1.00</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="prose">A tree might learn <code>Salary &lt; 80000</code> on the raw column, or equivalently <code>Salary_scaled &lt; 0.56</code> on the scaled one — the same rows land on each side either way. The split is conceptually unchanged; scaling just relabeled the axis.</p>
+
+  <h3 style="margin-top:40px;">Where scaling actually matters</h3>
+  <div class="split" style="margin-top:20px;align-items:stretch;">
+    <div class="card">
+      <h4 style="color:var(--rust);">Distance / gradient-based models</h4>
+      <p style="color:var(--text-dim);margin-bottom:0;">KNN, K-Means, SVM, logistic regression in most workflows, neural networks, PCA. These compare magnitudes or follow gradients directly, so a feature with a huge numeric range can quietly dominate. <strong style="color:var(--text);">Scaling: important.</strong></p>
+    </div>
+    <div class="card">
+      <h4 style="color:var(--canopy);">Tree-based models</h4>
+      <p style="color:var(--text-dim);margin-bottom:0;">Decision trees, Random Forest, gradient-boosted trees. Splits are threshold checks on one feature at a time. <strong style="color:var(--text);">Scaling: usually not needed.</strong></p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="preprocessing">
+  <div class="section-eyebrow"><span class="tag tag-warning">⚠️ Watch out</span></div>
+  <div class="section-head"><h2>Preprocessing <span class="gradient-text">checklist</span></h2></div>
+  <p class="prose">Scaling is off the list — but a few other things genuinely need attention before you train.</p>
+
+  <div id="preprocessAccordion">
+    <div class="accordion-item">
+      <div class="accordion-head"><span>Missing values</span><span class="accordion-chevron">▾</span></div>
+      <div class="accordion-body"><div class="accordion-body-inner">
+        <p>Handling of missing values has varied across scikit-learn estimators and versions, so for a robust beginner workflow, handle them explicitly rather than leaning on defaults.</p>
+        <ul class="prose" style="margin:0 0 10px;"><li><strong>Numerical columns</strong> → median imputation</li><li><strong>Categorical columns</strong> → most-frequent value, or an explicit "Unknown" category</li></ul>
+        <p style="margin-bottom:0;">Fit the imputer on training data only, then apply that same fitted transform to the test set.</p>
+      </div></div>
+    </div>
+    <div class="accordion-item">
+      <div class="accordion-head"><span>Categorical variables</span><span class="accordion-chevron">▾</span></div>
+      <div class="accordion-body"><div class="accordion-body-inner">
+        <p>Standard <code>RandomForestClassifier</code> / <code>RandomForestRegressor</code> expect numeric features, so categories need encoding first.</p>
+        <p><strong>Nominal</strong> columns with no order (Gender: Male / Female) → one-hot encoding, producing columns like <code>Gender_Male</code>, <code>Gender_Female</code>.</p>
+        <p style="margin-bottom:0;"><strong>Ordinal</strong> columns with a real order (Low / Medium / High) → ordinal encoding can make sense, preserving that ranking as 0 / 1 / 2. Some libraries, like CatBoost, handle categorical columns natively — but a standard scikit-learn Random Forest expects them pre-encoded.</p>
+      </div></div>
+    </div>
+    <div class="accordion-item">
+      <div class="accordion-head"><span>Outliers</span><span class="accordion-chevron">▾</span></div>
+      <div class="accordion-body"><div class="accordion-body-inner">
+        <p style="margin-bottom:0;">Random Forest is generally less sensitive to outliers than distance-based models, since splits depend on thresholds and ordering rather than raw distance. That said, extreme or erroneous values can still hurt data quality and are worth a look, not an automatic pass.</p>
+      </div></div>
+    </div>
+    <div class="accordion-item">
+      <div class="accordion-head"><span>Duplicate rows</span><span class="accordion-chevron">▾</span></div>
+      <div class="accordion-body"><div class="accordion-body-inner">
+        <p style="margin-bottom:0;">Duplicates can quietly inflate one row's influence on training — or worse, place identical rows on both sides of a train/test split. Worth investigating before training, not after.</p>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="panel panel-warning">
+    <h4 style="margin-bottom:8px;">🚨 Never fit preprocessing on the full dataset before splitting</h4>
+    <p>That leaks information from the test set into training, even in steps that have nothing to do with scaling.</p>
+    <div class="flow" style="margin:16px 0 0;">
+      <div class="flow-step" style="border-color:var(--rust);">Full dataset → fit scaler / imputer → <em>then</em> split &nbsp;<span style="color:var(--rust);">✗</span></div>
+      <div class="flow-arrow">vs.</div>
+      <div class="flow-step accent">Split first → fit on train only → transform test with it &nbsp;<span style="color:var(--canopy);">✓</span></div>
+    </div>
+    <p style="margin-top:12px;margin-bottom:0;">For Random Forest specifically, scaling itself isn't the concern — but leakage still applies to imputation, encoding, feature selection, and anything derived from the target.</p>
+  </div>
+
+  <h3 style="margin-top:36px;">The pipeline, end to end</h3>
+  <div class="flow">
+    <div class="flow-step">Raw dataset</div><div class="flow-arrow">↓</div>
+    <div class="flow-step accent">Train / test split</div><div class="flow-arrow">↓</div>
+    <div class="flow-step">Handle missing values</div><div class="flow-arrow">↓</div>
+    <div class="flow-step">Encode categorical features</div><div class="flow-arrow">↓</div>
+    <div class="flow-step">Feature engineering</div><div class="flow-arrow">↓</div>
+    <div class="flow-step accent">Train Random Forest</div><div class="flow-arrow">↓</div>
+    <div class="flow-step">Evaluate</div>
+  </div>
+  <p class="conceptual-note" style="text-align:center;">Scaling step intentionally omitted — Random Forest is tree-based.</p>
+</section>
+<section class="section" id="code-classification">
+  <div class="section-eyebrow"><span class="tag tag-code">💻 Code</span></div>
+  <div class="section-head"><h2>Python: <span class="gradient-text">classification</span></h2></div>
+  <p class="prose">A churn-prediction example using only numeric columns first, then the same idea wrapped in a full preprocessing pipeline once categorical columns and missing values enter the picture.</p>
+
   <div class="code-block">
-    <div class="code-block-head"><span class="fname">rf_classifier.py</span><button class="copy-btn">Copy</button></div>
+    <div class="code-block-head"><span class="fname">churn_classifier.py</span><button class="copy-btn">Copy</button></div>
     <pre><code class="lang-python">import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 
-# Load dataset
-df = pd.read_csv("dataset.csv")
+# Load data
+df = pd.read_csv("customer_churn.csv")
 
-X = df.drop(columns=["target"])
-y = df["target"]
+# Features and target
+X = df[["Age", "MonthlyCharges", "Tenure", "SupportCalls"]]
+y = df["Churn"]
 
+# Train / test split - stratify keeps the churn ratio consistent in both sets
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42, stratify=y
 )
 
-# Instantiate and fit Random Forest Classifier
-clf = RandomForestClassifier(
-    n_estimators=200,
-    max_depth=10,
-    min_samples_leaf=2,
-    random_state=42,
-    n_jobs=-1
+# Train the model
+model = RandomForestClassifier(
+    n_estimators=300,
+    max_depth=8,
+    random_state=42
 )
-clf.fit(X_train, y_train)
+model.fit(X_train, y_train)
 
-# Evaluate
-y_pred = clf.predict(X_test)
+# Predict and evaluate
+y_pred = model.predict(X_test)
 print("Accuracy:", accuracy_score(y_test, y_pred))
 print(classification_report(y_test, y_pred))
+print(confusion_matrix(y_test, y_pred))
+</code></pre>
+  </div>
+  <p class="prose">The split holds out 20% of rows the model never trains on. <code>n_estimators</code> sets how many trees to grow; <code>max_depth</code> caps how deep each one goes, which limits overfitting; <code>random_state</code> makes the randomness reproducible. The three metrics at the end cover overall accuracy, per-class precision / recall / F1, and the raw confusion matrix.</p>
+
+  <h3 style="margin-top:36px;">With real preprocessing</h3>
+  <p class="prose">Real churn data has categorical columns and missing values. <code>ColumnTransformer</code> plus <code>Pipeline</code> bundles every transformation with the model, fits everything on training data only, and reproduces cleanly on new data with a single call.</p>
+
+  <div class="code-block">
+    <div class="code-block-head"><span class="fname">churn_pipeline.py</span><button class="copy-btn">Copy</button></div>
+    <pre><code class="lang-python">from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import Pipeline
+from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import OneHotEncoder
+from sklearn.ensemble import RandomForestClassifier
+
+numeric_features = ["Age", "MonthlyCharges", "Tenure", "SupportCalls"]
+categorical_features = ["ContractType", "InternetService", "PaymentMethod"]
+
+numeric_transformer = Pipeline(steps=[
+    ("imputer", SimpleImputer(strategy="median"))
+    # No scaler here on purpose - Random Forest is tree-based
+])
+
+categorical_transformer = Pipeline(steps=[
+    ("imputer", SimpleImputer(strategy="most_frequent")),
+    ("onehot", OneHotEncoder(handle_unknown="ignore"))
+])
+
+preprocessor = ColumnTransformer(transformers=[
+    ("num", numeric_transformer, numeric_features),
+    ("cat", categorical_transformer, categorical_features)
+])
+
+model = Pipeline(steps=[
+    ("preprocessor", preprocessor),
+    ("classifier", RandomForestClassifier(n_estimators=300, random_state=42))
+])
+
+model.fit(X_train, y_train)
+predictions = model.predict(X_test)
+</code></pre>
+  </div>
+  <p class="prose">Notice there's deliberately no <code>StandardScaler</code> anywhere in the numeric branch.</p>
+</section>
+
+<section class="section" id="code-regression">
+  <div class="section-eyebrow"><span class="tag tag-code">💻 Code</span></div>
+  <div class="section-head"><h2>Python: <span class="gradient-text">regression</span></h2></div>
+  <p class="prose">Same algorithm, different estimator — predicting a price instead of a class.</p>
+
+  <div class="code-block">
+    <div class="code-block-head"><span class="fname">house_price_regressor.py</span><button class="copy-btn">Copy</button></div>
+    <pre><code class="lang-python">import numpy as np
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+
+reg = RandomForestRegressor(
+    n_estimators=300,
+    max_depth=12,
+    min_samples_split=4,
+    min_samples_leaf=2,
+    max_features=1.0,     # regressor default since sklearn 1.1: consider all features
+    random_state=42
+)
+reg.fit(X_train, y_train)
+preds = reg.predict(X_test)
+
+mae  = mean_absolute_error(y_test, preds)
+mse  = mean_squared_error(y_test, preds)
+rmse = np.sqrt(mse)
+r2   = r2_score(y_test, preds)
+
+print(f"MAE:  {mae:.2f}")
+print(f"RMSE: {rmse:.2f}")
+print(f"R2:   {r2:.3f}")
+</code></pre>
+  </div>
+
+  <div class="grid-4" style="margin-top:24px;">
+    <div class="card card-tile"><h4>MAE</h4><p style="color:var(--text-dim);margin-bottom:0;font-size:0.88rem;">Mean absolute error — average size of a miss, in the target's own units.</p></div>
+    <div class="card card-tile"><h4>MSE</h4><p style="color:var(--text-dim);margin-bottom:0;font-size:0.88rem;">Mean squared error — like MAE, but squares each miss, so big misses count more.</p></div>
+    <div class="card card-tile"><h4>RMSE</h4><p style="color:var(--text-dim);margin-bottom:0;font-size:0.88rem;">Square root of MSE — brings the error back to the original units.</p></div>
+    <div class="card card-tile"><h4>R²</h4><p style="color:var(--text-dim);margin-bottom:0;font-size:0.88rem;">Share of the target's variance the model explains; 1.0 is a perfect fit.</p></div>
+  </div>
+  <p class="conceptual-note" style="margin-top:14px;">Worth remembering: <code>RandomForestClassifier</code> defaults to <code>max_features="sqrt"</code>, while <code>RandomForestRegressor</code> defaults to <code>max_features=1.0</code> — all features — a change scikit-learn made in version 1.1.</p>
+</section>
+
+<section class="section" id="splits">
+  <div class="section-eyebrow"><span class="tag tag-viz">📊 Visualization</span></div>
+  <div class="section-head"><h2>How splits get chosen: <span class="gradient-text">Gini impurity</span></h2></div>
+  <div class="prose">
+    <p>Every split is chosen to make the resulting nodes as "pure" as possible. The standard measure for classification splits is <strong>Gini impurity</strong>:</p>
+  </div>
+  <p style="font-family:var(--font-mono);font-size:1.1rem;text-align:center;color:var(--text);background:var(--surface);padding:16px;border-radius:var(--r-tech);border:1px solid var(--border);max-width:none;">Gini = 1 − Σ pᵢ²</p>
+  <p class="prose">where <code>pᵢ</code> is the fraction of samples in the node belonging to class <em>i</em>. A node with 10 samples, all one class, has Gini = 0 — perfectly pure. A node split 5/5 between two classes has Gini = 1 − (0.5² + 0.5²) = 0.5 — as mixed as two classes get.</p>
+
+  <div class="card" style="margin-top:26px;">
+    <h4 style="margin-bottom:4px;">Try it — the Gini calculator</h4>
+    <div class="gini-box">
+      <div>
+        <div class="slider-row">
+          <label>Class A count <span class="val" id="giniAVal">6</span></label>
+          <input type="range" id="giniA" min="0" max="20" value="6">
+        </div>
+        <div class="slider-row">
+          <label>Class B count <span class="val" id="giniBVal">4</span></label>
+          <input type="range" id="giniB" min="0" max="20" value="4">
+        </div>
+        <div class="gini-bar"><div class="gini-a" id="giniBarA"></div><div class="gini-b" id="giniBarB"></div></div>
+      </div>
+      <div class="gini-result">
+        <div class="gini-value" id="giniValue">0.48</div>
+        <div style="color:var(--text-faint);font-size:0.85rem;">Gini impurity</div>
+        <div class="gini-formula" id="giniFormula">1 − (0.60² + 0.40²)</div>
+      </div>
+    </div>
+  </div>
+
+  <p class="prose" style="margin-top:24px;"><strong>Entropy</strong> (<code>criterion="entropy"</code> or <code>"log_loss"</code>) measures the same idea a different way: −Σ pᵢ log₂(pᵢ). In practice it tends to pick similar splits to Gini, at slightly higher computational cost. Regression trees have no class purity to measure at all — by default they split to minimize variance (<code>criterion="squared_error"</code>), choosing whichever threshold makes each side's target values as tightly clustered as possible.</p>
+</section>
+
+<section class="section" id="best-split">
+  <div class="section-eyebrow"><span class="tag tag-concept">🧠 Concept</span></div>
+  <div class="section-head"><h2>Finding the best split, and growing the tree</h2></div>
+  <p class="prose">For a numeric feature, the tree tests a range of candidate thresholds and keeps whichever drops impurity the most.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Candidate threshold</th><th>Weighted impurity</th><th></th></tr></thead>
+      <tbody>
+        <tr><td>Age &lt; 25</td><td>0.46</td><td></td></tr>
+        <tr><td>Age &lt; 30</td><td>0.31</td><td style="color:var(--canopy);font-weight:600;">✓ best split</td></tr>
+        <tr><td>Age &lt; 35</td><td>0.38</td><td></td></tr>
+        <tr><td>Age &lt; 40</td><td>0.44</td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="prose">The tree repeats this search — across every feature in its random subset, and every threshold within each — recursively at every new node, until it hits a stopping rule.</p>
+
+  <h3 style="margin-top:36px;">How a tree grows</h3>
+  <div class="tree-viz" id="growthTree">
+    <ul>
+      <li>
+        <div class="tnode root clickable" data-explain="The <strong>root</strong> holds the full training sample. The tree searches for the single best split across a random subset of features.">Root — all samples</div>
+        <ul>
+          <li>
+            <div class="tnode clickable" data-explain="A child node after the first split. If it's still impure and has enough samples, the tree searches for another split inside it — recursively.">Split</div>
+            <ul>
+              <li><div class="tnode leaf clickable" data-explain="A <strong>leaf</strong> — splitting stopped here because a rule was hit: max depth reached, too few samples to split further, or the node was already pure.">Leaf</div></li>
+              <li><div class="tnode leaf clickable" data-explain="Another <strong>leaf</strong>, on the other side of that second split.">Leaf</div></li>
+            </ul>
+          </li>
+          <li>
+            <div class="tnode clickable" data-explain="The other child of the root, splitting again on its own best feature and threshold.">Split</div>
+            <ul>
+              <li><div class="tnode leaf clickable" data-explain="A <strong>leaf</strong> that stopped growing under the same kind of stopping rule.">Leaf</div></li>
+              <li><div class="tnode leaf clickable" data-explain="The last <strong>leaf</strong> in this small example tree.">Leaf</div></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <div class="tree-explain" id="growthExplain">Click any node to see why the tree kept splitting, or stopped.</div>
+  </div>
+  <p class="prose">Growth stops at a node when a rule like <code>max_depth</code>, <code>min_samples_split</code>, or <code>min_samples_leaf</code> is hit, or when the node is already pure — next up is exactly what each of those controls.</p>
+</section>
+<section class="section" id="hyperparameters">
+  <div class="section-eyebrow"><span class="tag tag-concept">🧠 Concept</span></div>
+  <div class="section-head"><h2>Key <span class="gradient-text">hyperparameters</span></h2></div>
+  <p class="prose">Seven knobs do most of the work. Here's what each one controls.</p>
+  <div class="grid-3" id="hyperCards"></div>
+
+  <h3 style="margin-top:44px;">Feel the trade-offs</h3>
+  <p class="prose">These sliders are a <strong>conceptual illustration</strong>, not measurements from a real trained model — move them to build intuition for the trade-offs, not to read off actual metrics.</p>
+  <div class="card" style="margin-top:20px;">
+    <div class="slider-row">
+      <label>n_estimators <span class="val" id="valNEst">100</span></label>
+      <input type="range" id="slNEst" min="10" max="500" value="100" step="10">
+    </div>
+    <div class="slider-row">
+      <label>max_depth <span class="val" id="valDepth">10</span></label>
+      <input type="range" id="slDepth" min="1" max="30" value="10">
+    </div>
+    <div class="slider-row">
+      <label>min_samples_leaf <span class="val" id="valLeaf">1</span></label>
+      <input type="range" id="slLeaf" min="1" max="50" value="1">
+    </div>
+    <div class="slider-row">
+      <label>max_features (%) <span class="val" id="valFeat">70</span></label>
+      <input type="range" id="slFeat" min="10" max="100" value="70">
+    </div>
+    <div style="margin-top:24px;">
+      <div class="meter"><div class="meter-label"><span>Model complexity</span></div><div class="meter-track"><div class="meter-fill complexity" id="barComplexity" style="width:50%;"></div></div></div>
+      <div class="meter"><div class="meter-label"><span>Training time</span></div><div class="meter-track"><div class="meter-fill time" id="barTime" style="width:30%;"></div></div></div>
+      <div class="meter"><div class="meter-label"><span>Variance (overfit risk)</span></div><div class="meter-track"><div class="meter-fill variance" id="barVariance" style="width:40%;"></div></div></div>
+      <div class="meter"><div class="meter-label"><span>Bias (underfit risk)</span></div><div class="meter-track"><div class="meter-fill bias" id="barBias" style="width:30%;"></div></div></div>
+    </div>
+    <p class="conceptual-note">Conceptual illustration only — not measured from a real trained model.</p>
+  </div>
+</section>
+
+<section class="section" id="bias-variance">
+  <div class="section-eyebrow"><span class="tag tag-concept">🧠 Concept</span></div>
+  <div class="section-head"><h2>Bias, variance, and <span class="gradient-text">why this actually works</span></h2></div>
+  <div class="prose">
+    <p><strong>High bias</strong> means a model is too simple and underfits, missing real patterns. <strong>High variance</strong> means a model is too sensitive to its exact training data and overfits — an unrestricted single decision tree is a textbook example of the second kind.</p>
+  </div>
+  <div class="split" style="margin:26px 0;align-items:stretch;">
+    <div class="card" style="text-align:center;"><div style="font-size:2rem;">🌳</div><h4>One tree</h4><p style="color:var(--text-dim);margin-bottom:0;">High variance — small data changes swing the whole tree.</p></div>
+    <div class="card" style="text-align:center;border-color:rgba(95,192,138,0.4);"><div style="font-size:2rem;">🌲🌲🌲🌲🌲</div><h4>Many trees, averaged</h4><p style="color:var(--text-dim);margin-bottom:0;">Reduced variance — individual swings cancel out.</p></div>
+  </div>
+  <p class="prose"><strong>Bagging is fundamentally a variance-reduction technique.</strong> It doesn't make any single tree smarter — it makes the ensemble's average more stable.</p>
+
+  <h3 style="margin-top:36px;">Why averaging opinions works</h3>
+  <p class="prose">Picture 100 people independently guessing the answer to something hard — how many jellybeans fill a jar, say. Any one guess might be far off, but the <em>average</em> guess across all 100 tends to land close to the truth, provided the guesses are reasonably informed and, crucially, wrong in <em>different</em> directions.</p>
+  <p class="prose">That last part is why Random Forest bothers with two sources of randomness at all. If every tree made exactly the same mistakes, averaging wouldn't help — you'd just get the same wrong answer, more confidently. Bootstrap sampling and random feature selection exist specifically to make the trees' errors less correlated with each other.</p>
+  <div class="split" style="margin-top:20px;">
+    <div class="card"><h4 style="color:var(--rust);">Highly correlated trees</h4><p style="color:var(--text-dim);margin-bottom:0;">Similar mistakes, same blind spots → averaging barely helps.</p></div>
+    <div class="card"><h4 style="color:var(--canopy);">Diverse, decorrelated trees</h4><p style="color:var(--text-dim);margin-bottom:0;">Different mistakes, different blind spots → averaging helps a lot.</p></div>
+  </div>
+</section>
+
+<section class="section" id="oob">
+  <div class="section-eyebrow"><span class="tag tag-concept">🧠 Concept</span></div>
+  <div class="section-head"><h2>Out-of-bag <span class="gradient-text">evaluation</span></h2></div>
+  <p class="prose">Each bootstrap sample leaves roughly 37% of rows unused for that particular tree. Those leftover rows are that tree's <strong>out-of-bag (OOB)</strong> samples — and since the tree never trained on them, they act like a free, built-in validation set.</p>
+  <div class="flow">
+    <div class="flow-step accent">Dataset</div><div class="flow-arrow">↓</div>
+    <div class="flow-branch">
+      <div class="flow-step">Selected → trains this tree</div>
+      <div class="flow-step">Not selected → out-of-bag for this tree</div>
+    </div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-step">Each row gets predicted only by trees that never saw it</div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-step accent">OOB score</div>
+  </div>
+  <div class="code-block">
+    <div class="code-block-head"><span class="fname">oob_example.py</span><button class="copy-btn">Copy</button></div>
+    <pre><code class="lang-python">model = RandomForestClassifier(
+    n_estimators=200,
+    oob_score=True,
+    random_state=42
+)
+model.fit(X_train, y_train)
+print("OOB score:", model.oob_score_)
+</code></pre>
+  </div>
+  <p class="prose">OOB scoring is handy when data is limited and carving out a separate validation set feels wasteful. It isn't a replacement for a true held-out test set, but it's a useful, nearly-free sanity check along the way.</p>
+</section>
+
+<section class="section" id="importance">
+  <div class="section-eyebrow"><span class="tag tag-viz">📊 Visualization</span></div>
+  <div class="section-head"><h2>Feature <span class="gradient-text">importance</span></h2></div>
+  <p class="prose">Random Forest can rank which features mattered most to its predictions.</p>
+  <div class="chart-wrap">
+    <canvas id="importanceChart" height="220"></canvas>
+    <p class="chart-caption"><code>model.feature_importances_</code> — impurity-based importance, illustrative values.</p>
+  </div>
+  <div class="panel panel-warning">
+    <h4 style="margin-bottom:8px;">Read this with one caveat</h4>
+    <p style="margin-bottom:0;">Impurity-based importance can be biased toward high-cardinality or continuous features, simply because they offer more possible split points to look useful at.</p>
+  </div>
+
+  <h3 style="margin-top:36px;">A more reliable alternative: permutation importance</h3>
+  <p class="prose">Shuffle one column's values — breaking its relationship with the target — and see how much the model's score drops. A bigger drop means the feature mattered more.</p>
+  <div class="card">
+    <div class="btn-row" style="margin-top:0;">
+      <button class="btn" id="permReset">Reset</button>
+      <button class="btn" id="permShuffleA">Shuffle feature A</button>
+      <button class="btn" id="permShuffleB">Shuffle feature B</button>
+    </div>
+    <div class="meter">
+      <div class="meter-label"><span>Model score</span><span id="permScoreLabel">0.86</span></div>
+      <div class="meter-track"><div class="meter-fill complexity" id="permBar" style="width:86%;"></div></div>
+    </div>
+    <p class="prose" id="permConclusion" style="margin-top:14px;margin-bottom:0;">Baseline score with all features intact: <strong>0.86</strong>.</p>
+  </div>
+  <div class="code-block">
+    <div class="code-block-head"><span class="fname">permutation_importance.py</span><button class="copy-btn">Copy</button></div>
+    <pre><code class="lang-python">import pandas as pd
+from sklearn.inspection import permutation_importance
+
+# Impurity-based (built in)
+importances = pd.Series(model.feature_importances_, index=X.columns)
+print(importances.sort_values(ascending=False))
+
+# Permutation importance - more reliable for correlated / high-cardinality features
+result = permutation_importance(
+    model, X_test, y_test, n_repeats=10, random_state=42
+)
+perm_importances = pd.Series(result.importances_mean, index=X.columns)
+print(perm_importances.sort_values(ascending=False))
+</code></pre>
+  </div>
+</section>
+<section class="section" id="vs-tree">
+  <div class="section-eyebrow"><span class="tag tag-concept">🧠 Concept</span></div>
+  <div class="section-head"><h2>Random Forest vs <span class="gradient-text">a single decision tree</span></h2></div>
+  <div style="text-align:center;font-size:1.6rem;margin-bottom:22px;color:var(--text-dim);">🌳 &nbsp;vs&nbsp; 🌲🌲🌲🌲🌲🌲</div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th></th><th>Decision tree</th><th>Random Forest</th></tr></thead>
+      <tbody>
+        <tr><td>Number of trees</td><td>One</td><td>Many</td></tr>
+        <tr><td>Variance</td><td>Higher</td><td>Lower</td></tr>
+        <tr><td>Overfitting</td><td>More likely</td><td>Less likely</td></tr>
+        <tr><td>Interpretability</td><td>High</td><td>Lower</td></tr>
+        <tr><td>Stability</td><td>Lower</td><td>Higher</td></tr>
+        <tr><td>Training time</td><td>Lower</td><td>Higher</td></tr>
+        <tr><td>Prediction time</td><td>Lower</td><td>Higher</td></tr>
+        <tr><td>Accuracy</td><td>Often lower</td><td>Often higher</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="section" id="vs-models">
+  <div class="section-eyebrow"><span class="tag tag-concept">🧠 Concept</span></div>
+  <div class="section-head"><h2>Random Forest vs <span class="gradient-text">other models</span></h2></div>
+  <p class="prose">No model is universally better — here's how Random Forest trades off against the usual alternatives.</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Model</th><th>How it compares</th></tr></thead>
+      <tbody>
+        <tr><td>Logistic regression</td><td>Fast and interpretable via coefficients, but assumes a linear boundary and typically needs scaling — Random Forest captures non-linearity without either requirement.</td></tr>
+        <tr><td>KNN</td><td>Distance-based and scaling-sensitive, and struggles as dimensionality grows; Random Forest's axis-aligned splits sidestep both issues.</td></tr>
+        <tr><td>SVM</td><td>Strong with clear margins and kernels, but needs scaling, careful kernel choice, and can be slow to train on large datasets.</td></tr>
+        <tr><td>Gradient boosting</td><td>Builds trees sequentially to reduce bias rather than variance — often more accurate with tuning, but more sensitive to hyperparameters and easier to overfit.</td></tr>
+        <tr><td>XGBoost</td><td>A regularized, optimized boosting implementation; typically edges out Random Forest on tabular accuracy given enough tuning time.</td></tr>
+        <tr><td>LightGBM</td><td>Histogram-based, leaf-wise boosting — very fast on large tabular datasets, though it needs care against overfitting on small ones.</td></tr>
+        <tr><td>CatBoost</td><td>Boosting with native categorical feature handling — convenient with many categorical columns, and competitive out-of-the-box.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="section" id="when-to-use">
+  <div class="section-eyebrow"><span class="tag tag-tip">💡 Tip</span></div>
+  <div class="section-head"><h2>When to <span class="gradient-text">use it</span> — and when not to</h2></div>
+  <div class="split" style="align-items:start;">
+    <div>
+      <h4 style="color:var(--canopy);margin-bottom:14px;">A great choice when</h4>
+      <ul class="check-list good">
+        <li><span class="ico">✅</span> Tabular data</li>
+        <li><span class="ico">✅</span> Non-linear relationships</li>
+        <li><span class="ico">✅</span> Mixed feature effects</li>
+        <li><span class="ico">✅</span> You need a strong baseline fast</li>
+        <li><span class="ico">✅</span> Minimal scaling / preprocessing appetite</li>
+        <li><span class="ico">✅</span> Feature importance is useful to you</li>
+        <li><span class="ico">✅</span> Classification or regression, either one</li>
+      </ul>
+    </div>
+    <div>
+      <h4 style="color:var(--rust);margin-bottom:14px;">May not be the best fit when</h4>
+      <ul class="check-list bad">
+        <li><span class="ico">❌</span> Extremely high-dimensional sparse text data</li>
+        <li><span class="ico">❌</span> Very large-scale data where boosting may generalize better</li>
+        <li><span class="ico">❌</span> Strong sequential / time-series structure needs modeling</li>
+        <li><span class="ico">❌</span> A compact, highly interpretable model is required</li>
+      </ul>
+    </div>
+  </div>
+  <p class="conceptual-note" style="margin-top:20px;">Model selection always depends on the dataset and the objective — treat these as starting points, not rules.</p>
+</section>
+
+<section class="section" id="pros-cons">
+  <div class="section-eyebrow"><span class="tag tag-tip">💡 Tip</span></div>
+  <div class="section-head"><h2>Advantages & <span class="gradient-text">disadvantages</span></h2></div>
+  <div class="split" style="align-items:start;">
+    <div class="card" style="background:var(--canopy-soft);border-color:rgba(95,192,138,0.3);">
+      <h4 style="color:var(--canopy);margin-bottom:14px;">Advantages</h4>
+      <ul class="prose" style="margin:0;padding-left:1.1em;">
+        <li>Strong baseline with minimal tuning</li>
+        <li>Handles non-linearity and feature interactions naturally</li>
+        <li>Lower overfitting risk than a single unrestricted tree</li>
+        <li>Little need for feature scaling</li>
+        <li>Works for both classification and regression</li>
+        <li>Robust to noisy features and outliers</li>
+        <li>Trees train independently, so training parallelizes well</li>
+        <li>Comes with built-in feature importance</li>
+      </ul>
+    </div>
+    <div class="card" style="background:var(--rust-soft);border-color:rgba(226,102,75,0.3);">
+      <h4 style="color:var(--rust);margin-bottom:14px;">Disadvantages</h4>
+      <ul class="prose" style="margin:0;padding-left:1.1em;">
+        <li>Computationally expensive to train and store</li>
+        <li>Less interpretable than a single small tree</li>
+        <li>Larger memory footprint</li>
+        <li>Slower predictions than one tree — every tree runs at inference</li>
+        <li>Impurity-based feature importance can mislead</li>
+        <li>Not usually ideal for extremely high-dimensional sparse data</li>
+        <li>Still benefits from hyperparameter tuning on many datasets</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<section class="section" id="mistakes">
+  <div class="section-eyebrow"><span class="tag tag-warning">⚠️ Watch out</span></div>
+  <div class="section-head"><h2>Common <span class="gradient-text">mistakes</span></h2></div>
+  <div id="mistakeList"></div>
+</section>
+
+<section class="section" id="imbalance">
+  <div class="section-eyebrow"><span class="tag tag-warning">⚠️ Watch out</span></div>
+  <div class="section-head"><h2>Class <span class="gradient-text">imbalance</span></h2></div>
+  <p class="prose">Say 95% of customers don't churn and 5% do. A model that predicts "no churn" for every single row scores <strong>95% accuracy</strong> — and is completely useless.</p>
+  <div style="display:flex;height:38px;border-radius:9px;overflow:hidden;border:1px solid var(--border);margin:20px 0;">
+    <div style="width:95%;background:var(--surface-2);display:flex;align-items:center;justify-content:center;font-size:0.82rem;color:var(--text-dim);">95% no churn</div>
+    <div style="width:5%;background:var(--rust);display:flex;align-items:center;justify-content:center;font-size:0.7rem;color:#2a0d07;min-width:34px;">5%</div>
+  </div>
+  <p class="prose">Accuracy alone hides this. Better metrics for an imbalanced target:</p>
+  <ul class="check-list good" style="margin-bottom:20px;">
+    <li><span class="ico">•</span> <strong>Precision</strong> — of everything predicted positive, how much actually was</li>
+    <li><span class="ico">•</span> <strong>Recall</strong> — of everything actually positive, how much got caught</li>
+    <li><span class="ico">•</span> <strong>F1-score</strong> — the harmonic mean of precision and recall</li>
+    <li><span class="ico">•</span> <strong>ROC-AUC</strong> — ranking quality across all thresholds</li>
+    <li><span class="ico">•</span> <strong>PR-AUC</strong> — often more informative than ROC-AUC when positives are rare</li>
+  </ul>
+  <div class="code-block">
+    <div class="code-block-head"><span class="fname">imbalance_aware.py</span><button class="copy-btn">Copy</button></div>
+    <pre><code class="lang-python">model = RandomForestClassifier(
+    n_estimators=300,
+    class_weight="balanced",   # up-weights the minority class during training
+    random_state=42
+)
+</code></pre>
+  </div>
+  <p class="prose"><code>class_weight="balanced"</code> reweights classes inversely to their frequency, which can help the model pay real attention to the minority class — worth trying, but check it against the metrics above rather than assuming it fixes everything.</p>
+</section>
+
+<section class="section" id="eval-dashboard">
+  <div class="section-eyebrow"><span class="tag tag-viz">📊 Visualization</span></div>
+  <div class="section-head"><h2>Model evaluation <span class="gradient-text">dashboard</span></h2></div>
+  <p class="prose">A conceptual dashboard with illustrative sample values — not numbers from a real run.</p>
+
+  <h4 style="margin-bottom:14px;">Classification</h4>
+  <div class="grid-4" id="clfDashboard"></div>
+  <div class="confusion" id="confusionMatrix"></div>
+
+  <h4 style="margin:36px 0 14px;">Regression</h4>
+  <div class="grid-3">
+    <div class="stat-tile"><div class="n">2.4L</div><div class="l">MAE</div></div>
+    <div class="stat-tile"><div class="n">3.1L</div><div class="l">RMSE</div></div>
+    <div class="stat-tile"><div class="n">0.87</div><div class="l">R²</div></div>
+  </div>
+  <p class="conceptual-note" style="text-align:center;margin-top:18px;">Illustrative example values throughout this dashboard.</p>
+</section>
+<section class="section" id="project">
+  <div class="section-eyebrow"><span class="tag tag-code">💻 Code</span></div>
+  <div class="section-head"><h2>End-to-end project: <span class="gradient-text">predict customer churn</span></h2></div>
+  <p class="prose">Columns: Age, Tenure, MonthlyCharges, SupportCalls, ContractType, InternetService, PaymentMethod → Churn. Click through the workflow, then see it as one script below.</p>
+  <div id="projectSteps"></div>
+
+  <div class="code-block" style="margin-top:30px;">
+    <div class="code-block-head"><span class="fname">churn_project.py</span><button class="copy-btn">Copy</button></div>
+    <pre><code class="lang-python">import pandas as pd
+import joblib
+from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import Pipeline
+from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import OneHotEncoder
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import classification_report, confusion_matrix
+from sklearn.inspection import permutation_importance
+
+# 1-3: load, explore, check missing values
+df = pd.read_csv("customer_churn.csv")
+print(df.info())
+print(df.isnull().sum())
+
+# 4-5: separate X/y, train/test split
+X = df.drop(columns=["Churn"])
+y = df["Churn"]
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42, stratify=y
+)
+
+# 6: identify numeric vs categorical columns
+numeric_features = ["Age", "Tenure", "MonthlyCharges", "SupportCalls"]
+categorical_features = ["ContractType", "InternetService", "PaymentMethod"]
+
+# 7: preprocessing pipeline (no scaler - tree-based model)
+preprocessor = ColumnTransformer([
+    ("num", SimpleImputer(strategy="median"), numeric_features),
+    ("cat", Pipeline([
+        ("imputer", SimpleImputer(strategy="most_frequent")),
+        ("onehot", OneHotEncoder(handle_unknown="ignore"))
+    ]), categorical_features)
+])
+
+model = Pipeline([
+    ("preprocessor", preprocessor),
+    ("classifier", RandomForestClassifier(random_state=42, class_weight="balanced"))
+])
+
+# 8-9: train, predict
+model.fit(X_train, y_train)
+y_pred = model.predict(X_test)
+
+# 10-11: evaluate, confusion matrix
+print(classification_report(y_test, y_pred))
+print(confusion_matrix(y_test, y_pred))
+
+# 12: permutation importance (works cleanly on the whole pipeline)
+result = permutation_importance(model, X_test, y_test, n_repeats=10, random_state=42)
+print(pd.Series(result.importances_mean, index=X_test.columns).sort_values(ascending=False))
+
+# 13: tune hyperparameters
+param_grid = {
+    "classifier__n_estimators": [200, 400],
+    "classifier__max_depth": [8, 12, None],
+    "classifier__min_samples_leaf": [1, 2, 4],
+}
+search = GridSearchCV(model, param_grid, cv=5, scoring="f1", n_jobs=-1)
+search.fit(X_train, y_train)
+
+# 14-15: final model, save
+final_model = search.best_estimator_
+joblib.dump(final_model, "churn_model.joblib")
 </code></pre>
   </div>
 </section>
 
+<section class="section" id="interview">
+  <div class="section-eyebrow"><span class="tag tag-interview">🎯 Interview prep</span></div>
+  <div class="section-head"><h2>Interview <span class="gradient-text">questions</span></h2></div>
+  <p class="prose">Fifteen questions worth being able to answer cleanly. Click to expand.</p>
+  <div id="interviewAccordion"></div>
+</section>
+
+<section class="section" id="quiz">
+  <div class="section-eyebrow"><span class="tag tag-interview">🎯 Interview prep</span></div>
+  <div class="section-head"><h2>Quick <span class="gradient-text">quiz</span></h2></div>
+  <div class="quiz-score-bar"><span>Test yourself</span><span class="score" id="quizScore">Score: 0 / 6</span></div>
+  <div id="quizContainer"></div>
+  <div class="btn-row"><button class="btn" id="quizRestart">Restart quiz</button></div>
+</section>
 <section class="section" id="cheatsheet">
-  <div class="section-eyebrow"><span class="tag tag-tip">💡 Summary</span></div>
-  <div class="section-head"><h2>Quick Revision <span class="gradient-text">Cheat Sheet</span></h2></div>
+  <div class="section-eyebrow"><span class="tag tag-tip">💡 Tip</span></div>
+  <div class="section-head"><h2>Quick revision <span class="gradient-text">cheat sheet</span></h2></div>
   <div class="card" style="background:var(--surface-2);">
-    <p style="font-family:var(--font-display);font-size:1.3rem;color:var(--text);text-align:center;margin-bottom:26px;">
-      Random Forest = <span class="gradient-text">Bagging + Random Feature Selection + Multiple Trees + Majority Voting / Averaging</span>
-    </p>
+    <p style="font-family:var(--font-display);font-size:1.3rem;color:var(--text);text-align:center;margin-bottom:26px;">Random Forest = <span class="gradient-text">Bagging + Random Feature Selection + Multiple Trees + Aggregation</span></p>
+    <div class="grid-3">
+      <div class="stat-tile"><div class="n" style="font-size:1.05rem;">Majority voting</div><div class="l">Classification</div></div>
+      <div class="stat-tile"><div class="n" style="font-size:1.05rem;">Averaging</div><div class="l">Regression</div></div>
+      <div class="stat-tile"><div class="n" style="font-size:1.05rem;">Usually not required</div><div class="l">Feature scaling</div></div>
+    </div>
+    <h4 style="margin:26px 0 10px;">Hyperparameters that matter most</h4>
+    <p class="prose" style="font-family:var(--font-mono);font-size:0.86rem;max-width:none;">n_estimators · max_depth · max_features · min_samples_split · min_samples_leaf · bootstrap · class_weight</p>
+    <h4 style="margin:22px 0 6px;">Main benefit</h4>
+    <p style="font-family:var(--font-display);font-size:1.5rem;margin-bottom:0;" class="gradient-text">Variance reduction</p>
+  </div>
+</section>
+
+<section class="section" id="final" style="border-bottom:none;">
+  <div class="final-banner">
+    <div style="font-size:2.2rem;">🌲</div>
+    <p style="color:var(--text-dim);margin:14px 0 0;">One decision tree = one opinion</p>
+    <div class="final-forest gradient-text" style="margin:26px 0;">🌲🌲🌲🌲🌲🌲</div>
+    <p style="color:var(--text-dim);margin-bottom:0;">Random Forest = many diverse opinions, combined into one steadier prediction</p>
+    <p class="final-quote">"Random Forest does not create one perfect tree. It creates many different trees — and lets them vote."</p>
   </div>
 </section>
 </main>
 
-<footer>Decode AI Community Resource • Authored by Himanshu Pandey</footer>
-
+<footer>Built as an interactive Random Forest course — from decision trees to ensemble learning, in one page. 🌲</footer>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
+
+  /* ---------- progress bar ---------- */
   var progressBar = document.getElementById('progressBar');
   function updateProgress(){
     var h = document.documentElement;
-    var scrollTop = window.scrollY || document.body.scrollTop;
+    var scrollTop = h.scrollTop || document.body.scrollTop;
     var scrollHeight = (h.scrollHeight || document.body.scrollHeight) - h.clientHeight;
     var pct = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
     if (progressBar) progressBar.style.width = pct + '%';
   }
   window.addEventListener('scroll', updateProgress, { passive: true });
+  updateProgress();
+
+  /* ---------- nav: build trail list ---------- */
+  var NAV_ITEMS = [
+    {id:'hero', label:'Overview'},
+    {id:'problem', label:'Why not one tree?'},
+    {id:'diversity', label:'One tree, one opinion'},
+    {id:'definition', label:'What is Random Forest?'},
+    {id:'bootstrap', label:'Bootstrap sampling'},
+    {id:'features', label:'Random feature selection'},
+    {id:'workflow', label:'Complete workflow'},
+    {id:'classification', label:'Classification: voting'},
+    {id:'regression', label:'Regression: averaging'},
+    {id:'scaling', label:'Feature scaling'},
+    {id:'preprocessing', label:'Preprocessing checklist'},
+    {id:'code-classification', label:'Code: classification'},
+    {id:'code-regression', label:'Code: regression'},
+    {id:'splits', label:'Gini impurity'},
+    {id:'best-split', label:'Best split & tree growth'},
+    {id:'hyperparameters', label:'Hyperparameters'},
+    {id:'bias-variance', label:'Bias, variance & why it works'},
+    {id:'oob', label:'Out-of-bag evaluation'},
+    {id:'importance', label:'Feature importance'},
+    {id:'vs-tree', label:'RF vs decision tree'},
+    {id:'vs-models', label:'RF vs other models'},
+    {id:'when-to-use', label:'When to use it'},
+    {id:'pros-cons', label:'Pros & cons'},
+    {id:'mistakes', label:'Common mistakes'},
+    {id:'imbalance', label:'Class imbalance'},
+    {id:'eval-dashboard', label:'Evaluation dashboard'},
+    {id:'project', label:'End-to-end project'},
+    {id:'interview', label:'Interview questions'},
+    {id:'quiz', label:'Quick quiz'},
+    {id:'cheatsheet', label:'Cheat sheet'},
+    {id:'final', label:'The big idea'}
+  ];
+  var trailList = document.getElementById('trailList');
+  if (trailList) {
+    trailList.innerHTML = NAV_ITEMS.map(function(item){
+      return '<li class="trail-item" data-label="' + item.label.toLowerCase() + '">' +
+             '<a class="trail-link" href="#' + item.id + '" data-target="' + item.id + '">' +
+             '<span class="dot"></span><span>' + item.label + '</span></a></li>';
+    }).join('');
+  }
+
+  var navSearch = document.getElementById('navSearch');
+  if (navSearch) {
+    navSearch.addEventListener('input', function(){
+      var q = navSearch.value.trim().toLowerCase();
+      document.querySelectorAll('#trailList .trail-item').forEach(function(li){
+        var label = li.getAttribute('data-label') || '';
+        li.classList.toggle('hide', q.length > 0 && label.indexOf(q) === -1);
+      });
+    });
+  }
+
+  var sidenav = document.getElementById('sidenav');
+  var navToggle = document.getElementById('navToggle');
+  var navOverlay = document.getElementById('navOverlay');
+  function closeNav(){ if (sidenav) sidenav.classList.remove('open'); if (navOverlay) navOverlay.classList.remove('show'); }
+  if (navToggle) navToggle.addEventListener('click', function(){
+    sidenav.classList.toggle('open');
+    navOverlay.classList.toggle('show');
+  });
+  if (navOverlay) navOverlay.addEventListener('click', closeNav);
+  document.addEventListener('click', function(e){
+    var link = e.target.closest('.trail-link');
+    if (link && window.innerWidth <= 980) closeNav();
+  });
+
+  var sections = NAV_ITEMS.map(function(i){ return document.getElementById(i.id); }).filter(Boolean);
+  var trailLinks = {};
+  document.querySelectorAll('.trail-link').forEach(function(a){ trailLinks[a.getAttribute('data-target')] = a; });
+  if ('IntersectionObserver' in window && sections.length) {
+    var spy = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        var link = trailLinks[entry.target.id];
+        if (!link || !entry.isIntersecting) return;
+        document.querySelectorAll('.trail-link.active').forEach(function(l){ l.classList.remove('active'); });
+        link.classList.add('active');
+      });
+    }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+    sections.forEach(function(s){ spy.observe(s); });
+  }
+
+  /* ---------- back to top ---------- */
+  var backToTop = document.getElementById('backToTop');
+  window.addEventListener('scroll', function(){
+    if (backToTop) backToTop.classList.toggle('show', window.scrollY > 600);
+  }, { passive: true });
+  if (backToTop) backToTop.addEventListener('click', function(){ window.scrollTo({ top: 0, behavior: 'smooth' }); });
+
+  /* ---------- lightweight python syntax highlight ---------- */
+  function highlightPython(code){
+    var esc = code.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    var lines = esc.split('\n');
+    var kw = /\b(import|from|as|def|return|if|elif|else|for|while|in|not|and|or|class|try|except|with|print|True|False|None|is|lambda)\b/g;
+    lines = lines.map(function(line){
+      var hashIdx = line.indexOf('#');
+      var codePart = hashIdx >= 0 ? line.slice(0, hashIdx) : line;
+      var commentPart = hashIdx >= 0 ? line.slice(hashIdx) : '';
+      codePart = codePart.replace(/("[^"]*"|'[^']*')/g, '<span class="tok-str">$1</span>');
+      codePart = codePart.replace(kw, '<span class="tok-kw">$1</span>');
+      codePart = codePart.replace(/\b(\d+\.?\d*)\b/g, '<span class="tok-num">$1</span>');
+      if (commentPart) commentPart = '<span class="tok-com">' + commentPart + '</span>';
+      return codePart + commentPart;
+    });
+    return lines.join('\n');
+  }
+  document.querySelectorAll('.code-block code').forEach(function(block){
+    block.innerHTML = highlightPython(block.textContent);
+  });
+
+  /* ---------- copy buttons ---------- */
+  function fallbackCopy(text){
+    var ta = document.createElement('textarea');
+    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta);
+  }
+  document.querySelectorAll('.copy-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var block = btn.closest('.code-block');
+      var codeEl = block ? block.querySelector('code') : null;
+      var text = codeEl ? codeEl.textContent : '';
+      var done = function(){
+        var old = btn.textContent;
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(function(){ btn.textContent = old; btn.classList.remove('copied'); }, 1500);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done).catch(function(){ fallbackCopy(text); done(); });
+      } else {
+        fallbackCopy(text); done();
+      }
+    });
+  });
+
+  /* ---------- generic clickable tree ---------- */
+  function initClickableTree(treeSel, explainSel){
+    var tree = document.querySelector(treeSel);
+    var explain = document.querySelector(explainSel);
+    if (!tree || !explain) return;
+    tree.querySelectorAll('.tnode.clickable').forEach(function(node){
+      node.addEventListener('click', function(){
+        tree.querySelectorAll('.tnode.selected').forEach(function(n){ n.classList.remove('selected'); });
+        node.classList.add('selected');
+        explain.innerHTML = node.getAttribute('data-explain') || '';
+      });
+    });
+  }
+  initClickableTree('#cricketTree', '#cricketExplain');
+  initClickableTree('#growthTree', '#growthExplain');
+
+  /* ---------- overfit chart ---------- */
+  var overfitChart = null;
+  var overfitPoints = [[1,21],[2,24],[3,23],[4,29],[5,33],[6,32],[7,38],[8,43],[9,41],[10,47],[11,52],[12,50]];
+  var overfitFits = {
+    under: [26,27,28,29,30,31,32,33,34,35,36,37],
+    good:  [20,23,24,28,32,33,37,41,41,46,50,50],
+    over:  overfitPoints.map(function(p){ return p[1]; })
+  };
+  var overfitCaptions = {
+    under: 'Too simple, misses the trend entirely. Illustrative example - training / test accuracy: <strong>63% / 61%</strong>.',
+    good:  'A balanced model follows the trend without chasing every bit of noise. Illustrative example - training / test accuracy: <strong>94% / 91%</strong>.',
+    over:  'Chases every data point, including the noise. Illustrative example - training / test accuracy: <strong>99.8% / 68%</strong>.'
+  };
+  function renderOverfitChart(fit){
+    var ctx = document.getElementById('overfitChart');
+    if (!ctx || typeof Chart === 'undefined') return;
+    if (overfitChart) overfitChart.destroy();
+    var lineColor = fit === 'over' ? '#e2664b' : (fit === 'good' ? '#5fc08a' : '#e3b34e');
+    overfitChart = new Chart(ctx, {
+      data: {
+        labels: overfitPoints.map(function(p){ return p[0]; }),
+        datasets: [
+          { type:'scatter', label:'Training data', data: overfitPoints.map(function(p){ return {x:p[0], y:p[1]}; }), backgroundColor:'#5aa7c9', pointRadius:5, order:2 },
+          { type:'line', label: fit === 'under' ? 'Underfit' : (fit === 'good' ? 'Good fit' : 'Overfit'), data: overfitFits[fit], borderColor: lineColor, backgroundColor: lineColor, borderWidth:3, pointRadius:0, tension: fit === 'over' ? 0.45 : 0.35, fill:false, order:1 }
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { labels: { color: '#9fb3a6' } } },
+        scales: {
+          x: { grid: { color: 'rgba(255,255,255,0.06)' }, ticks: { color: '#62766b' } },
+          y: { grid: { color: 'rgba(255,255,255,0.06)' }, ticks: { color: '#62766b' } }
+        }
+      }
+    });
+    var cap = document.getElementById('overfitCaption');
+    if (cap) cap.innerHTML = overfitCaptions[fit];
+  }
+  document.querySelectorAll('.fit-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('.fit-btn').forEach(function(b){ b.classList.remove('is-active'); });
+      btn.classList.add('is-active');
+      renderOverfitChart(btn.getAttribute('data-fit'));
+    });
+  });
+  renderOverfitChart('good');
+
+  /* ---------- definition parts ---------- */
+  document.querySelectorAll('.def-part').forEach(function(part){
+    part.addEventListener('click', function(){ part.classList.toggle('open'); });
+  });
+
+  /* ---------- diversity reveal (one-time animated moment) ---------- */
+  (function(){
+    var box = document.getElementById('diversityReveal');
+    if (!box) return;
+    var played = false;
+    var preds = [
+      {label:'Tree 1', cls:'A'}, {label:'Tree 2', cls:'A'}, {label:'Tree 3', cls:'B'},
+      {label:'Tree 4', cls:'A'}, {label:'Tree 5', cls:'A'}
+    ];
+    function play(){
+      if (played) return;
+      played = true;
+      var grid = document.getElementById('teaserTrees');
+      var tallyWrap = document.getElementById('teaserTallyWrap');
+      var finalEl = document.getElementById('teaserFinal');
+      var bigReveal = document.getElementById('teaserBigReveal');
+      grid.innerHTML = '';
+      preds.forEach(function(p, i){
+        var el = document.createElement('div');
+        el.className = 'tree-result ' + (p.cls === 'A' ? 'yes' : 'no');
+        el.innerHTML = '<span>' + p.label + '</span><span class="pred">Class ' + p.cls + '</span>';
+        grid.appendChild(el);
+        setTimeout(function(){ el.classList.add('show'); }, i * 380);
+      });
+      setTimeout(function(){
+        var a = preds.filter(function(p){ return p.cls === 'A'; }).length;
+        var b = preds.length - a;
+        tallyWrap.innerHTML = '<div class="vote-tally"><span class="tally-pill">Class A <span class="n">' + a + '</span></span><span class="tally-pill">Class B <span class="n">' + b + '</span></span></div>';
+        finalEl.textContent = 'Class A wins: ' + a + ' / ' + preds.length;
+        finalEl.classList.add('show', 'yes');
+        setTimeout(function(){
+          bigReveal.innerHTML = '<div style="font-family:var(--font-display);font-weight:600;font-size:clamp(1.6rem,4vw,2.6rem);" class="gradient-text">RANDOM FOREST 🌲🌲🌲🌲🌲</div>';
+        }, 700);
+      }, preds.length * 380 + 300);
+    }
+    if ('IntersectionObserver' in window) {
+      var obs = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){ if (e.isIntersecting) { play(); obs.disconnect(); } });
+      }, { threshold: 0.5 });
+      obs.observe(box);
+    } else { play(); }
+  })();
+
+  /* ---------- bootstrap sampling demo ---------- */
+  (function(){
+    var originalRows = document.getElementById('originalRows');
+    var samplesBox = document.getElementById('bootstrapSamples');
+    if (!originalRows || !samplesBox) return;
+    var original = [1,2,3,4,5,6,7,8,9,10];
+    originalRows.innerHTML = original.map(function(n){ return '<div class="chip">' + n + '</div>'; }).join('');
+    function generate(){
+      var html = '';
+      for (var t = 1; t <= 3; t++) {
+        var sample = [];
+        for (var i = 0; i < 10; i++) sample.push(original[Math.floor(Math.random() * original.length)]);
+        var missing = original.filter(function(n){ return sample.indexOf(n) === -1; });
+        html += '<div class="sample-col"><h4>Tree ' + t + '</h4><div class="chip-row">' +
+          sample.map(function(n){ return '<div class="chip">' + n + '</div>'; }).join('') +
+          '</div><div class="oob-note">Out-of-bag: <strong>' + (missing.length ? missing.join(', ') : 'none this time') + '</strong></div></div>';
+      }
+      samplesBox.innerHTML = html;
+    }
+    generate();
+    var btn = document.getElementById('generateBootstrap');
+    if (btn) btn.addEventListener('click', generate);
+  })();
+
+  /* ---------- feature subsampling demo ---------- */
+  (function(){
+    var FEATURES = ['Age','Income','Education','Experience','City','Credit Score','Balance','Loan Amount'];
+    var nodeA = document.getElementById('featNodeA');
+    var nodeB = document.getElementById('featNodeB');
+    if (!nodeA || !nodeB) return;
+    function pickSubset(){
+      var shuffled = FEATURES.slice().sort(function(){ return Math.random() - 0.5; });
+      var chosen = shuffled.slice(0, 3);
+      return FEATURES.map(function(f){ return { name: f, on: chosen.indexOf(f) !== -1 }; });
+    }
+    function render(node, title){
+      var rows = pickSubset();
+      node.innerHTML = '<h4>' + title + '</h4>' + rows.map(function(r){
+        return '<div class="feat-row"><span>' + r.name + '</span><span class="' + (r.on ? 'yes' : 'no') + '">' + (r.on ? '\u2713' : '\u2717') + '</span></div>';
+      }).join('');
+    }
+    function renderBoth(){
+      render(nodeA, 'Node A - candidates on the table');
+      render(nodeB, 'Node B - candidates on the table');
+    }
+    renderBoth();
+    var btn = document.getElementById('shuffleFeatures');
+    if (btn) btn.addEventListener('click', renderBoth);
+  })();
+
+  /* ---------- classification voting demo ---------- */
+  (function(){
+    var btn = document.getElementById('runForestBtn');
+    var grid = document.getElementById('clfTreeResults');
+    var tally = document.getElementById('clfTally');
+    var finalEl = document.getElementById('clfFinal');
+    if (!btn || !grid) return;
+    function run(){
+      grid.innerHTML = ''; tally.innerHTML = ''; finalEl.className = 'final-pred'; finalEl.textContent = '';
+      var n = 7, preds = [];
+      for (var i = 0; i < n; i++) preds.push(Math.random() < 0.68 ? 'YES' : 'NO');
+      preds.forEach(function(p, i){
+        var el = document.createElement('div');
+        el.className = 'tree-result ' + (p === 'YES' ? 'yes' : 'no');
+        el.innerHTML = '<span>Tree ' + (i+1) + '</span><span class="pred">' + p + '</span>';
+        grid.appendChild(el);
+        setTimeout(function(){ el.classList.add('show'); }, i * 220);
+      });
+      setTimeout(function(){
+        var yes = preds.filter(function(p){ return p === 'YES'; }).length;
+        var no = n - yes;
+        tally.innerHTML = '<span class="tally-pill">YES <span class="n">' + yes + '</span></span><span class="tally-pill">NO <span class="n">' + no + '</span></span>';
+        var winner = yes >= no ? 'YES' : 'NO';
+        finalEl.textContent = 'Final prediction: ' + winner + ' (' + Math.max(yes,no) + ' / ' + n + ' votes)';
+        finalEl.classList.add('show', winner === 'YES' ? 'yes' : 'no');
+      }, n * 220 + 250);
+    }
+    btn.addEventListener('click', run);
+    run();
+  })();
+
+  /* ---------- regression averaging demo ---------- */
+  (function(){
+    var btn = document.getElementById('runRegBtn');
+    var grid = document.getElementById('regTreeResults');
+    var finalEl = document.getElementById('regFinal');
+    if (!btn || !grid) return;
+    function run(){
+      grid.innerHTML = '';
+      finalEl.classList.remove('show');
+      var n = 5;
+      var base = 45 + Math.random() * 15;
+      var preds = [];
+      for (var i = 0; i < n; i++) preds.push(Math.round((base + (Math.random() * 12 - 6)) * 10) / 10);
+      preds.forEach(function(p, i){
+        var el = document.createElement('div');
+        el.className = 'tree-result';
+        el.innerHTML = '<span>Tree ' + (i+1) + '</span><span class="pred" style="color:var(--sky);">\u20b9' + p.toFixed(1) + 'L</span>';
+        grid.appendChild(el);
+        setTimeout(function(){ el.classList.add('show'); }, i * 260);
+      });
+      setTimeout(function(){
+        var avg = preds.reduce(function(a,b){ return a+b; }, 0) / preds.length;
+        finalEl.innerHTML = 'Average prediction: <span class="reg-value">\u20b9' + avg.toFixed(1) + 'L</span>';
+        finalEl.classList.add('show');
+      }, n * 260 + 250);
+    }
+    btn.addEventListener('click', run);
+    run();
+  })();
+
+  /* ---------- gini calculator ---------- */
+  (function(){
+    var a = document.getElementById('giniA'), b = document.getElementById('giniB');
+    if (!a || !b) return;
+    var aVal = document.getElementById('giniAVal'), bVal = document.getElementById('giniBVal');
+    var barA = document.getElementById('giniBarA'), barB = document.getElementById('giniBarB');
+    var valueEl = document.getElementById('giniValue'), formulaEl = document.getElementById('giniFormula');
+    function update(){
+      var na = parseInt(a.value, 10), nb = parseInt(b.value, 10);
+      var total = na + nb;
+      aVal.textContent = na; bVal.textContent = nb;
+      if (total === 0) {
+        barA.style.width = '50%'; barB.style.width = '50%';
+        valueEl.textContent = '-'; formulaEl.textContent = 'add at least one sample';
+        return;
+      }
+      var pa = na / total, pb = nb / total;
+      var gini = 1 - (pa*pa + pb*pb);
+      barA.style.width = (pa*100) + '%'; barB.style.width = (pb*100) + '%';
+      valueEl.textContent = gini.toFixed(2);
+      formulaEl.textContent = '1 \u2212 (' + pa.toFixed(2) + '\u00b2 + ' + pb.toFixed(2) + '\u00b2)';
+      valueEl.style.color = gini > 0.35 ? 'var(--rust)' : (gini > 0.15 ? 'var(--bark)' : 'var(--canopy)');
+    }
+    a.addEventListener('input', update);
+    b.addEventListener('input', update);
+    update();
+  })();
+
+  /* ---------- hyperparameter cards ---------- */
+  (function(){
+    var box = document.getElementById('hyperCards');
+    if (!box) return;
+    var CARDS = [
+      { name:'n_estimators', desc:`Number of trees. 10 is fast but noisy; 100-500 is typical. More trees generally improve stability but cost more compute.` },
+      { name:'max_depth', desc:`Maximum depth of each tree. Depth 2 is very simple, depth 20 is very complex - deeper trees fit more but risk more overfitting.` },
+      { name:'min_samples_split', desc:`Minimum samples a node needs before it is allowed to split. Higher means simpler trees; lower means more complex trees.` },
+      { name:'min_samples_leaf', desc:`Minimum samples required in a leaf. Larger values smooth predictions and help generalization.` },
+      { name:'max_features', desc:`How many features are considered at each split. Smaller values mean more diverse, less correlated trees.` },
+      { name:'bootstrap', desc:`Whether trees train on bootstrap samples (True, default) or the full dataset every time (False).` },
+      { name:'random_state', desc:`Seeds the randomness so the same code produces the same forest every run - reproducibility, not a modeling choice.` }
+    ];
+    box.innerHTML = CARDS.map(function(c){
+      return '<div class="card card-tile"><h4 style="font-family:var(--font-mono);color:var(--bark);font-size:0.92rem;">' + c.name + '</h4><p style="color:var(--text-dim);margin-bottom:0;font-size:0.9rem;">' + c.desc + '</p></div>';
+    }).join('');
+  })();
+
+  /* ---------- hyperparameter sliders (conceptual) ---------- */
+  (function(){
+    var slN = document.getElementById('slNEst'), slD = document.getElementById('slDepth'),
+        slL = document.getElementById('slLeaf'), slF = document.getElementById('slFeat');
+    if (!slN) return;
+    var valN = document.getElementById('valNEst'), valD = document.getElementById('valDepth'),
+        valL = document.getElementById('valLeaf'), valF = document.getElementById('valFeat');
+    var barC = document.getElementById('barComplexity'), barT = document.getElementById('barTime'),
+        barV = document.getElementById('barVariance'), barB = document.getElementById('barBias');
+    function clamp(v){ return Math.max(2, Math.min(98, v)); }
+    function update(){
+      var n = +slN.value, d = +slD.value, l = +slL.value, f = +slF.value;
+      valN.textContent = n; valD.textContent = d; valL.textContent = l; valF.textContent = f;
+      var complexity = clamp((d/30)*60 + (1 - l/50)*25 + (f/100)*15);
+      var time = clamp((n/500)*55 + (d/30)*35 + (f/100)*10);
+      var variance = clamp((d/30)*55 + (1 - l/50)*25 - (n/500)*15 + 25);
+      var bias = clamp((l/50)*55 + (1 - d/30)*35 + 5);
+      barC.style.width = complexity + '%';
+      barT.style.width = time + '%';
+      barV.style.width = variance + '%';
+      barB.style.width = bias + '%';
+    }
+    [slN, slD, slL, slF].forEach(function(s){ s.addEventListener('input', update); });
+    update();
+  })();
+
+  /* ---------- feature importance chart (lazy render) ---------- */
+  (function(){
+    var section = document.getElementById('importance');
+    if (!section) return;
+    var done = false;
+    function render(){
+      if (done) return; done = true;
+      var ctx = document.getElementById('importanceChart');
+      if (!ctx || typeof Chart === 'undefined') return;
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['Income','Age','Tenure','Credit score','Support calls'],
+          datasets: [{ label: 'Feature importance', data: [0.31, 0.22, 0.18, 0.16, 0.13],
+            backgroundColor: ['#5fc08a','#5aa7c9','#e3b34e','#a98fd1','#d9678a'], borderRadius: 6 }]
+        },
+        options: {
+          indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.06)' }, ticks: { color: '#9fb3a6' } },
+            y: { grid: { display: false }, ticks: { color: '#eaf1ec' } }
+          }
+        }
+      });
+    }
+    if ('IntersectionObserver' in window) {
+      var obs = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){ if (e.isIntersecting) { render(); obs.disconnect(); } });
+      }, { threshold: 0.2 });
+      obs.observe(section);
+    } else { render(); }
+  })();
+
+  /* ---------- permutation importance demo ---------- */
+  (function(){
+    var bar = document.getElementById('permBar'), label = document.getElementById('permScoreLabel'), conclusion = document.getElementById('permConclusion');
+    if (!bar) return;
+    function setScore(score, text){
+      bar.style.width = (score*100) + '%';
+      label.textContent = score.toFixed(2);
+      conclusion.innerHTML = text;
+    }
+    document.getElementById('permReset').addEventListener('click', function(){
+      setScore(0.86, `Baseline score with all features intact: <strong>0.86</strong>.`);
+    });
+    document.getElementById('permShuffleA').addEventListener('click', function(){
+      setScore(0.84, `Shuffling <strong>Feature A</strong> barely hurts the score (0.86 \u2192 0.84) - it was not doing much work.`);
+    });
+    document.getElementById('permShuffleB').addEventListener('click', function(){
+      setScore(0.60, `Shuffling <strong>Feature B</strong> tanks the score (0.86 \u2192 0.60) - the model was leaning on it heavily.`);
+    });
+  })();
+
+  /* ---------- mistakes list ---------- */
+  (function(){
+    var box = document.getElementById('mistakeList');
+    if (!box) return;
+    var MISTAKES = [
+      { t:'Using StandardScaler unnecessarily', d:`Harmless in most cases, but it is a wasted step, and a sign the scaling-versus-trees distinction has not clicked yet.` },
+      { t:'Encoding categorical data incorrectly', d:`One-hot encoding an ordinal column, or the reverse, throws away real information the model could have used.` },
+      { t:'Data leakage during preprocessing', d:`Fitting an imputer, encoder, or feature selector before the train/test split lets test information quietly leak into training.` },
+      { t:'Trusting accuracy on imbalanced data', d:`A 95%-accurate model can still be useless if it just always predicts the majority class - check precision, recall, and F1 too.` },
+      { t:'Treating feature_importances_ as causal', d:`High importance means a feature was useful for splitting, not that it causes the outcome.` },
+      { t:'Growing extremely deep trees without limits', d:`Unlimited depth is how individual trees start memorizing noise instead of learning general patterns.` },
+      { t:'Ignoring train/test distribution differences', d:`If the test set, or production data, looks statistically different from training data, evaluation metrics can be misleading.` }
+    ];
+    box.innerHTML = MISTAKES.map(function(m){
+      return '<div class="mistake-item"><span class="m-ico">\u26a0\ufe0f</span><div><h4>' + m.t + '</h4><p>' + m.d + '</p></div></div>';
+    }).join('');
+  })();
+
+  /* ---------- classification dashboard ---------- */
+  (function(){
+    var box = document.getElementById('clfDashboard');
+    var conf = document.getElementById('confusionMatrix');
+    if (!box || !conf) return;
+    var TN=190, FP=10, FN=15, TP=85;
+    var total = TN+FP+FN+TP;
+    var accuracy = (TP+TN)/total, precision = TP/(TP+FP), recall = TP/(TP+FN);
+    var f1 = 2*precision*recall/(precision+recall);
+    var rocAuc = 0.94;
+    box.innerHTML = [['Accuracy', accuracy], ['Precision', precision], ['Recall', recall], ['F1-score', f1]].map(function(pair){
+      return '<div class="stat-tile"><div class="n">' + pair[1].toFixed(2) + '</div><div class="l">' + pair[0] + '</div></div>';
+    }).join('') + '<div class="stat-tile"><div class="n">' + rocAuc.toFixed(2) + '</div><div class="l">ROC-AUC</div></div>';
+    conf.innerHTML =
+      '<div class="hd"></div><div class="hd">Predicted no</div><div class="hd">Predicted yes</div>' +
+      '<div class="hd">Actual no</div><div class="cell tn"><b>' + TN + '</b>TN</div><div class="cell fp"><b>' + FP + '</b>FP</div>' +
+      '<div class="hd">Actual yes</div><div class="cell fn"><b>' + FN + '</b>FN</div><div class="cell tp"><b>' + TP + '</b>TP</div>';
+  })();
+
+  /* ---------- project steps ---------- */
+  (function(){
+    var box = document.getElementById('projectSteps');
+    if (!box) return;
+    var STEPS = [
+      'Load the data', 'Explore the data', 'Check for missing values', 'Separate X and y',
+      'Train / test split', 'Identify numeric vs. categorical columns', 'Build the preprocessing pipeline',
+      'Train the Random Forest', 'Predict on the test set', 'Evaluate (accuracy, precision, recall, F1)',
+      'Inspect the confusion matrix', 'Check feature / permutation importance', 'Tune hyperparameters (grid or random search)',
+      'Lock in the final model', 'Save the model with joblib'
+    ];
+    box.innerHTML = STEPS.map(function(s, i){
+      return '<div class="accordion-item"><div class="accordion-head"><span><span class="q-num">' + (i+1) + '</span>' + s + '</span><span class="accordion-chevron">\u25be</span></div>' +
+        '<div class="accordion-body"><div class="accordion-body-inner">See the full script below - step ' + (i+1) + ' is marked in the comments.</div></div></div>';
+    }).join('');
+  })();
+
+  /* ---------- interview accordion ---------- */
+  (function(){
+    var box = document.getElementById('interviewAccordion');
+    if (!box) return;
+    var QA = [
+      ['What is Random Forest?', `An ensemble method that builds many decision trees on bootstrapped samples with random feature subsets, then combines their predictions by voting (classification) or averaging (regression).`],
+      ['Why is it called "Random Forest"?', `"Forest" because it is a collection of many decision trees; "Random" because of two sources of randomness - bootstrapped rows and randomly subset features at each split.`],
+      ['What is bagging?', `Bootstrap AGGregatING - training multiple models on different bootstrap samples of the data and combining their outputs to reduce variance.`],
+      ['What is bootstrap sampling?', `Sampling with replacement from the original dataset to build a new dataset the same size, where some rows repeat and others are left out.`],
+      ['Why select random features at each split?', `To decorrelate the trees. If every tree always saw every feature, most would split on the same dominant predictor first and end up highly similar, weakening the benefit of averaging.`],
+      ['Why does Random Forest reduce overfitting versus one tree?', `Averaging many diverse, weakly correlated trees cancels out individual errors and lowers variance. It can still overfit if trees are too deep, too correlated, or the forest is too small for the noise in the data.`],
+      ['Does Random Forest require feature scaling?', `Generally no - splits are threshold checks on individual features, and monotonic scaling does not change the ordering those thresholds depend on.`],
+      ['How does Random Forest handle classification?', `Each tree votes for a class; the forest predicts whichever class gets the most votes, or averages predicted class probabilities across trees.`],
+      ['How does Random Forest handle regression?', `Each tree predicts a number; the forest's prediction is the average of every tree's output.`],
+      ['What is Gini impurity?', `A measure of how mixed a node's classes are: 1 minus the sum of squared class probabilities. 0 means the node is perfectly pure.`],
+      ['What is max_features?', `The number or fraction of features randomly considered at each split when searching for the best one - it directly controls how diverse the trees are.`],
+      ['What is OOB score?', `An estimate of generalization performance using each tree's out-of-bag rows - the rows left out of its bootstrap sample - acting like a built-in validation set.`],
+      ['What is feature importance?', `A score per feature reflecting how much it reduced impurity across the forest's splits. Impurity-based importance can be biased toward high-cardinality features, so permutation importance is often more reliable.`],
+      ['Random Forest vs. XGBoost?', `Random Forest builds trees independently and in parallel via bagging, which reduces variance. XGBoost builds trees sequentially, each correcting the previous ones' errors via boosting, which reduces bias - often more accurate with tuning, but more prone to overfitting and more sensitive to hyperparameters.`],
+      ['When should you not use Random Forest?', `With extremely high-dimensional sparse data like raw text, when maximum accuracy via careful boosting is worth the tuning effort, when a small and highly interpretable model is required, or when strong sequential or time-series structure needs explicit modeling.`]
+    ];
+    box.innerHTML = QA.map(function(pair, i){
+      return '<div class="accordion-item"><div class="accordion-head"><span><span class="q-num">Q' + (i+1) + '</span>' + pair[0] + '</span><span class="accordion-chevron">\u25be</span></div>' +
+        '<div class="accordion-body"><div class="accordion-body-inner">' + pair[1] + '</div></div></div>';
+    }).join('');
+  })();
+
+  /* ---------- accordion delegation (static + rendered items) ---------- */
+  document.addEventListener('click', function(e){
+    var head = e.target.closest('.accordion-head');
+    if (!head) return;
+    var item = head.closest('.accordion-item');
+    if (item) item.classList.toggle('open');
+  });
+
+  /* ---------- quiz ---------- */
+  (function(){
+    var box = document.getElementById('quizContainer');
+    var scoreEl = document.getElementById('quizScore');
+    var restartBtn = document.getElementById('quizRestart');
+    if (!box) return;
+    var QUESTIONS = [
+      { q:`What does Random Forest primarily reduce, compared to one deep decision tree?`, opts:['Bias','Variance','Both equally','Neither'], correct:1, explain:`Averaging many diverse trees mainly reduces variance - sensitivity to the exact training data.` },
+      { q:`What is bootstrap sampling?`, opts:['Sampling without replacement','Sampling with replacement','Using all the data unchanged','Removing outliers before training'], correct:1, explain:`Rows are drawn with replacement, so some repeat and others are left out entirely.` },
+      { q:`In classification, how does Random Forest combine tree predictions?`, opts:['Averaging','Majority voting','A weighted sum','Taking the median'], correct:1, explain:`Every tree votes for a class; the most-voted class wins.` },
+      { q:`Do you typically need to scale features before training a Random Forest?`, opts:['Yes, always','No, usually not','Only for regression','Only for classification'], correct:1, explain:`Threshold-based splits do not depend on feature magnitude, so scaling is usually skippable.` },
+      { q:`What does a Gini impurity of 0 mean?`, opts:['The node is maximally mixed','The node is perfectly pure','The model failed','The node has no samples'], correct:1, explain:`Gini = 0 means every sample in the node belongs to the same class.` },
+      { q:`Which tends to be more reliable for correlated or high-cardinality features?`, opts:['Impurity-based importance','Permutation importance','Random guessing','Counting the feature columns'], correct:1, explain:`Permutation importance measures the actual performance drop, avoiding the bias impurity-based importance can have.` }
+    ];
+    var score = 0;
+    function render(){
+      score = 0;
+      scoreEl.textContent = 'Score: 0 / ' + QUESTIONS.length;
+      box.innerHTML = QUESTIONS.map(function(item, qi){
+        return '<div class="quiz-card" data-qi="' + qi + '"><div class="quiz-q">' + (qi+1) + '. ' + item.q + '</div>' +
+          '<div class="quiz-opts">' + item.opts.map(function(opt, oi){
+            return '<button class="quiz-opt" data-oi="' + oi + '">' + opt + '</button>';
+          }).join('') + '</div>' +
+          '<div class="quiz-explain" id="quizExplain' + qi + '"></div></div>';
+      }).join('');
+    }
+    render();
+    box.addEventListener('click', function(e){
+      var optBtn = e.target.closest('.quiz-opt');
+      if (!optBtn) return;
+      var card = optBtn.closest('.quiz-card');
+      if (card.classList.contains('answered')) return;
+      card.classList.add('answered');
+      var qi = +card.getAttribute('data-qi');
+      var item = QUESTIONS[qi];
+      var oi = +optBtn.getAttribute('data-oi');
+      var opts = card.querySelectorAll('.quiz-opt');
+      opts.forEach(function(o){ o.disabled = true; });
+      opts[item.correct].classList.add('correct');
+      if (oi !== item.correct) optBtn.classList.add('incorrect'); else score++;
+      var explainEl = document.getElementById('quizExplain' + qi);
+      explainEl.textContent = item.explain;
+      explainEl.classList.add('show');
+      scoreEl.textContent = 'Score: ' + score + ' / ' + QUESTIONS.length;
+    });
+    if (restartBtn) restartBtn.addEventListener('click', render);
+  })();
+
 });
 </script>
 </body>
