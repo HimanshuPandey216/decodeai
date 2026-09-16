@@ -36,6 +36,24 @@
     "estimatedReadingTime": "20 min read"
   },
   {
+    "id": "res-000c",
+    "title": "Transformer Architecture — Interactive Study Notes",
+    "slug": "transformer-architecture-notes",
+    "description": "A from-scratch, interactive guide to Transformer architecture: tokenization, embeddings, attention, encoder-decoder, training, inference, and modern LLMs.",
+    "category": "AI Concepts",
+    "subcategory": "Deep Learning",
+    "level": "Intermediate to Advanced",
+    "type": "NOTES",
+    "author": "Himanshu Pandey",
+    "contributor": "Himanshu Pandey",
+    "tags": ["Transformers", "Attention", "Deep Learning", "LLMs", "AI Concepts"],
+    "date": "2026-09-17",
+    "featured": true,
+    "file": "/content/html/transformer-architecture-notes.html",
+    "externalLink": null,
+    "estimatedReadingTime": "25 min read"
+  },
+  {
     "id": "res-001",
     "title": "AI Engineer Roadmap 2026 — From Python to Production AI Systems",
     "slug": "ai-engineer-roadmap",

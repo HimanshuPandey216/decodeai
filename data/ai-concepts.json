@@ -26,5 +26,19 @@
     "date": "2026-09-09",
     "readingTime": "20 min read",
     "tags": ["Random Forest", "Machine Learning", "Decision Trees", "Ensemble"]
+  },
+  {
+    "id": "3",
+    "number": 3,
+    "title": "Transformer Architecture — Interactive Study Notes",
+    "slug": "transformer-architecture-notes",
+    "description": "A from-scratch, interactive guide to Transformer architecture: tokenization, embeddings, attention, encoder-decoder, training, inference, and modern LLMs.",
+    "category": "Deep Learning",
+    "file": "content/html/transformer-architecture-notes.html",
+    "author": "Himanshu Pandey",
+    "icon": "🧠",
+    "date": "2026-09-17",
+    "readingTime": "25 min read",
+    "tags": ["Transformers", "Attention", "Deep Learning", "LLMs"]
   }
 ]
